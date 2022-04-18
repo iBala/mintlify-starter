@@ -56,12 +56,6 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          {
-            type: 'doc',
-            docId: 'App Widgets/Text',
-            position: 'left',
-            label: 'Tutorial',
-          },
         ],
       },
       prism: {
