@@ -4,7 +4,7 @@ sidebar_position: 1
 
 Workflows are like a blueprint to your application. 
 
-<img width="570" alt="Screenshot 2022-04-21 at 1 18 57 AM" src="https://user-images.githubusercontent.com/10784425/164311221-ae4ce6ae-3bc9-4c05-81b3-0e6f5f3c045e.png">
+<img width="570" alt="Screenshot 2022-04-21 at 1 18 57 AM" src="https://user-images.githubusercontent.com/10784425/164311221-ae4ce6ae-3bc9-4c05-81b3-0e6f5f3c045e.png"></img>
 
 Each application in Zorp specifies a proess to be done. Each process has multiple steps. 
 
