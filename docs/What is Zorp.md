@@ -12,12 +12,12 @@ Welcome to the Zorp Documentation. You can find all the resources on how to buil
 
 ## 🎨 Design & Deploy native mobile applications in as little as 10 minutes
 
-You can decide fully-loaded, scalable native iOS and Android apps on Zorp through the simple drag and drop interface. The applications can be designed screen by screen. Use data from outside the system or use the data collected as part of the process to power your application. 
+You can design powerful, scalable native iOS and Android apps on Zorp through the simple drag and drop interface. The applications can be designed screen by screen. Use data from outside the system or use the data collected as part of the process to power your application.
 Zorp also provides [easy integrations](https://docs.zorp.one/Fundamentals/Actions) to any external platform including SMS service providers, Whatsapp business accounts, CRMs, ERPs, Warehouse Management Systems or any internal system with REST API capabilities. 
 
 Once you create the application, you can go live at the click of a button. There is no deployment or coding or editing. Zorp apps are instantly live and usable. 
 
-The apps that get built on Zorp cover a wide range of use cases including but not limited to delivery, warehousing, field sales, fintech, on ground marketing, home services, expense management, attendance management etc.
+The apps that get built on Zorp cover a wide range of use cases including but not limited to delivery, warehousing, field sales, fintech, on ground marketing, home services, KYC, attendance management etc.
 
 ## 👨 Manage your teams, users and their work through a comprehensive dashboard
 
