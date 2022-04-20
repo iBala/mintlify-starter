@@ -23,6 +23,7 @@ Components are UI elements that can be used to design the screen of the mobile a
 There are over 15 UI components in Zorp with which our users can design really powerful applications easily. 
 
 <img width="339" alt="Screenshot 2022-04-21 at 1 02 25 AM" src="https://user-images.githubusercontent.com/10784425/164308571-7bf07cae-6a11-4e90-a8ac-eb10f393a56d.png"></img>
+
 UI Elements are higher order ready made components with which development of a screen becomes very easy. 
 
 For eg., for a user to collect images from the app or show a map location, all they have to do is to drag and drop the component into the app screen and change the configurations on the config tab. 
