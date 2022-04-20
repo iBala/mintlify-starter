@@ -10,7 +10,7 @@ There are 2 ways of signing up to Zorp.
 
 Google Sign In will reduce the additional email authentication that you would require if you do a direct email sign up. 
 
-<img width="240" alt="Screenshot 2022-04-20 at 10 57 31 PM" src="https://user-images.githubusercontent.com/10784425/164288400-4448325e-8e3d-4675-bdbe-a325e8b464ac.png">
+<img width="240" alt="Screenshot 2022-04-20 at 10 57 31 PM" src="https://user-images.githubusercontent.com/10784425/164288400-4448325e-8e3d-4675-bdbe-a325e8b464ac.png"></img>
 
 Post the email verification, enter some basic details that will help us to create the account. The details are
 - Full Name
