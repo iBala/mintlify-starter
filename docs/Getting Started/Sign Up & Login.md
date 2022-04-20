@@ -29,4 +29,4 @@ User identifier can be one of
 - Phone Number
 - UserId (generated within Zorp)
 
-Login via the Zorp mobile app follow the same process. 
+Login via the Zorp mobile app follows the same process. 
