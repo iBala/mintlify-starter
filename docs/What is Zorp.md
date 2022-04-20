@@ -4,7 +4,7 @@ slug: /
 ---
 
 
-Zorp is a process orientated no code platform to help you create tools that support complex on ground workflows in a matter of minutes. Here's how it works :
+Zorp helps you build products for Physical work in minutes. Here's how it works :
 
 ## 🎨 Design & Deploy your process flow in as little as 10 minutes
 
