@@ -31,5 +31,5 @@ For eg., for a user to collect images from the app or show a map location, all t
 ## Component Configuration
 Each component has its own way of configuration. For eg., a text display component only takes a text as an input. Whereas the camera component has options to specific collection mode via camera or gallery, no of images that need to be collected and many more. 
 
-## Workign with data
+## Working with data
 As described [here](https://docs.zorp.one/Getting%20Started/Creating%20Datafields), components can read data from data fields and also can write into data fields. 
