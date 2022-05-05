@@ -25,3 +25,4 @@ Ever close the ZORP app when you upload data to the form and not submit? You use
 We made it very easy for you to know if you've bad internet connection. Just look for the top bar when there's no internet. You know what to do next.
   
 # Handling location
+Now you can directly go to the location settings just from a button click form the ZORP app instead of manually going to the location settings from system settings and then having to tweak the changes, this way we have made sure that location settings are easily accessible.
