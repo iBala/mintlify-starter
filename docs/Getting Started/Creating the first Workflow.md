@@ -43,3 +43,17 @@ Any new Transition on ZORP is called `NEXT` by default. The transition name is w
 3. You can use the Components to configure the screens. To add a component to a screen, just drag and drop a component onto the App Screen of the Builder.Click here to know more about the App Widgets
 4. Once you have configured the Screens with the App widgets along with their respective data fields you need to Hit Publish to make the Workflow Live. 
 
+# [Workflow with Zorp](https://app.tango.us/app/workflow/9e7db0c8-0bda-4932-858e-0f409ac5d367?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
+
+
+### Click on the STEP
+![Step 2 screenshot](https://images.tango.us/public/screenshot_34f717c3-39b6-40b6-9f42-77dc9f14473a.png?crop=focalpoint&fit=crop&fp-x=0.4260&fp-y=0.3970&fp-z=2.8701&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
+
+
+### Drag UI components from left
+![Step 3 screenshot](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
+
+### Configure data fields from the right
+![Step 3 screenshot](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
+
+
