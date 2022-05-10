@@ -22,11 +22,11 @@ Your account ID is the defining entity for your account. Our customers typically
 
 # Login
 Login in ZORP is even simpler. 
-On the web, our users can login by entering the user identifier and password. 
+On the [web](https://app.zorp.one/#/login), our users can login by entering the user identifier and password. 
 
 User identifier can be one of
 - Email ID
 - Phone Number
 - UserId (generated when you add a user in ZORP dashboard.)
 
-Login via the ZORP mobile app follows the same process. 
+Login via the ZORP [Android App](https://play.google.com/store/apps/details?id=one.zorp) and [iOS App](https://apps.apple.com/in/app/zorp-user/id1581396842) follow the same process. 
