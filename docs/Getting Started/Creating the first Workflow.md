@@ -36,24 +36,25 @@ To create a new step,
 </div>
 Any new Transition on ZORP is called `NEXT` by default. The transition name is what the user sees as the Buttons that take them to the next screens.
 
-## Configuring the Screens of your Steps:
-
-1. Once you have created your Steps and Transitioned you need to configure the Screens in order to Show/Gather information. 
-2. Click on any step whose screen you want to edit. 
-3. You can use the Components to configure the screens. To add a component to a screen, just drag and drop a component onto the App Screen of the Builder.Click here to know more about the App Widgets
-4. Once you have configured the Screens with the App widgets along with their respective data fields you need to Hit Publish to make the Workflow Live. 
-
-# [Workflow with Zorp](https://app.tango.us/app/workflow/9e7db0c8-0bda-4932-858e-0f409ac5d367?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
-
+# Congfigure the App screen
 
 ### Click on the STEP
-![Step 2 screenshot](https://images.tango.us/public/screenshot_34f717c3-39b6-40b6-9f42-77dc9f14473a.png?crop=focalpoint&fit=crop&fp-x=0.4260&fp-y=0.3970&fp-z=2.8701&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
+Clicking on any step opens the screen for you to configure.
+![Open the step screen](https://images.tango.us/public/screenshot_34f717c3-39b6-40b6-9f42-77dc9f14473a.png?crop=focalpoint&fit=crop&fp-x=0.4260&fp-y=0.3970&fp-z=2.8701&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
 
 
 ### Drag UI components from left
-![Step 3 screenshot](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
+ZORP comes with default set of component. Choose the component you want to use, drag it to the mobile screen.
+![Drag UI Components from left](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
 
-### Configure data fields from the right
-![Step 3 screenshot](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
+### Click on the component and configure data field on the right panel
+You can edit the display values and the configurations of the UI component by clicking on the component.
+![Editing the UI component config](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)
 
+# Pushing the App Live
 
+### Click on Publish
+Hit the publish button the top to push the app live instantly!
+![Click publish to push the app live](https://images.tango.us/public/screenshot_a8c6a099-2114-4191-9672-685bae2c4e0c.png?crop=focalpoint&fit=crop&fp-x=0.8906&fp-y=0.0260&fp-z=3.1554&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)
+
+Your workflow is live! Now, you can create tasks and execute them on the ZORP mobile app.
