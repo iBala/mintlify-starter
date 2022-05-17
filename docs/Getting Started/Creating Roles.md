@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# [Roles](https://controlcenter.dev.zorp.one/#/workflows)
+# Roles
 Roles control the way an user can use the features and tasks in the Zorp ecosystem.
 
 
