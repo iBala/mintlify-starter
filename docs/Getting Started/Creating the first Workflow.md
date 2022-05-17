@@ -22,18 +22,18 @@ The list of available workflows are present in the [workflow](https://app.zorp.o
 
 To create a new step,
 
-<kbd><div><h3>Click on Create Node</h3>
-<img src="https://images.tango.us/public/screenshot_1c91c153-9393-4139-8ed9-a2273d1cc77d.png?fm=png&crop=focalpoint&fit=crop&fp-x=0.8375&fp-y=0.0788&fp-z=2.9759&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888" width="600" alt="Click on Create Node" />
-</div></kbd>
+<div><h3>Click on Create Node</h3>
+<kbd><img src="https://images.tango.us/public/screenshot_1c91c153-9393-4139-8ed9-a2273d1cc77d.png?fm=png&crop=focalpoint&fit=crop&fp-x=0.8375&fp-y=0.0788&fp-z=2.9759&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888" width="600" alt="Click on Create Node" /></kbd>
+</div>
 
-<kbd><div><h3>Click on Create a Step</h3>
-<img src="https://images.tango.us/public/screenshot_3255e015-4b1f-4ff1-a68c-25395f288f98.png?fm=png&crop=focalpoint&fit=crop&fp-x=0.7932&fp-y=0.1481&fp-z=3.0061&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888" width="600" alt="Click on Create a Step required for your workflow that is to be completed by your user." />
-</div></kbd>
+<div><h3>Click on Create a Step</h3>
+<kbd><img src="https://images.tango.us/public/screenshot_3255e015-4b1f-4ff1-a68c-25395f288f98.png?fm=png&crop=focalpoint&fit=crop&fp-x=0.7932&fp-y=0.1481&fp-z=3.0061&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888" width="600" alt="Click on Create a Step required for your workflow that is to be completed by your user." /></kbd>
+</div>
 
 
-<kbd><div><h3>Connect it with another node to create a transition</h3>
-<img src="https://images.tango.us/public/screenshot_3de3e895-f8f1-4373-b373-9e8062bb41d2.png?fm=png&crop=focalpoint&fit=crop&fp-x=0.3711&fp-y=0.3964&fp-z=2.7374&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888" width="600" alt="Connect it with another node to create a transition." />
-</div></kbd>
+<div><h3>Connect it with another node to create a transition</h3>
+<kbd><img src="https://images.tango.us/public/screenshot_3de3e895-f8f1-4373-b373-9e8062bb41d2.png?fm=png&crop=focalpoint&fit=crop&fp-x=0.3711&fp-y=0.3964&fp-z=2.7374&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888" width="600" alt="Connect it with another node to create a transition." /></kbd>
+</div>
 Any new Transition on ZORP is called `NEXT` by default. The transition name is what the user sees as the Buttons that take them to the next screens.
 
 # Congfigure the App screen
