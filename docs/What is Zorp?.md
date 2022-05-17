@@ -7,7 +7,7 @@ Welcome to the [ZORP](https://zorp.one) Documentation. You can find all the reso
 
 ZORP helps you build products for the Mobile Workforce in minutes. 
 
-![ZORP Mobile app experience](https://user-images.githubusercontent.com/10784425/168829714-6d60e739-7a78-47a2-b7dd-e2ecf7f8d5b4.gif)
+<kbd>![ZORP Mobile app experience](https://user-images.githubusercontent.com/10784425/168829714-6d60e739-7a78-47a2-b7dd-e2ecf7f8d5b4.gif)</kbd>
 
 
 Here's what you can do with ZORP. 
