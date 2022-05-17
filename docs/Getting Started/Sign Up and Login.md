@@ -3,7 +3,7 @@ sidebar_position: 1
 ---
 
 # Sign Up
-Sign up to ZORP via the [web url](https://controlcenter.dev.zorp.one/#/signup). Sign up cannot be done via the ZORP apps.
+Sign up to ZORP via the [web url](https://app.zorp.one/#/signup). Sign up cannot be done via the ZORP apps.
 There are 2 ways of signing up to ZORP. 
 - Google Sign In
 - Email Sign Up
