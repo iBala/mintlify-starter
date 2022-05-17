@@ -5,7 +5,12 @@ slug: /
 
 Welcome to the [ZORP](https://zorp.one) Documentation. You can find all the resources on how to build, manage and execute ZORP applications in here. This is a continuous work in progress. We appreciate any inputs on how to make this better.
 
-ZORP helps you build products for the Mobile Workforce in minutes. Here's what you can do with ZORP. 
+ZORP helps you build products for the Mobile Workforce in minutes. 
+
+![ZORP Mobile app experience](https://user-images.githubusercontent.com/10784425/168829714-6d60e739-7a78-47a2-b7dd-e2ecf7f8d5b4.gif)
+
+
+Here's what you can do with ZORP. 
 - [Design & deploy native mobile applications](https://docs.zorp.one/Getting%20Started/Creating%20the%20first%20Workflow) in as little as 10 minutes
 - Manage your [teams](https://docs.zorp.one/Getting%20Started/Creating%20a%20Team), [users](https://docs.zorp.one/Getting%20Started/Creating%20a%20User) and their [work](https://docs.zorp.one/Fundamentals/Tasks) through a comprehensive dashboard
 - Measure and monitor your people and the work they do real-time
