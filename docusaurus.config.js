@@ -6,14 +6,14 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Zorp',
-  tagline: 'Os For Operations',
+  title: 'ZORP',
+  tagline: 'Technology Infrastrcture for Physical Work',
   url: 'https://www.zorp.one',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'Zorp', // Usually your GitHub org/user name.
+  organizationName: 'ZORP', // Usually your GitHub org/user name.
   projectName: 'Documentation', // Usually your repo name.
 
   presets: [
