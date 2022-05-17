@@ -2,6 +2,7 @@
 sidebar_position: 1
 slug: /
 ---
+# What is ZORP?
 
 Welcome to the [ZORP](https://zorp.one) Documentation. You can find all the resources on how to build, manage and execute ZORP applications in here. This is a continuous work in progress. We appreciate any inputs on how to make this better.
 
