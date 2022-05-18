@@ -13,7 +13,9 @@ A workflow on ZORP consists of:
 With ZORP, you can manage multiple workflows at the same time. For example, a user performing delivery can also use the same ZORP app to execute an attendance task.
 The list of available workflows are present in the [workflow](https://app.zorp.one/#/workflows) tab. To create a new workflow, click on the `New Workflow` button.
 
-<kbd>![Create a new workflow](https://user-images.githubusercontent.com/10784425/167636357-5b447dc4-9dd6-4f16-8849-b274f33c523f.png)</kbd>
+<kbd>
+        <img src="https://user-images.githubusercontent.com/10784425/167636357-5b447dc4-9dd6-4f16-8849-b274f33c523f.png"/>
+</kbd>
 
 ## Creating Steps and Transitions:
 
@@ -40,21 +42,29 @@ Any new Transition on ZORP is called `NEXT` by default. The transition name is w
 
 ### Click on the STEP
 Clicking on any step opens the screen for you to configure.
-<kbd>![Open the step screen](https://images.tango.us/public/screenshot_34f717c3-39b6-40b6-9f42-77dc9f14473a.png?crop=focalpoint&fit=crop&fp-x=0.4260&fp-y=0.3970&fp-z=2.8701&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)</kbd>
+<kbd>
+        <img src="https://images.tango.us/public/screenshot_34f717c3-39b6-40b6-9f42-77dc9f14473a.png?crop=focalpoint&fit=crop&fp-x=0.4260&fp-y=0.3970&fp-z=2.8701&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888"/>
+</kbd>
 
 
 ### Drag UI components from left
 ZORP comes with default set of component. Choose the component you want to use, drag it to the mobile screen.
-<kbd>![Drag UI Components from left](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)</kbd>
+<kbd>
+        <img src="https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888"/>
+</kbd>
 
 ### Click on the component and configure data field on the right panel
 You can edit the display values and the configurations of the UI component by clicking on the component.
-<kbd>![Editing the UI component config](https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888)</kbd>
+<kbd>
+        <img src="https://images.tango.us/public/screenshot_5bdfc63b-c5eb-4aaf-98bb-a1bd9d0aa861.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1920%3A888"/>
+</kbd>
 
 # Pushing the App Live
 
 ### Click on Publish
 Hit the publish button the top to push the app live instantly!
-<kbd>![Click publish to push the app live](https://images.tango.us/public/screenshot_a8c6a099-2114-4191-9672-685bae2c4e0c.png?crop=focalpoint&fit=crop&fp-x=0.8906&fp-y=0.0260&fp-z=3.1554&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd>
+        <img src="https://images.tango.us/public/screenshot_a8c6a099-2114-4191-9672-685bae2c4e0c.png?crop=focalpoint&fit=crop&fp-x=0.8906&fp-y=0.0260&fp-z=3.1554&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 Your workflow is live! Now, you can create tasks and execute them on the ZORP mobile app.
