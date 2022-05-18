@@ -25,11 +25,9 @@ const config = {
           routeBasePath: '/', // Serve the docs at the site's root
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
+          sidebarCollapsible: false,
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-        },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -38,6 +36,7 @@ const config = {
   ],
 
   themeConfig:
+  
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
@@ -48,10 +47,25 @@ const config = {
         },
         items: [
           {
+            href: 'https://www.zorp.one/',
+            label: 'Website',
+            position: 'right',
+          },
+          {
             type: 'doc',
-            docId: 'App Widgets/Text',
-            position: 'left',
+            docId: 'Getting Started/What is Zorp',
+            position: 'right',
             label: 'Tutorial',
+          },
+          {
+            href: 'https://operationsblog.zorp.one/?utm_source=zorp_homepage&utm_medium=website&utm_campaign=header',
+            label: 'Blog',
+            position: 'right',
+          },
+          {
+            href: 'https://www.youtube.com/channel/UCNDY7jiOh7uOJWWRDnLE9Vw',
+            label: 'YouTube',
+            position: 'right',
           },
         ],
       },
