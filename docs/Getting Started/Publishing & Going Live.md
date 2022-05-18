@@ -18,33 +18,47 @@ Now that the workflow is live, let's go ahead and create a task. There are 3 way
 These options can be accessed from `Task->Create` and choosing the right workflow. 
 
 ### Navigate to Tasks
-<kbd>![Navigate to tasks](https://images.tango.us/public/screenshot_79b5968f-3d34-445d-9c08-fe777adf0d53.png?crop=focalpoint&fit=crop&fp-x=0.0176&fp-y=0.2322&fp-z=3.1152&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd>
+  <img src="https://images.tango.us/public/screenshot_79b5968f-3d34-445d-9c08-fe777adf0d53.png?crop=focalpoint&fit=crop&fp-x=0.0176&fp-y=0.2322&fp-z=3.1152&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 ### Click on CREATE
-<kbd>![Click on create task](https://images.tango.us/public/screenshot_b4abf528-1dc1-4aac-bd4b-398547dbc500.png?crop=focalpoint&fit=crop&fp-x=0.9650&fp-y=0.0936&fp-z=3.0872&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd>
+  <img src="https://images.tango.us/public/screenshot_b4abf528-1dc1-4aac-bd4b-398547dbc500.png?crop=focalpoint&fit=crop&fp-x=0.9650&fp-y=0.0936&fp-z=3.0872&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 
 ### Click on Single Task
-<kbd>![Create a single task](https://images.tango.us/public/screenshot_3250bba1-3f77-4af7-bfea-430110bc9717.png?crop=focalpoint&fit=crop&fp-x=0.9624&fp-y=0.1103&fp-z=2.9955&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd>
+  <img src="https://images.tango.us/public/screenshot_3250bba1-3f77-4af7-bfea-430110bc9717.png?crop=focalpoint&fit=crop&fp-x=0.9624&fp-y=0.1103&fp-z=2.9955&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 ### Choose the right workflow
-<kbd>![Step 5 screenshot](https://images.tango.us/public/screenshot_92acfcf1-f6c5-46c0-a908-38e747fea8b0.png?crop=focalpoint&fit=crop&fp-x=0.3567&fp-y=0.2065&fp-z=1.4861&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd>
+  <img src="https://images.tango.us/public/screenshot_92acfcf1-f6c5-46c0-a908-38e747fea8b0.png?crop=focalpoint&fit=crop&fp-x=0.3567&fp-y=0.2065&fp-z=1.4861&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 ## Task Assignment
 Once the task is created, it can be assigned to the right user by clicking on `CHANGE TEAM/USER` button in the task details page. 
 
 ### Click on CHANGE TEAM/USER
-<kbd>![Click on Change TEAM/USER](https://images.tango.us/public/screenshot_b17f9d18-d69e-44a9-beb7-e32f22156fda.png?crop=focalpoint&fit=crop&fp-x=0.8238&fp-y=0.0936&fp-z=3.0872&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd>
+  <img src="https://images.tango.us/public/screenshot_b17f9d18-d69e-44a9-beb7-e32f22156fda.png?crop=focalpoint&fit=crop&fp-x=0.8238&fp-y=0.0936&fp-z=3.0872&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 ### Choose the right team
-<kbd>![Choose Team](https://images.tango.us/public/screenshot_a444f569-6b3f-469d-83b5-f2c6fdce3bc6.png?crop=focalpoint&fit=crop&fp-x=0.5241&fp-y=0.4557&fp-z=2.2795&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd><img src="https://images.tango.us/public/screenshot_a444f569-6b3f-469d-83b5-f2c6fdce3bc6.png?crop=focalpoint&fit=crop&fp-x=0.5241&fp-y=0.4557&fp-z=2.2795&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 ### Choose the user within the team
-<kbd>![Choose user](https://images.tango.us/public/screenshot_f59285e9-501d-498a-a3e0-065d5ed4dc34.png?crop=focalpoint&fit=crop&fp-x=0.5241&fp-y=0.5945&fp-z=2.2795&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd><img src="https://images.tango.us/public/screenshot_f59285e9-501d-498a-a3e0-065d5ed4dc34.png?crop=focalpoint&fit=crop&fp-x=0.5241&fp-y=0.5945&fp-z=2.2795&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 
 ### Click on CHANGE
-<kbd>![Click change](https://images.tango.us/public/screenshot_6e310e3f-56e6-41cf-8373-e0c0b31daa16.png?crop=focalpoint&fit=crop&fp-x=0.5943&fp-y=0.6552&fp-z=3.0108&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714)</kbd>
+<kbd>
+  <img src="https://images.tango.us/public/screenshot_6e310e3f-56e6-41cf-8373-e0c0b31daa16.png?crop=focalpoint&fit=crop&fp-x=0.5943&fp-y=0.6552&fp-z=3.0108&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=3360%3A1714"/>
+</kbd>
 
 Now, the task has been assigned to the user.
 
