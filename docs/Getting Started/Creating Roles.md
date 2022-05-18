@@ -10,7 +10,7 @@ Roles control the way an user can use the features and tasks in the Zorp ecosyst
 Click on Roles on the Sidebar
 
 <kbd>
-  ![Navigate to Roles](https://images.tango.us/public/screenshot_ae9feb30-01e6-4740-99ac-05eadc0afa77?crop=focalpoint&fit=crop&fp-x=0.0205&fp-y=0.4501&fp-z=3.0151&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=2880%3A1642)
+  <img src="https://images.tango.us/public/screenshot_ae9feb30-01e6-4740-99ac-05eadc0afa77?crop=focalpoint&fit=crop&fp-x=0.0205&fp-y=0.4501&fp-z=3.0151&w=600&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=2880%3A1642"/>
 </kbd>
 
 
