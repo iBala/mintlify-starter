@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
 ---
 
 Going live with your workflow is as simple as clicking on the publish button on Zorp. Before you publish, make sure you name the workflow in an identifiable manner. 
