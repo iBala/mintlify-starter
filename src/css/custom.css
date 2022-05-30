@@ -259,7 +259,7 @@ body {
 }
 
 ::selection {
-  background: #6ee7b7;
+  background: #6eb7e7;
   color: #333 !important;
 }
 
@@ -274,7 +274,7 @@ h6 {
 }
 .button.button--primary {
   color: white;
-  text-shadow: 0px 0px 6px rgba(13, 128, 86, 0.8);
+  text-shadow: 0px 0px 6px rgba(13, 86, 128, 0.8);
 }
 .button.button--secondary {
   color: var(--custom-content-color);
