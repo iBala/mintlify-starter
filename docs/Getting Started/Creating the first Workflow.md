@@ -3,6 +3,10 @@ sidebar_position: 3
 ---
 
 # Workflows
+ <br/>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ViNDN1nQPE0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+ <br/><br/>
 A workflow is a series of steps a user goes through to complete a task. It is visually represented as a series of steps and the transition between those steps. A step can be a) a mobile app screen or b) a condition node
 
 A workflow on ZORP consists of: 
@@ -39,6 +43,10 @@ To create a new step,
 Any new Transition on ZORP is called `NEXT` by default. The transition name is what the user sees as the Buttons that take them to the next screens.
 
 # Congfigure the App screen
+
+<br/>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PnAzekWiy_U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br/><br/>
 
 ### Click on the STEP
 Clicking on any step opens the screen for you to configure.

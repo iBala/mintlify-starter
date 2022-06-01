@@ -2,6 +2,11 @@
 sidebar_position: 6
 ---
 
+# Publishing 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JH1Uqp6xmiU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br/><br/>
+
 Going live with your workflow is as simple as clicking on the publish button on Zorp. Before you publish, make sure you name the workflow in an identifiable manner. 
 
 Once you hit publish on any workflow, a few things happen
