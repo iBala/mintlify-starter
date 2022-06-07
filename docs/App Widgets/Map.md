@@ -12,7 +12,7 @@ The Map component is a display Component where you can show a location on the Ap
     - Latitude and
     - Longitude to diplay the location. 
 >You can hardcode these lat long values or give a dynamic value which would be task specific from the Datafields.
->Cick here to know how to create a Data field for a Map component and how to refer the datafield values in Lat and Long
+>[Click here](/Getting%20Started/Creating%20Datafields) to learn about Data Fields
 3. Enter the Title to describe the Map component being used.
 
 
