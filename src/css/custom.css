@@ -96,7 +96,7 @@
   --ifm-background-color: var(--custom-background-color);
   --ifm-sidebar-background: var(--custom-background-color);
   --ifm-color-content-secondary: var(--custom-content-color-light);
-  --ifm-code-background: var(--custom-background-color-diff);
+  --ifm-code-background: #333; 
   --ifm-code-background-dark: #2a2a2a;
   --ifm-code-color: var(--custom-content-color);
   --ifm-color-warning: var(--custom-color-orange-600);
@@ -314,11 +314,12 @@ div[class*=' announcementBar'] button span {
   display: inline-block;
 }
 .docusaurus-highlight-code-line {
-  background-color: rgb(72, 77, 91);
+  background-color: #333;
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
+
 
 @media screen and (min-width: 768px) {
   html,
@@ -481,6 +482,9 @@ a.card:hover {
 }
 .menu .menu__list-item-hidden {
   display: none;
+}
+.pre code {
+  background-color: #333 !important;
 }
 
 /* Category headers */
@@ -667,7 +671,7 @@ div[class^='sidebar_'] .menu__link.menu__link--active:not(.menu__link--sublist) 
 
 div[class^='codeBlockTitle'],
 div[class*=' codeBlockTitle'] {
-  color: #ccc !important;
+  color: #333 !important;
   font-size: 0.8rem !important;
   border-color: #444;
 }
