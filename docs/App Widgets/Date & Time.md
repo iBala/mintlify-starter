@@ -9,7 +9,7 @@ The Date & Time is a Input Component where you can select a Date/ Datetime.
 
 1. Drag and Drop the Date & Time component onto the App Screen builder of the canvas.
 2. Select the Datafield where you want to store the Date & Time value from the component.
->Click here to learn how to cretae a Datafield for Date & Time component
+>[Click here](/Getting%20Started/Creating%20Datafields) to learn about Data Fields
 3. Enter the Title to describe the Date & Time being captured.
 4. Configure the component to capture only Date/only Time or both Date and Time by using the Properties.
 

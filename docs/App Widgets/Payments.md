@@ -10,7 +10,7 @@ The Payment component is a Component where you can collect any payments in the f
 1. Drag and Drop the Payment component onto the App Screen builder of the canvas.
 2. Unlike the other components on Zorp,the Payment component lets you store two data fields *Payment Amount* and *Payment Type*.
    Select the respective datafields where you want to store them.
->Click here to learn how to create the datafields for the Payment component.
+>[Click here](/Getting%20Started/Creating%20Datafields) to learn about Data Fields
 3. Enter the Title to configure the name of the Payment component.
 4. Select the minimum and maximum Images allowed.
 5. You can select the Payment choices that you want to allow:

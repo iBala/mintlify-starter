@@ -18,7 +18,7 @@ The Text Input component is a very common component which can be used to input a
 
 2. Select the Datafield where you want to store the Text Input from the component.
 
->Click here to learn how to create a Datafield for a Text input component
+>[Click here](/Getting%20Started/Creating%20Datafields) to learn about Data Fields
 
 3. Enter the Title to describe the Text Input being captured.
 

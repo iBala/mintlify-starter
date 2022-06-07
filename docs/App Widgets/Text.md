@@ -21,7 +21,7 @@ The Text component is a display Component where you can show any Text on the App
 
 2. Each one of these 3 fields can be used to display the text you would want the user to see on the mobile app.
 
->You can provide the actual values for these texts or give a dynamic value which can refer to the task's data fields. Refer to the [Using data fields](https://docs.zorp.one)  
+>[Click here](/Getting%20Started/Creating%20Datafields) to learn about Data Fields
 
 3. Text component provides the capability 
 	- to choose a different color for the text
