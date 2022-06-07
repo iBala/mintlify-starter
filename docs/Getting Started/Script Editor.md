@@ -2,7 +2,7 @@
 sidebar_position: 10
 ---
 
-For advanced users, ZORP provides an ability to write JavaScript snippets to manipulate your data fields. 
+For advanced users, ZORP provides an ability to write JavaScript scripts to manipulate your data fields. 
 
 Apart from vanilla JS, we also support the following libraries.
 
@@ -10,7 +10,7 @@ Lodash ([https://lodash.com/docs/4.17.15](https://lodash.com/docs/4.17.15))
 
 Luxon([https://moment.github.io/luxon/api-docs/index.html](https://moment.github.io/luxon/api-docs/index.html))
 
-## Where to use JS Snippets?
+## Where to use JS Scripts?
 JS Snippets can be used when you want to manipulate the date before displaying or storing. Few examples are given below. 
 1. Your data has First name and Last name, you want to display them in a single field:
 ```
@@ -21,7 +21,7 @@ return task.data.first_name + " " + task.data.last_name
 <Insert snippet here>
 ```
 
-## How to use JS Snippets?
+## How to use JS Scripts?
 You can write the JS scripts anywhere you find the `JS` icon. 
 
 <img width="126" alt="Script Entry Point" src="https://user-images.githubusercontent.com/10784425/172360643-d8c74316-7bf5-40fa-a4d1-fb8dd9210756.png">
@@ -33,7 +33,7 @@ You can write the JS scripts anywhere you find the `JS` icon.
 <img width="1433" alt="Data Fields List" src="https://user-images.githubusercontent.com/10784425/172361003-733fd4b2-015b-478f-8152-90ab7fc3d229.png">
 
 ### Access example scripts in the side panel
-<img width="1434" alt="Function Snippets" src="https://user-images.githubusercontent.com/10784425/172361071-6e6cb625-4ed6-45b3-807e-dbe4fc1cbf04.png">
+<img width="1434" alt="Function Scripts" src="https://user-images.githubusercontent.com/10784425/172361071-6e6cb625-4ed6-45b3-807e-dbe4fc1cbf04.png">
 
 ## Testing the Script
 In order to test the script you have written, click on the run button below. The output should be displayed in the output box. 
