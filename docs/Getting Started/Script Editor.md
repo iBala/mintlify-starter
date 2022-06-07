@@ -2,56 +2,66 @@
 sidebar_position: 10
 ---
 
-You can also use scripts to mmanipulate data before storing them in your data fields. This is accomplished via our script editor which supports javascript. 
+For advanced users, ZORP provides an ability to write JavaScript snippets to manipulate your data fields. 
 
-We also support Lodash ([https://lodash.com/docs/4.17.15](https://lodash.com/docs/4.17.15)) and Luxon([https://moment.github.io/luxon/api-docs/index.html](https://moment.github.io/luxon/api-docs/index.html)).
+Apart from vanilla JS, we also support the following libraries.
 
-Here are some examples for you to explore.
+Lodash ([https://lodash.com/docs/4.17.15](https://lodash.com/docs/4.17.15))
 
+Luxon([https://moment.github.io/luxon/api-docs/index.html](https://moment.github.io/luxon/api-docs/index.html))
+
+## Where to use JS Snippets?
+JS Snippets can be used when you want to manipulate the date before displaying or storing. Few examples are given below. 
+1. Your data has First name and Last name, you want to display them in a single field:
+```
+return task.data.first_name + " " + task.data.last_name
+```
+2. Displaying the month from a specific date
+```
+<Insert snippet here>
+```
+
+## How to use JS Snippets?
+You can write the JS scripts anywhere you find the `JS` icon. 
+
+<img width="126" alt="Script Entry Point" src="https://user-images.githubusercontent.com/10784425/172360643-d8c74316-7bf5-40fa-a4d1-fb8dd9210756.png">
+
+### Click on the icon will open the script editor
+<img width="1431" alt="Script Editor" src="https://user-images.githubusercontent.com/10784425/172360842-cc1441dd-a005-455a-9ef2-f5a61a127c0e.png">
+
+### Easily access the data field from the side panel below
+<img width="1433" alt="Data Fields List" src="https://user-images.githubusercontent.com/10784425/172361003-733fd4b2-015b-478f-8152-90ab7fc3d229.png">
+
+### Access example scripts in the side panel
+<img width="1434" alt="Function Snippets" src="https://user-images.githubusercontent.com/10784425/172361071-6e6cb625-4ed6-45b3-807e-dbe4fc1cbf04.png">
+
+## Testing the Script
+In order to test the script you have written, click on the run button below. The output should be displayed in the output box. 
+> Please note that the type of output should match the type of data field expected by the underlying UI component field. For eg., when we write an expression for a number field, the output of the data field should be a number. 
+
+All the data fields in ZORP will have mock data generated that can be used while testing. 
+
+Click on `Update Mock Data` to set different values for the mock data.
+<img width="848" alt="Update Mock Data" src="https://user-images.githubusercontent.com/10784425/172361474-7bc2a5f0-4b00-40d7-b010-cae3308b5c7f.png">
+
+## Some more examples
+1. Getting the first element of a list
 ```jsx
 let words = ['sky', 'wood', 'forest', 'falcon',
     'pear', 'ocean', 'universe'];
 
-let fel = _.first(words);
-let lel = _.last(words);
-
-console.log(`First element: ${fel}`);
-console.log(`Last element: ${lel}`);
+return _.first(words);
 ```
 
-```bash
-$ node first_last.js
-First element: sky
-Last element: universe
-```
-
+2. Get the current datetime
 ```jsx
-_.times(4, () => {
-    console.log("zorp");
-})
-```
-
-```bash
-$ node times_fun.js
-zorp
-zorp
-zorp
-zorp
-```
-
-```jsx
-import { DateTime } from 'luxon';
-
 return `DateTime.now().toISO()`
+```
+3. Get the current time in New York
+```jsx
 return `localTime  ${ DateTime.local({ zone: "America/New_York" }) }`
+```
+4. Format a given time in local format
+```jsx
 return ` formatted ${DateTime.fromISO("2018-05-01T13:44:48.708709Z").toLocaleString()}`
 ```
-
-```bash
-firstEx 2022-06-03T21:15:45.558+05:30
-localTime 2022-06-03T11:50:41.579-04:00 //~> now, in US east coast time
-formatted 01/05/2018
-```
-
-
-***
