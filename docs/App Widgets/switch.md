@@ -12,6 +12,10 @@ A switch is used to indicate the presence or absence of an attribute or a value.
  
 
 > For Example: Suppose the component to be installed is “Is the customer at home?” then the app maker can use the Switch widget. The default value would be “true” or the customer is at his home. If the user switches off the attribute, by sliding the white notch to the left, this indicates that the customer is not at his home.  <space> <space>
+     
+     
+     
+     
 
 ![Switch](https://user-images.githubusercontent.com/108575536/177163145-a0c0fc41-b92b-4e91-a02e-9fe1cc086c55.png)
  <space> <space>
