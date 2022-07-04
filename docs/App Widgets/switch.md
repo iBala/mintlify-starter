@@ -2,10 +2,7 @@
 sidebar_position: 13
 ---
 # Switch
-A switch component helps you display binary values in your UI, such as Yes/No or True/False.
-
-
-
+A switch component helps you display binary values in your UI, such as Yes/No or True/False. <space> <space>
 ## What is a Switch?
 A switch is used to indicate the presence or absence of an attribute or a value. Once slided towards the right, the switch is on, which implies the presence of that attribute. The absence of the attribute, marked by a gray color, white notch pointing to the left.
 
