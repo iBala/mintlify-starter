@@ -21,3 +21,5 @@ There are four configurations to the Switch app widget, they are namely:
 - **Default Value** - The default value of the switch attribute is “True”. It can however be changed according to the maker’s needs. 
 - **Is Disabled** - The Is Disabled option allows the maker to restrict the user to change a specified option of the switch. This is useful when we need to show the status of the attribute instead of collecting it from the user.
 - **Save Data to Data field** - The input data provided by the user must be stored in a specific data field. The app maker can choose the right data field from this box. If there’s no data field available, the user can create one via the “Create data field” flow.
+
+<img width="478" alt="Screenshot 2022-07-05 at 8 53 37 PM" src="https://user-images.githubusercontent.com/108575536/177363366-6a25b908-4fce-43a2-94d4-877b7d9bb008.png">
