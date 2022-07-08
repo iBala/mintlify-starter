@@ -36,7 +36,6 @@ const config = {
   ],
 
   themeConfig:
-  
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
@@ -70,8 +69,7 @@ const config = {
         ],
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: require('prism-react-renderer/themes/dracula'),
       },
     }),
 };
