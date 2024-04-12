@@ -1,0 +1,31 @@
+---
+title: "Decision Node"
+description: "Transition between screens using automatic if-else conditions."
+---
+
+## What is a Decision Node?​
+
+Have you ever felt the need to show different screens to the user depending on the work progress without the user specifically choosing it? You can now do that in Zorp using the Decision Node. Decision nodes help users to navigate to different screens programmatically through a simple if-else method.
+
+For Example : A Particular agent has met an appointed customer and needs to enter it in the designated app. The app will prompt two possible options : “Met'' or “Not Met”. He will click on the “Met” Option. The agent will now be prompted to the “Congratulations, keep it up!” screen. Had the agent not met the customer and clicked on the “Not Met” Option, he would have been prompted to the “Uh no, Pending Customer!” Screen.
+
+So now, How do we automatically show the right screen to the user, based on the data we have collected? That is where the Decision Node comes into play!
+
+### How to use the Decision Node :
+
+1.  Open Your Existing Workflow in which you would like to insert your Decision Node. (Click here to know - How to Create a Workflow)
+
+2.  Click on the “Create Node” Option located on the right portion of the Navigation Bar. It will show you two options - “Step Node” and “Decision Node”. Click on the “Decision Node” Option.
+
+3.  The Decision Node Action Box will Pop up. Create a transition between the Step node to the Decision Node. Similarly, create a transition from the Decision node to the desired Step Nodes. (Click here to know more about Step Nodes)
+
+4.  Click on the “First Switch” option, under the “If” data space. The Tab will open on the right side of your workspace.
+
+5.  Click on the “+Add New” option, which is present alongside the Conditions Drop Down Box. You will be shown two options :
+
+    - Location Check - It identifies whether two specified geo locations are close to one another. The specific distance to check the proximity can be modified. There is no pre-specified distance. A good example where you can use this is when you want to make sure the user is at a given location ( at or near the customer’s location).
+    - Expression Check - This is a simple logic based check. The User can enter the logic based code in the low-code environment. The code can be simple (for example - to check whether the two values are the same) or it can be a complex code (For example- To check whether the delivery boy has reached the location between 12pm to 1pm).
+
+6.  You can add multiple if-conditions if you wish to do so. For that you must click on the “Add Switch” Button under the if-description box and write your desired logic for the same.
+
+7.  The logic is ready. You can check it by implementing it on your app. The link to an example video it linked at the bottom of the page.

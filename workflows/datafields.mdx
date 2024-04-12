@@ -1,0 +1,32 @@
+---
+title: "About Datafields"
+description: "Access Control for Tables, Columns & Records"
+---
+
+Data Fields
+Building any meaningful use case as a workflow would require you to collect and store the data during the execution of the task. These data are defined in a Workflow as Data fields
+Think of Data fields as database tables specific to your workflow
+
+Each data field has these properties:
+
+1. Name
+2. Data type (more about supported data types here)
+3. Default value
+4. Create Time Field: This property indicates if this data field will be an input when a task is created. If selected, an option to mark the field as mandatory will be shown
+   Types of data fields
+5. System data fields: These are predefined data fields common to all workflows. More details here
+   User data fields: As the name suggests, these are defined by the workflow author and are specific to each workflow. More details here
+
+## Data Types
+| Data Type      | Category  | Description                                    |
+|----------------|-----------|------------------------------------------------|
+| Text           | Simple    | Text or String value                           |
+| Number         | Simple    | Numerical value                                |
+| Location       | Composite | Address, Latitude & Longitude                  |
+| Boolean        | Simple    | True Or False                                  |
+| Date           | Simple    | Date and Time value                            |
+| List of Text   | Simple    | A list of Text values                          |
+| List           | Composite | List is a composite data type which in turn holds other data fields of simple data type. More Details |
+| Image          | Simple    | List of images uploaded                        |
+| Signature      | Simple    | Signature                                      |
+| File           | Simple    | List of files uploaded                         |

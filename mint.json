@@ -1,0 +1,102 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Documentation",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#3C69E7",
+    "light": "#3C69E7",
+    "dark": "#1C76FD",
+    "anchors": {
+      "from": "#3C69E7",
+      "to": "#06AED4"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:team@zorp.one"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://app.zorp.one"
+  },
+  "tabs": [
+    {
+      "name": "Tables",
+      "url": "tables"
+    },
+    {
+      "name": "Workflows & Ops Apps",
+      "url": "workflows"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Book a Demo",
+      "icon": "book-open-cover",
+      "url": "https://www.zorp.one/book-a-free-demo"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "url": "https://join.slack.com/t/zorpcommunity/shared_invite/zt-17xeqomuc-HczMdCTUtOi1hlK1iiDVGA"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": ["introduction"]
+    },
+    {
+      "group": "Administrating Zorp",
+      "pages": ["managingusers", "managingroles", "managingteams"]
+    },
+    {
+      "group": "Getting Started",
+      "pages": ["tables/sharing", "tables/acl", "tables/columns"]
+    },
+    {
+      "group": "Workflows",
+      "pages": [
+        "workflows/workflows",
+        "workflows/transitions",
+        "workflows/lowcodescripting"
+      ]
+    },
+    {
+      "group": "Data Fields",
+      "pages": [
+        "workflows/datafields",
+        "workflows/systemdatafields",
+        "workflows/userdatafields"
+      ]
+    },
+    {
+      "group": "Workflow Nodes",
+      "pages": ["workflows/screennode", "workflows/decisionnode"]
+    },
+    {
+      "group": "Automations",
+      "pages": [
+        "workflows/autointroduction",
+        "workflows/autotypes",
+        "workflows/validations",
+        "workflows/actionblocks"
+      ]
+    },
+    {
+      "group": "Going to Production",
+      "pages": ["workflows/testworkflows", "workflows/publishing"]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/mintlify",
+    "github": "https://github.com/mintlify",
+    "linkedin": "https://www.linkedin.com/company/mintsearch"
+  }
+}
