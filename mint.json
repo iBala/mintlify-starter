@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Documentation",
+  "name": "Home",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -31,8 +31,16 @@
       "url": "tables"
     },
     {
-      "name": "Workflows & Ops Apps",
+      "name": "Workflows",
       "url": "workflows"
+    },
+    {
+      "name":"App",
+      "url":"mobile-app"
+    },
+    {
+      "name": "Alerts",
+      "url": "alerts"
     }
   ],
   "anchors": [
@@ -49,16 +57,20 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": ["introduction"]
     },
     {
-      "group": "Administrating Zorp",
-      "pages": ["managingusers", "managingroles", "managingteams"]
+      "group": "Administration Hub",
+      "pages": ["teamhierarchy", "usermanagement", "rolemanagement"]
     },
     {
       "group": "Getting Started",
-      "pages": ["tables/sharing", "tables/acl", "tables/columns"]
+      "pages": ["tables/table101", "tables/import", "tables/views"]
+    },
+    {
+      "group":"Access Control",
+      "pages":["tables/acl","tables/sharing","tables/permissions","tables/colpermissions"]
     },
     {
       "group": "Workflows",
@@ -92,11 +104,23 @@
     {
       "group": "Going to Production",
       "pages": ["workflows/testworkflows", "workflows/publishing"]
+    },
+    {
+      "group":"Tables on Mobile",
+      "pages":["mobile-app/introduction","mobile-app/duplicate-records"]
+    },
+    {
+      "group": "Alerts",
+      "pages":["alerts/alerts", "alerts/connect"]
+    },
+    {
+      "group": "Alerts with Bluebee AI",
+      "pages": ["alerts/suggestions", "alerts/personalized-alerts"]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/zorp_one",
+    "youtube": "https://www.youtube.com/channel/UCNDY7jiOh7uOJWWRDnLE9Vw",
+    "linkedin": "https://www.linkedin.com/company/zorp-one/"
   }
 }
