@@ -74,7 +74,7 @@
     },
     {
       "group": "Asset Management",
-      "pages": ["cmms/assets", "cmms/create_assets", "cmms/Locations", "cmms/inventory"]
+      "pages": ["cmms/assets", "cmms/assetfields", "cmms/create_assets", "cmms/Locations", "cmms/inventory"]
     },
     {
       "group": "Mobile CMMS",
