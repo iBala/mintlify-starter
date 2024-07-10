@@ -70,7 +70,7 @@
     },
     {
       "group": "Getting Started",
-      "pages": ["cmms/homescreen", "cmms/WorkOrders", "cmms/PreventiveMaintenance", "cmms/checklists"]
+      "pages": ["cmms/WorkOrders", "cmms/PreventiveMaintenance", "cmms/checklists"]
     },
     {
       "group": "Asset Management",
@@ -78,7 +78,7 @@
     },
     {
       "group": "Mobile CMMS",
-      "pages": ["cmms/login", "cmms/appworkorder"]
+      "pages": ["cmms/homescreen", "cmms/login", "cmms/appworkorder"]
     },
     {
       "group": "Getting Started",
