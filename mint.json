@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:team@zorp.one"
+      "url": "mailto:team@erplite.app"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://app.zorp.one"
+    "url": "https://app.erplite.app"
   },
   "tabs": [
     {
@@ -51,12 +51,12 @@
     {
       "name": "Book a Demo",
       "icon": "book-open-cover",
-      "url": "https://www.zorp.one/book-a-free-demo"
+      "url": "https://www.erplite.app/book-a-free-demo"
     },
     {
       "name": "Community",
       "icon": "slack",
-      "url": "https://join.slack.com/t/zorpcommunity/shared_invite/zt-17xeqomuc-HczMdCTUtOi1hlK1iiDVGA"
+      "url": "https://join.slack.com/t/erplitecommunity/shared_invite/zt-17xeqomuc-HczMdCTUtOi1hlK1iiDVGA"
     }
   ],
   "navigation": [
@@ -140,8 +140,8 @@
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/zorp_one",
+    "twitter": "https://twitter.com/erplite_app",
     "youtube": "https://www.youtube.com/channel/UCNDY7jiOh7uOJWWRDnLE9Vw",
-    "linkedin": "https://www.linkedin.com/company/zorp-one/"
+    "linkedin": "https://www.linkedin.com/company/erplite-app/"
   }
 }

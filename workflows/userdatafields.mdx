@@ -14,7 +14,7 @@ You can create data fields in the following data types:
 - Signature
 - File
 
-Apart from the above data types Zorp also has two special data types. **List and Locations** are composite data types. They contain subfields within them.
+Apart from the above data types ERPLite also has two special data types. **List and Locations** are composite data types. They contain subfields within them.
 
 ## Create Custom Data Fields
 Custom Data fields can be created from:
@@ -42,7 +42,7 @@ The app component configuration provides an additional method of creating data f
 - Now you can see the component is bound with the newly created data field
 
 ### Mapping Data field to a specific component
-While mapping a data field to a specific component, Zorp allows only matching data types.
+While mapping a data field to a specific component, ERPLite allows only matching data types.
 
 For eg., we cannot bind a Number Data field to a Text Input component, we can only bind Number data field to a Number Input component.
 
@@ -63,14 +63,14 @@ We can bind data field to any read only components
 ### Use Data field in Condition
 Conditions are used to automatically route the user to different screens based on a predefined logic.
 
-Currently we can configure conditions in Zorp using two different types of logic.
+Currently we can configure conditions in ERPLite using two different types of logic.
 
 We can also write conditions based on the system data fields.
 
 Example : Only go to Screen B from Screen A, if the user belongs to a particular Team otherwise go to Screen C.
 
 ### Use Data fields in Action
-In Zorp we can define actions to be executed after a particular transition. We can configure three actions to perform after a transition.
+In ERPLite we can define actions to be executed after a particular transition. We can configure three actions to perform after a transition.
 
 We can use the system data fields in any actions.
 Example : Send Push Notification Message to the user along with task ID.

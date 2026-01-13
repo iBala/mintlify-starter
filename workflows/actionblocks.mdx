@@ -1,12 +1,12 @@
 ---
 title: "Action Blocks"
-description: "Action Blocks are essential building building blocks for creating automations within your Zorp app."
+description: "Action Blocks are essential building building blocks for creating automations within your ERPLite app."
 ---
 
 They allow you to define the specific actions that will be executed when an automation is triggered. Each Action Block consists of multiple conditions and actions, and all conditions within an Action Block must be met (return true) for the actions in the Action Block to be executed.
 
 ## Types of Conditions
-Conditions within an Action Block are essential to determine whether the actions should be executed or skipped. They allow you to create dynamic and flexible automations that respond to specific criteria or situations within your Zorp app.
+Conditions within an Action Block are essential to determine whether the actions should be executed or skipped. They allow you to create dynamic and flexible automations that respond to specific criteria or situations within your ERPLite app.
 
 There are three types of conditions you can add to an Action Block:
 
@@ -20,7 +20,7 @@ In cases where you have multiple conditions within an Action Block, these condit
 
 If all conditions within the Action Block return true, the actions will be executed. If any condition returns false, the actions will be skipped.
 
-By using sequential conditional execution, you can create powerful and flexible automations that respond to specific scenarios or combinations of criteria within your Zorp app. This enhances the app's overall functionality and provides a more engaging and dynamic user experience.
+By using sequential conditional execution, you can create powerful and flexible automations that respond to specific scenarios or combinations of criteria within your ERPLite app. This enhances the app's overall functionality and provides a more engaging and dynamic user experience.
 
 ## Types of Actions
 There are several types of actions you can add to an Action Block:
@@ -30,7 +30,7 @@ There are several types of actions you can add to an Action Block:
 **Push Notification:** Send a push notification to a specific user or group of users. You can customize the notification's content, including the title, message, and any additional data you'd like to include.
 Update Data Fields: Use this action to update data fields within your app, either by setting them to a specific value or by performing calculations or transformations on their current values.
 
-In Zorp, an Action Block can contain multiple actions, allowing you to perform several tasks as part of a single automation. The actions within an Action Block are executed in the sequence they are defined. If an action encounters an error and the "Exit on error" indicator is enabled, the subsequent actions in the current Action Block, as well as the following Action Blocks, will not be executed. This feature ensures that your automation only proceeds when all actions are successful, preventing potential issues caused by incomplete or erroneous data.
+In ERPLite, an Action Block can contain multiple actions, allowing you to perform several tasks as part of a single automation. The actions within an Action Block are executed in the sequence they are defined. If an action encounters an error and the "Exit on error" indicator is enabled, the subsequent actions in the current Action Block, as well as the following Action Blocks, will not be executed. This feature ensures that your automation only proceeds when all actions are successful, preventing potential issues caused by incomplete or erroneous data.
 
 Here's an example of using multiple actions in an Action Block:
 
@@ -41,15 +41,15 @@ Task creation and assignment: In a project management app, when a new task is cr
 - Send an email notification to the assignee informing them of the new task.
 - In this case, you can create an Action Block with three actions in sequence. If the "Exit on error" indicator is enabled and an error occurs while creating the task or assigning it, the email notification will not be sent, ensuring that users are not informed about tasks that haven't been successfully created or assigned.
 
-By using multiple actions within an Action Block and utilizing the "Exit on error" feature, you can create more robust and error-resistant automations, ultimately improving the efficiency and reliability of your Zorp app.
+By using multiple actions within an Action Block and utilizing the "Exit on error" feature, you can create more robust and error-resistant automations, ultimately improving the efficiency and reliability of your ERPLite app.
 
 ## Multiple Action Blocks in an Automation
-In Zorp, an automation must have at least one Action Block to define the actions that will be performed when the automation is triggered. However, you can also include multiple Action Blocks within a single automation to enable complex and flexible logic based on different sets of conditions.
+In ERPLite, an automation must have at least one Action Block to define the actions that will be performed when the automation is triggered. However, you can also include multiple Action Blocks within a single automation to enable complex and flexible logic based on different sets of conditions.
 Why Use Multiple Action Blocks?
 
 Having multiple Action Blocks in an automation allows you to execute different sets of actions based on different conditions. Each Action Block contains its own set of conditions and actions, allowing you to create separate branches of logic within a single automation.
 
-This can be useful for handling different scenarios or combinations of criteria within your Zorp app, as the automation can respond to multiple situations with different actions.
+This can be useful for handling different scenarios or combinations of criteria within your ERPLite app, as the automation can respond to multiple situations with different actions.
 
 ### Some examples of when to use multiple action blocks
 
