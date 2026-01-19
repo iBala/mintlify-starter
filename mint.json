@@ -104,6 +104,7 @@
       "group": "Workflows",
       "pages": [
         "workflows/workflows",
+        "workflows/tasks",
         "workflows/transitions",
         "workflows/lowcodescripting"
       ]

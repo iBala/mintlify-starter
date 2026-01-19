@@ -1,0 +1,477 @@
+---
+title: "Tasks"
+sidebarTitle: "Tasks"
+description: "Create and manage task instances from your workflows."
+---
+
+## Overview
+
+Tasks are the execution units of workflows. While a workflow defines the blueprint (screens, transitions, logic), a task is a single instance of that workflow being executed by a user.
+
+<CardGroup cols={2}>
+  <Card title="Workflow Instances" icon="copy">
+    Each task is an execution of a workflow
+  </Card>
+  <Card title="State Management" icon="circle-nodes">
+    Tasks move through workflow-defined states
+  </Card>
+  <Card title="Assignment" icon="user-check">
+    Assign to individuals or teams
+  </Card>
+  <Card title="Scheduling" icon="calendar">
+    Set scheduled time windows for execution
+  </Card>
+</CardGroup>
+
+---
+
+## Workflow vs Task
+
+| Concept | Description | Example |
+|---------|-------------|---------|
+| **Workflow** | The blueprint/template | "Delivery Process" workflow |
+| **Task** | A single execution instance | Delivery #1234 to John Doe |
+
+One workflow can have thousands of tasks created from it.
+
+---
+
+## Task Properties
+
+### Required Fields
+
+| Field | Description |
+|-------|-------------|
+| **Workflow** | Which workflow this task is based on |
+| **Scheduled From** | Start of the scheduled time window |
+| **Scheduled To** | End of the scheduled time window |
+
+<Note>
+Scheduled times have default values but are required. They define when the task should be executed.
+</Note>
+
+### Optional Fields
+
+| Field | Description |
+|-------|-------------|
+| **Assignee** | User or team responsible for the task |
+| **Create-time Data** | Data fields marked as "create time" in the workflow |
+
+---
+
+## Creating Tasks
+
+### Single Task Creation
+
+<Steps>
+  <Step title="Navigate to Workflow">
+    Go to the workflow you want to create a task from
+  </Step>
+  <Step title="Click Create Task">
+    Click the **+ Create Task** button
+  </Step>
+  <Step title="Set Schedule">
+    Enter the scheduled from and to times
+  </Step>
+  <Step title="Assign (Optional)">
+    Select an assignee (user or team)
+  </Step>
+  <Step title="Fill Create-time Fields">
+    Enter values for any create-time data fields
+  </Step>
+  <Step title="Create">
+    Click **Create** to create the task
+  </Step>
+</Steps>
+
+### Bulk Task Creation
+
+Create multiple tasks at once using CSV import:
+
+<Steps>
+  <Step title="Prepare CSV">
+    Create a CSV with columns for scheduled times, assignee, and create-time fields
+  </Step>
+  <Step title="Click Import">
+    Click **Import Tasks** in the workflow view
+  </Step>
+  <Step title="Upload File">
+    Select your CSV file
+  </Step>
+  <Step title="Map Columns">
+    Map CSV columns to task fields
+  </Step>
+  <Step title="Import">
+    Click **Import** to create all tasks
+  </Step>
+</Steps>
+
+### API Task Creation
+
+Create tasks programmatically via the API:
+
+```bash
+POST /api/v1/tasks
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "workflowId": "wf_abc123",
+  "scheduledSlot": {
+    "from": "2024-01-15T09:00:00Z",
+    "to": "2024-01-15T17:00:00Z"
+  },
+  "assignedTo": {
+    "userId": "user_123"
+  },
+  "data": {
+    "customer_name": "John Doe",
+    "delivery_address": "123 Main St"
+  }
+}
+```
+
+---
+
+## Task Assignment
+
+### Assigning to a User
+
+Select a specific user to execute the task:
+
+```json
+{
+  "assignedTo": {
+    "userId": "user_123"
+  }
+}
+```
+
+### Assigning to a Team
+
+Assign to a team - any member can pick it up:
+
+```json
+{
+  "assignedTo": {
+    "teamId": "team_456"
+  }
+}
+```
+
+### Assignment Notifications
+
+When a task is assigned:
+- **Mobile App**: User receives a push notification
+- **Web**: Task appears in their task list
+- **Email**: Optional email notification (if configured)
+
+---
+
+## Task States
+
+Tasks move through states defined by the workflow:
+
+```
+NEW (Initial) → IN_PROGRESS → COMPLETED (Terminal)
+                    ↓
+               CANCELLED (Terminal)
+```
+
+| State Type | Description |
+|------------|-------------|
+| **Initial** | Starting state (e.g., NEW) |
+| **In Progress** | User is working on the task |
+| **Terminal** | Final states (e.g., COMPLETED, CANCELLED) |
+
+State transitions happen when users navigate through workflow screens.
+
+---
+
+## Tasks on Web
+
+The web view displays tasks similar to table records:
+
+| Feature | Description |
+|---------|-------------|
+| **List View** | See all tasks with filters and sorting |
+| **Task Details** | View task data, current state, history |
+| **State Indicator** | Visual indicator of current workflow state |
+| **Timeline** | See progression through workflow states |
+
+### Filtering Tasks
+
+Filter tasks by:
+- Status/State
+- Assignee
+- Scheduled date range
+- Create-time field values
+
+---
+
+## Tasks on Mobile
+
+On the mobile app, tasks are executed through the workflow screens:
+
+<Steps>
+  <Step title="Receive Notification">
+    User gets push notification when assigned
+  </Step>
+  <Step title="Open Task">
+    Task appears in their task list
+  </Step>
+  <Step title="Execute Screens">
+    Navigate through workflow screens, filling in data
+  </Step>
+  <Step title="Complete">
+    Reach a terminal state to complete the task
+  </Step>
+</Steps>
+
+### Mobile Task List
+
+Users see:
+- Assigned tasks
+- Scheduled time window
+- Current state/screen
+- Priority indicators
+
+---
+
+## Scheduling
+
+### Scheduled Time Window
+
+Every task has a scheduled time window:
+
+| Field | Purpose |
+|-------|---------|
+| **Scheduled From** | When the task can start |
+| **Scheduled To** | Deadline for completion |
+
+### Default Values
+
+If not specified, defaults are applied:
+- **From**: Current date/time
+- **To**: End of current day
+
+### Overdue Tasks
+
+Tasks past their `scheduled_to` time are marked as overdue in both web and mobile views.
+
+---
+
+## Task Lifecycle
+
+```
+┌──────────────┐
+│    CREATE    │ Task created (web, bulk, or API)
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│    ASSIGN    │ Optional: assign to user/team
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│   EXECUTE    │ User works through workflow screens
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│   COMPLETE   │ Task reaches terminal state
+└──────────────┘
+```
+
+---
+
+## Task Automations
+
+Task-level automations are configured in the workflow. See [Automation Types](/workflows/autotypes) for:
+
+- **Task Event Automations**: Triggered on task create, assign, update, delete
+- **Scheduled Slot Changes**: When task schedule is modified
+
+---
+
+## For AI Agents
+
+### Task Structure
+
+```typescript
+interface Task {
+  taskId: string;
+  workflowId: string;
+  workflowVersion: number;
+  status: string;
+  currentNodeId: string;
+  scheduledSlot: {
+    from: string;  // ISO date
+    to: string;    // ISO date
+  };
+  assignedTo?: {
+    userId?: string;
+    teamId?: string;
+  };
+  data: Record<string, any>;  // User data fields
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+}
+```
+
+### API: Create Single Task
+
+```bash
+POST /api/v1/tasks
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "workflowId": "wf_abc123",
+  "scheduledSlot": {
+    "from": "2024-01-15T09:00:00Z",
+    "to": "2024-01-15T17:00:00Z"
+  },
+  "assignedTo": {
+    "userId": "user_123"
+  },
+  "data": {
+    "customer_name": "John Doe"
+  }
+}
+```
+
+### API: Bulk Create Tasks
+
+```bash
+POST /api/v1/tasks/bulk
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "workflowId": "wf_abc123",
+  "tasks": [
+    {
+      "scheduledSlot": {"from": "...", "to": "..."},
+      "data": {"customer_name": "John"}
+    },
+    {
+      "scheduledSlot": {"from": "...", "to": "..."},
+      "data": {"customer_name": "Jane"}
+    }
+  ]
+}
+```
+
+### API: Get Task
+
+```bash
+GET /api/v1/tasks/:taskId
+Authorization: Bearer {token}
+```
+
+### API: Update Task
+
+```bash
+PATCH /api/v1/tasks/:taskId
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "scheduledSlot": {
+    "from": "2024-01-16T09:00:00Z",
+    "to": "2024-01-16T17:00:00Z"
+  },
+  "assignedTo": {
+    "userId": "user_456"
+  }
+}
+```
+
+### API: List Tasks
+
+```bash
+GET /api/v1/workflows/:workflowId/tasks
+Authorization: Bearer {token}
+
+# Query parameters
+?status=NEW,IN_PROGRESS
+&assignedTo=user_123
+&scheduledFrom=2024-01-01
+&scheduledTo=2024-01-31
+&page=0
+&size=50
+```
+
+### API: Delete Task
+
+```bash
+DELETE /api/v1/tasks/:taskId
+Authorization: Bearer {token}
+```
+
+### API: Assign Task
+
+```bash
+POST /api/v1/tasks/:taskId/assign
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "userId": "user_123"
+}
+```
+
+### API: Unassign Task
+
+```bash
+POST /api/v1/tasks/:taskId/unassign
+Authorization: Bearer {token}
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| TaskList | `/src/views/tasks/TaskList/` | Task listing with filters |
+| TaskDetails | `/src/views/tasks/TaskDetails/` | Single task view |
+| TaskCreate | `/src/views/tasks/TaskCreate/` | Task creation form |
+| TaskImport | `/src/views/tasks/TaskImport/` | Bulk import dialog |
+| TaskAssignment | `/src/views/tasks/Assignment/` | Assignment selector |
+
+### Event Tracking
+
+```typescript
+// Task events
+TaskEvents.TASK_CREATED
+TaskEvents.TASK_BULK_CREATED
+TaskEvents.TASK_UPDATED
+TaskEvents.TASK_DELETED
+TaskEvents.TASK_ASSIGNED
+TaskEvents.TASK_UNASSIGNED
+TaskEvents.TASK_STATE_CHANGED
+TaskEvents.TASK_COMPLETED
+TaskEvents.TASK_OVERDUE
+```
+
+### Task States API
+
+```bash
+# Get available transitions for current state
+GET /api/v1/tasks/:taskId/transitions
+Authorization: Bearer {token}
+
+# Execute a transition (move to next state)
+POST /api/v1/tasks/:taskId/transition
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "transitionName": "COMPLETE",
+  "data": {
+    "completion_notes": "Delivered successfully"
+  }
+}
+```
