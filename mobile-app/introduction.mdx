@@ -1,4 +1,219 @@
 ---
-title: Introduction
-description: "You can access ERPLite Tables on your ERPLite Mobile App."
+title: "Mobile App Overview"
+sidebarTitle: "Overview"
+description: "Access ERPLite Tables and execute workflow tasks from your mobile device."
 ---
+
+## Overview
+
+The ERPLite mobile app gives you full access to your data and workflows on the go. Download from the App Store or Play Store and start working immediately with your existing credentials.
+
+<CardGroup cols={2}>
+  <Card title="Instant Access" icon="mobile">
+    Download and login with web credentials
+  </Card>
+  <Card title="Tables on Mobile" icon="table">
+    View and edit records anywhere
+  </Card>
+  <Card title="Task Execution" icon="list-check">
+    Complete workflow tasks screen by screen
+  </Card>
+  <Card title="Real-time Sync" icon="arrows-rotate">
+    Workflow changes reflect instantly
+  </Card>
+</CardGroup>
+
+---
+
+## Getting Started
+
+### Download the App
+
+<CardGroup cols={2}>
+  <Card title="iOS" icon="apple" href="https://apps.apple.com/app/erplite">
+    Download from App Store
+  </Card>
+  <Card title="Android" icon="android" href="https://play.google.com/store/apps/details?id=com.erplite">
+    Download from Play Store
+  </Card>
+</CardGroup>
+
+### Login
+
+<Steps>
+  <Step title="Open App">
+    Launch the ERPLite app on your device
+  </Step>
+  <Step title="Enter Credentials">
+    Use the same email and password as your web account
+  </Step>
+  <Step title="Start Working">
+    Access your tables and tasks immediately
+  </Step>
+</Steps>
+
+<Note>
+Your mobile login uses the same credentials as the web dashboard. No separate account needed.
+</Note>
+
+---
+
+## Features
+
+### Tables
+
+Access all your tables from the mobile app:
+
+| Feature | Mobile | Web |
+|---------|--------|-----|
+| View records | Yes | Yes |
+| Create records | Yes | Yes |
+| Edit records | Yes | Yes |
+| Delete records | Yes | Yes |
+| Duplicate records | Yes | Yes |
+| Configure columns | No | Yes |
+| Manage views | No | Yes |
+| Set permissions | No | Yes |
+
+<Note>
+Table configuration (columns, views, permissions) is only available on the web. The mobile app is optimized for data entry and viewing.
+</Note>
+
+### Tasks
+
+Execute workflow tasks assigned to you:
+
+- View all assigned tasks
+- Execute tasks screen by screen
+- Follow workflow transitions
+- Capture photos, signatures, locations
+- Complete tasks and sync automatically
+
+### Task History
+
+View your completed work:
+
+- See all tasks you've completed
+- Review task data and timestamps
+- Track your productivity
+
+---
+
+## Instant Deployment
+
+One of ERPLite's key advantages is **zero deployment** for mobile:
+
+```
+Web Dashboard                    Mobile App
+     │                               │
+     │  Publish Workflow ──────────► │ Instantly Available
+     │                               │
+     │  Update Table ──────────────► │ Changes Reflect
+     │                               │
+     │  Modify Screens ────────────► │ Updated Immediately
+     │                               │
+```
+
+When you publish a workflow on the web:
+- Changes appear instantly on all mobile devices
+- No app store updates required
+- No manual deployment steps
+- Users see updates on next app open
+
+---
+
+## Customization
+
+### App Branding
+
+Customize the mobile app appearance from the web dashboard:
+
+<Steps>
+  <Step title="Go to Settings">
+    Navigate to **Settings** in the web dashboard
+  </Step>
+  <Step title="Find App Settings">
+    Look for **Mobile App** or **Branding** settings
+  </Step>
+  <Step title="Set Primary Color">
+    Choose your brand's primary color
+  </Step>
+  <Step title="Save">
+    Changes apply to all users on next app open
+  </Step>
+</Steps>
+
+---
+
+## Offline Support
+
+The mobile app supports offline work:
+
+- View cached data when offline
+- Create and edit records offline
+- Execute tasks offline
+- Changes sync automatically when back online
+
+---
+
+## Push Notifications
+
+Stay informed with mobile notifications:
+
+| Event | Notification |
+|-------|--------------|
+| Task assigned | "New task assigned: [Task Name]" |
+| Task deadline approaching | "Task due soon: [Task Name]" |
+| Mentions in comments | "You were mentioned in [Record]" |
+
+---
+
+## For AI Agents
+
+### Mobile App Configuration
+
+```typescript
+interface MobileAppConfig {
+  primaryColor: string;  // Hex color code
+  logoUrl?: string;
+  appName?: string;
+  features: {
+    tables: boolean;
+    tasks: boolean;
+    offline: boolean;
+    notifications: boolean;
+  };
+}
+```
+
+### API: Get Mobile Config
+
+```bash
+GET /api/v1/mobile/config
+Authorization: Bearer {token}
+```
+
+### Deep Linking
+
+The mobile app supports deep links:
+
+```
+erplite://tables/{tableType}
+erplite://tables/{tableType}/records/{recordId}
+erplite://tasks/{taskId}
+erplite://workflows/{workflowId}
+```
+
+### Platform Requirements
+
+| Platform | Minimum Version |
+|----------|-----------------|
+| iOS | 14.0+ |
+| Android | 8.0+ (API 26) |
+
+### App Store Links
+
+| Platform | URL |
+|----------|-----|
+| iOS | `https://apps.apple.com/app/erplite` |
+| Android | `https://play.google.com/store/apps/details?id=com.erplite` |

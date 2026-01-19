@@ -135,8 +135,8 @@
       "pages": ["workflows/testworkflows", "workflows/publishing"]
     },
     {
-      "group": "Tables on Mobile",
-      "pages": ["mobile-app/introduction", "mobile-app/duplicate-records"]
+      "group": "Mobile App",
+      "pages": ["mobile-app/introduction", "mobile-app/tasks", "mobile-app/duplicate-records"]
     },
     {
       "group": "Alerts",

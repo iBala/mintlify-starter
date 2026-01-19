@@ -1,0 +1,310 @@
+---
+title: "Tasks on Mobile"
+sidebarTitle: "Tasks"
+description: "Execute workflow tasks assigned to you from the mobile app."
+---
+
+## Overview
+
+The mobile app is the primary interface for field workers to execute tasks. View assigned tasks, work through workflow screens, and complete tasks on the go.
+
+<CardGroup cols={2}>
+  <Card title="Assigned Tasks" icon="inbox">
+    See all tasks assigned to you
+  </Card>
+  <Card title="Screen by Screen" icon="mobile-screen">
+    Execute workflows step by step
+  </Card>
+  <Card title="Data Capture" icon="camera">
+    Photos, signatures, locations
+  </Card>
+  <Card title="Task History" icon="clock-rotate-left">
+    Review completed work
+  </Card>
+</CardGroup>
+
+---
+
+## Task List
+
+When you open the app, you see your task list:
+
+### Assigned Tasks
+
+Tasks assigned directly to you or to your team appear here:
+
+| Information | Description |
+|-------------|-------------|
+| **Task Name** | From workflow name or task data |
+| **Scheduled Time** | When the task should be done |
+| **Current State** | Where you are in the workflow |
+| **Priority** | Visual indicator if urgent |
+
+### Filtering Tasks
+
+Filter your task list by:
+- Status (New, In Progress, Completed)
+- Date range
+- Workflow type
+
+---
+
+## Executing a Task
+
+<Steps>
+  <Step title="Select Task">
+    Tap on a task from your list
+  </Step>
+  <Step title="View First Screen">
+    The workflow's current screen appears
+  </Step>
+  <Step title="Enter Data">
+    Fill in required fields on the screen
+  </Step>
+  <Step title="Tap Transition">
+    Tap the transition button (e.g., "NEXT", "Submit")
+  </Step>
+  <Step title="Continue Through Screens">
+    Repeat until you reach a terminal state
+  </Step>
+  <Step title="Task Complete">
+    Task is marked as completed
+  </Step>
+</Steps>
+
+---
+
+## Screen Components
+
+Workflow screens can contain various components:
+
+### Input Components
+
+| Component | Purpose |
+|-----------|---------|
+| **Text Input** | Enter text data |
+| **Number Input** | Enter numeric values |
+| **Date Picker** | Select dates |
+| **Dropdown** | Choose from options |
+| **Radio/Checkbox** | Select one or multiple |
+
+### Capture Components
+
+| Component | Purpose |
+|-----------|---------|
+| **Camera** | Take photos |
+| **Signature** | Capture signatures |
+| **Location** | Record GPS coordinates |
+| **File Upload** | Attach documents |
+
+### Display Components
+
+| Component | Purpose |
+|-----------|---------|
+| **Text Display** | Show information |
+| **Image** | Display images |
+| **Map** | Show locations |
+
+---
+
+## Transitions
+
+Transitions are the buttons that move you between screens:
+
+- Tap a transition button to proceed
+- Multiple transitions may be available (different paths)
+- Some transitions may be disabled until requirements are met
+- Location may be captured during transitions (if configured)
+
+---
+
+## Task History
+
+View your completed tasks:
+
+<Steps>
+  <Step title="Go to History">
+    Tap **History** or **Completed** tab
+  </Step>
+  <Step title="Browse Tasks">
+    See list of completed tasks with timestamps
+  </Step>
+  <Step title="View Details">
+    Tap a task to see the data you entered
+  </Step>
+</Steps>
+
+### History Information
+
+| Field | Description |
+|-------|-------------|
+| **Task Name** | Workflow/task identifier |
+| **Completed Date** | When you finished |
+| **Duration** | How long it took |
+| **Data Entered** | All field values captured |
+
+---
+
+## Notifications
+
+### Task Assignment
+
+When a task is assigned to you:
+
+1. Push notification appears on your device
+2. Task appears in your task list
+3. Badge count updates on app icon
+
+### Notification Settings
+
+Control notifications in your device settings:
+- Enable/disable push notifications
+- Set quiet hours
+- Configure notification sounds
+
+---
+
+## Offline Mode
+
+Work without internet connection:
+
+<Accordion title="How Offline Mode Works">
+1. Tasks are cached when you have connectivity
+2. You can view and execute cached tasks offline
+3. Data you enter is stored locally
+4. When back online, changes sync automatically
+5. Conflict resolution handles simultaneous edits
+</Accordion>
+
+<Note>
+Some features require connectivity: API integrations in automations, real-time location validation, push notifications.
+</Note>
+
+---
+
+## Tips for Field Workers
+
+<AccordionGroup>
+  <Accordion title="Check Tasks at Start of Day">
+    Open the app in the morning to download your assigned tasks while on WiFi.
+  </Accordion>
+
+  <Accordion title="Complete Tasks Promptly">
+    Finish tasks before the scheduled end time to avoid overdue status.
+  </Accordion>
+
+  <Accordion title="Capture Clear Photos">
+    Ensure good lighting and focus when taking photos for tasks.
+  </Accordion>
+
+  <Accordion title="Sync Before End of Day">
+    Return to connectivity to sync completed tasks before logging off.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### Mobile Task List API
+
+```bash
+GET /api/v1/mobile/tasks
+Authorization: Bearer {token}
+
+# Query parameters
+?status=NEW,IN_PROGRESS
+&page=0
+&size=50
+```
+
+### Task Execution API
+
+```bash
+# Get current screen for task
+GET /api/v1/mobile/tasks/:taskId/screen
+Authorization: Bearer {token}
+
+# Submit screen data and transition
+POST /api/v1/mobile/tasks/:taskId/transition
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "transitionName": "NEXT",
+  "data": {
+    "customer_name": "John Doe",
+    "signature": "base64...",
+    "photos": ["url1", "url2"]
+  },
+  "location": {
+    "latitude": 40.7128,
+    "longitude": -74.0060
+  }
+}
+```
+
+### Task History API
+
+```bash
+GET /api/v1/mobile/tasks/history
+Authorization: Bearer {token}
+
+# Query parameters
+?fromDate=2024-01-01
+&toDate=2024-01-31
+&page=0
+&size=50
+```
+
+### Offline Sync API
+
+```bash
+# Sync offline changes
+POST /api/v1/mobile/sync
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "changes": [
+    {
+      "taskId": "task_123",
+      "transitionName": "COMPLETE",
+      "data": {...},
+      "timestamp": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+
+### Mobile Screen Structure
+
+```typescript
+interface MobileScreen {
+  screenId: string;
+  name: string;
+  components: MobileComponent[];
+  transitions: MobileTransition[];
+}
+
+interface MobileComponent {
+  componentId: string;
+  type: string;
+  config: {
+    label?: string;
+    placeholder?: string;
+    required?: boolean;
+    dataField?: string;
+    options?: string[];
+  };
+  value?: any;
+}
+
+interface MobileTransition {
+  transitionId: string;
+  name: string;
+  displayName: string;
+  enabled: boolean;
+  collectLocation: boolean;
+}
+```
