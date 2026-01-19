@@ -1,0 +1,223 @@
+---
+title: "Publishing Workflows"
+sidebarTitle: "Publishing"
+description: "Push your workflow live so users can create and execute tasks."
+---
+
+## Overview
+
+Publishing makes your workflow available for task creation. Until published, workflows remain in draft mode and cannot be used.
+
+<CardGroup cols={2}>
+  <Card title="Version Control" icon="code-branch">
+    Each publish creates a new version
+  </Card>
+  <Card title="Instant Deploy" icon="rocket">
+    Changes go live immediately
+  </Card>
+  <Card title="Draft Mode" icon="file-pen">
+    Test changes before publishing
+  </Card>
+  <Card title="Rollback" icon="rotate-left">
+    Revert to previous versions if needed
+  </Card>
+</CardGroup>
+
+---
+
+## Workflow States
+
+| State | Description |
+|-------|-------------|
+| **Draft** | Work in progress, not available to users |
+| **Published** | Live and available for task creation |
+| **Archived** | No longer active, historical reference |
+
+---
+
+## Publishing Your Workflow
+
+<Steps>
+  <Step title="Complete Design">
+    Ensure your workflow has:
+    - At least one initial step (e.g., NEW)
+    - At least one terminal step (e.g., COMPLETED)
+    - All screens configured with components
+    - Transitions connecting all nodes
+  </Step>
+  <Step title="Test Your Workflow">
+    Use [Test Mode](/workflows/testworkflows) to verify everything works
+  </Step>
+  <Step title="Click Publish">
+    Click the **Publish** button in the top toolbar
+  </Step>
+  <Step title="Confirm">
+    Review the publish summary and confirm
+  </Step>
+</Steps>
+
+<Note>
+Publishing creates a new version. Existing tasks continue on their current version; new tasks use the latest published version.
+</Note>
+
+---
+
+## Pre-Publish Checklist
+
+Before publishing, verify:
+
+<Accordion title="Structure">
+- [ ] Initial step exists and is properly configured
+- [ ] Terminal steps exist for all end states
+- [ ] All nodes are connected with transitions
+- [ ] No orphan nodes (disconnected from flow)
+</Accordion>
+
+<Accordion title="Screens">
+- [ ] All screen nodes have components
+- [ ] Required data fields are bound to input components
+- [ ] Transition buttons have descriptive names
+- [ ] On-load automations are configured if needed
+</Accordion>
+
+<Accordion title="Data Fields">
+- [ ] All required data fields are defined
+- [ ] Create-time fields are properly configured
+- [ ] Data types match component types
+</Accordion>
+
+<Accordion title="Automations">
+- [ ] Transition automations are tested
+- [ ] API endpoints are accessible
+- [ ] Error handling is in place
+</Accordion>
+
+---
+
+## Version Management
+
+Each publish creates a new version:
+
+```
+Version 1 (Published Jan 1)
+    ↓
+Version 2 (Published Jan 15) ← Current
+    ↓
+Version 3 (Draft)
+```
+
+### How Versions Work
+
+- **New tasks**: Always use the latest published version
+- **Existing tasks**: Continue on the version they started with
+- **Draft changes**: Don't affect existing tasks until published
+
+---
+
+## After Publishing
+
+Once published, you can:
+
+1. **Create Tasks**: Assign tasks to users from this workflow
+2. **Monitor Execution**: Track task progress and completion
+3. **Make Changes**: Edit and publish new versions
+4. **View Analytics**: See workflow performance metrics
+
+---
+
+## Unpublishing / Archiving
+
+To remove a workflow from active use:
+
+<Steps>
+  <Step title="Open Workflow Settings">
+    Click the settings icon in the workflow builder
+  </Step>
+  <Step title="Archive Workflow">
+    Select **Archive Workflow**
+  </Step>
+  <Step title="Confirm">
+    Existing tasks will continue, but no new tasks can be created
+  </Step>
+</Steps>
+
+---
+
+## For AI Agents
+
+### Workflow Status
+
+```typescript
+interface WorkflowVersion {
+  workflowId: string;
+  version: number;
+  status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
+  publishedAt?: string;
+  publishedBy?: string;
+}
+```
+
+### API: Publish Workflow
+
+```bash
+POST /api/v1/workflows/:workflowId/publish
+Authorization: Bearer {token}
+```
+
+**Response:**
+```json
+{
+  "workflowId": "wf_abc123",
+  "version": 3,
+  "status": "PUBLISHED",
+  "publishedAt": "2024-01-15T10:30:00Z"
+}
+```
+
+### API: Get Workflow Versions
+
+```bash
+GET /api/v1/workflows/:workflowId/versions
+Authorization: Bearer {token}
+```
+
+### API: Archive Workflow
+
+```bash
+POST /api/v1/workflows/:workflowId/archive
+Authorization: Bearer {token}
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| PublishButton | `/src/views/workflows/toolbar/` | Publish action |
+| PublishDialog | `/src/views/workflows/publish/` | Confirmation dialog |
+| VersionHistory | `/src/views/workflows/versions/` | Version listing |
+
+### Event Tracking
+
+```typescript
+// Publishing events
+WorkflowEvents.WORKFLOW_PUBLISHED
+WorkflowEvents.WORKFLOW_ARCHIVED
+WorkflowEvents.VERSION_CREATED
+```
+
+### Validation Rules
+
+Before publishing, the system validates:
+
+```typescript
+interface PublishValidation {
+  hasInitialNode: boolean;
+  hasTerminalNode: boolean;
+  allNodesConnected: boolean;
+  noOrphanNodes: boolean;
+  allScreensConfigured: boolean;
+  dataFieldsValid: boolean;
+}
+```
+
+Publishing fails if any validation returns `false`.

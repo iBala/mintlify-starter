@@ -58,6 +58,82 @@ We can configure three actions to perform after a transition:
 
 We can use the system data fields in any action.
 
-Example : Send Push Notification Message to the user along with task ID.
-​
-​
+Example: Send Push Notification Message to the user along with task ID.
+
+---
+
+## For AI Agents
+
+### System Data Fields Reference
+
+```typescript
+// Task data fields
+interface TaskSystemFields {
+  taskId: string;
+  status: string;
+  createdAt: string;        // ISO date
+  updatedAt: string;        // ISO date
+  scheduledTime?: string;   // ISO date
+  assignedTo?: {
+    userId: string;
+    name: string;
+    email: string;
+    phone: string;
+  };
+  assignedTeam?: {
+    teamId: string;
+    name: string;
+  };
+}
+
+// Logged in user fields
+interface LoggedInUserFields {
+  userId: string;
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+  team: {
+    teamId: string;
+    name: string;
+  };
+  location?: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  };
+}
+```
+
+### Accessing System Fields
+
+```javascript
+// In scripts and expressions
+task.taskId
+task.status
+task.createdAt
+task.assignedTo.name
+task.assignedTeam.name
+
+loggedInUser.name
+loggedInUser.role
+loggedInUser.team.name
+loggedInUser.location.latitude
+```
+
+### Available System Fields
+
+| Path | Type | Description |
+|------|------|-------------|
+| `task.taskId` | string | Unique task identifier |
+| `task.status` | string | Current task status |
+| `task.createdAt` | date | Task creation timestamp |
+| `task.updatedAt` | date | Last update timestamp |
+| `task.scheduledTime` | date | Scheduled execution time |
+| `task.assignedTo.userId` | string | Assigned user ID |
+| `task.assignedTo.name` | string | Assigned user name |
+| `task.assignedTeam.teamId` | string | Assigned team ID |
+| `loggedInUser.userId` | string | Current user ID |
+| `loggedInUser.name` | string | Current user name |
+| `loggedInUser.role` | string | Current user role |
+| `loggedInUser.location` | object | Current GPS location |

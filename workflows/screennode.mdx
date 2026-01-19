@@ -29,6 +29,84 @@ For eg., for a user to collect images from the app or show a map location, all t
 ### Component Configuration​
 Each component has its own way of configuration. For eg., a text display component only takes a text as an input. Whereas the camera component has options to specific collection mode via camera or gallery, no of images that need to be collected and many more.
 
-### Working with data​
-As described , components can read data from data fields and also can write into data fields.
-Good to know: Splitting your product into fundamental concepts, objects, or areas can be a great way to let readers deep dive into the concepts that matter most to them.
+### Working with data
+
+Components can both read from and write to data fields:
+- **Read**: Display components pull values from data fields
+- **Write**: Input components save user entries to data fields
+
+---
+
+## Screen Properties
+
+| Property | Description |
+|----------|-------------|
+| **Screen Name** | Identifier shown to users |
+| **Description** | Internal notes about the screen's purpose |
+| **Components** | UI elements on the screen |
+| **On-Load Automations** | Actions triggered when screen loads |
+
+---
+
+## For AI Agents
+
+### Screen Node Structure
+
+```typescript
+interface ScreenNode {
+  nodeId: string;
+  type: 'SCREEN';
+  name: string;
+  description?: string;
+  isInitial: boolean;
+  isTerminal: boolean;
+  components: Component[];
+  onLoadAutomations: Automation[];
+}
+
+interface Component {
+  componentId: string;
+  type: ComponentType;
+  config: ComponentConfig;
+  dataFieldBinding?: string;
+  visibility?: VisibilityCondition;
+}
+```
+
+### Component Types
+
+```typescript
+type ComponentType =
+  | 'TEXT_DISPLAY'
+  | 'TEXT_INPUT'
+  | 'NUMBER_INPUT'
+  | 'DROPDOWN'
+  | 'RADIO'
+  | 'CHECKBOX'
+  | 'CAMERA'
+  | 'SIGNATURE'
+  | 'FILE_UPLOAD'
+  | 'DATE_PICKER'
+  | 'LOCATION'
+  | 'MAP'
+  | 'BUTTON';
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| ScreenNodeEditor | `/src/views/workflows/nodes/ScreenNode/` | Screen node configuration |
+| AppBuilder | `/src/views/appBuilder/` | Visual screen designer |
+| ComponentPalette | `/src/views/appBuilder/ComponentPalette/` | Draggable components |
+| ComponentConfig | `/src/views/appBuilder/ComponentConfig/` | Component properties |
+
+### Event Tracking
+
+```typescript
+// Screen node events
+WorkflowEvents.SCREEN_NODE_CREATED
+WorkflowEvents.SCREEN_NODE_UPDATED
+WorkflowEvents.SCREEN_COMPONENT_ADDED
+WorkflowEvents.SCREEN_COMPONENT_REMOVED
+```

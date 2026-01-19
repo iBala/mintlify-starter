@@ -1,7 +1,274 @@
 ---
-title: "Workflows 101"
-description: "Access Control for Tables, Columns & Records"
+title: "Workflows Overview"
+sidebarTitle: "Overview"
+description: "Build visual process flows that define how tasks move through your organization."
 ---
 
-## Workflow Builder
-Workflows are like a blueprint of your process. For example, a workflow is like a model of a house. Multiple houses can be built on the same model. Similarly, multiple tasks can be created based on the same workflow. The workflow has information about the list of steps the user needs to go through to complete the process. It is visually represented as a series of nodes and the transition that connect the nodes. 
+## What is a Workflow?
+
+A workflow is a visual blueprint of your business process. It defines the steps, screens, and logic that users follow to complete tasks. Think of it like an architectural plan - you design it once, and multiple tasks can be created from the same workflow.
+
+<CardGroup cols={2}>
+  <Card title="Visual Builder" icon="diagram-project">
+    Design workflows using drag-and-drop nodes and transitions
+  </Card>
+  <Card title="Mobile-First" icon="mobile">
+    Each screen node becomes a mobile app screen
+  </Card>
+  <Card title="Automations" icon="bolt">
+    Trigger actions, validations, and integrations automatically
+  </Card>
+  <Card title="Conditional Logic" icon="code-branch">
+    Route users to different screens based on data
+  </Card>
+</CardGroup>
+
+---
+
+## Key Concepts
+
+### Workflow vs Task
+
+| Concept | Description |
+|---------|-------------|
+| **Workflow** | The template/blueprint that defines the process |
+| **Task** | An instance of a workflow assigned to a user |
+
+For example, a "Delivery" workflow defines all the steps a delivery person follows. Each actual delivery creates a new task from this workflow.
+
+### Workflow Components
+
+Every workflow consists of:
+
+1. **Nodes** - The steps in your process
+   - **Screen Nodes**: Mobile app screens where users interact
+   - **Decision Nodes**: Automatic routing based on conditions
+
+2. **Transitions** - Connections between nodes that define navigation
+
+3. **Data Fields** - Variables that store information during task execution
+
+4. **Automations** - Logic that executes during the workflow
+
+---
+
+## Workflow Structure
+
+```
+┌─────────────┐
+│  NEW (Start)│ ← Initial step (required)
+└──────┬──────┘
+       │ transition
+       ▼
+┌─────────────┐
+│  Screen A   │ ← User enters data
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Decision   │ ← Automatic routing
+└──────┬──────┘
+      /  \
+     ▼    ▼
+┌────┐  ┌────┐
+│ B  │  │ C  │ ← Different paths
+└──┬─┘  └──┬─┘
+   │       │
+   ▼       ▼
+┌─────────────┐
+│ COMPLETED   │ ← Terminal step (required)
+└─────────────┘
+```
+
+---
+
+## Creating a Workflow
+
+<Steps>
+  <Step title="Navigate to Workflows">
+    Go to the **Workflows** section from the main menu
+  </Step>
+  <Step title="Create New Workflow">
+    Click **New Workflow** button
+  </Step>
+  <Step title="Name Your Workflow">
+    Enter a descriptive name (e.g., "Field Inspection", "Delivery Process")
+  </Step>
+  <Step title="Design Your Flow">
+    - Add screen nodes for each step
+    - Connect nodes with transitions
+    - Add decision nodes for conditional logic
+  </Step>
+  <Step title="Configure Screens">
+    Click each screen node to design the mobile UI
+  </Step>
+  <Step title="Set Up Data Fields">
+    Define the data you need to collect
+  </Step>
+  <Step title="Add Automations">
+    Configure validations, API calls, and notifications
+  </Step>
+  <Step title="Test and Publish">
+    Test your workflow, then publish to make it live
+  </Step>
+</Steps>
+
+---
+
+## Default Nodes
+
+Every new workflow comes with two default nodes:
+
+| Node | Type | Purpose |
+|------|------|---------|
+| **NEW** | Initial Step | First screen when task starts |
+| **COMPLETED** | Terminal Step | Final state when task ends |
+
+<Note>
+You must have at least one initial step and one terminal step. A workflow can have multiple terminal steps for different outcomes (e.g., "Completed", "Cancelled", "Failed").
+</Note>
+
+---
+
+## Workflow States
+
+Tasks created from workflows can be in different states:
+
+| State | Description |
+|-------|-------------|
+| **New** | Task just created, at initial step |
+| **In Progress** | User is working through the workflow |
+| **Completed** | Task reached a terminal step |
+| **Cancelled** | Task was cancelled before completion |
+
+---
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Keep It Simple">
+    Start with a simple linear flow, then add complexity as needed. Overly complex workflows are harder to maintain.
+  </Accordion>
+
+  <Accordion title="Name Things Clearly">
+    Use descriptive names for screens, transitions, and data fields. "Customer Details" is better than "Screen 2".
+  </Accordion>
+
+  <Accordion title="Test Before Publishing">
+    Always test your workflow thoroughly before publishing. Use the test mode to simulate real scenarios.
+  </Accordion>
+
+  <Accordion title="Plan Your Data Fields">
+    Think about what data you need to collect before building screens. This prevents having to restructure later.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### API: List Workflows
+
+```bash
+GET /api/v1/workflows
+Authorization: Bearer {token}
+```
+
+**Response:**
+```json
+{
+  "data": [
+    {
+      "workflowId": "wf_abc123",
+      "name": "Delivery Process",
+      "version": 3,
+      "status": "PUBLISHED",
+      "createdAt": "2024-01-15T10:00:00Z"
+    }
+  ]
+}
+```
+
+### API: Get Workflow Details
+
+```bash
+GET /api/v1/workflows/:workflowId
+Authorization: Bearer {token}
+```
+
+### API: Create Task from Workflow
+
+```bash
+POST /api/v1/tasks
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "workflowId": "wf_abc123",
+  "data": {
+    "customer_name": "John Doe",
+    "delivery_address": "123 Main St"
+  },
+  "assignedTo": {
+    "userId": "user_123"
+  }
+}
+```
+
+### Workflow Structure
+
+```typescript
+interface Workflow {
+  workflowId: string;
+  name: string;
+  description?: string;
+  version: number;
+  status: 'DRAFT' | 'PUBLISHED';
+  nodes: WorkflowNode[];
+  transitions: Transition[];
+  dataFields: DataField[];
+  automations: Automation[];
+}
+
+interface WorkflowNode {
+  nodeId: string;
+  type: 'SCREEN' | 'DECISION';
+  name: string;
+  isInitial: boolean;
+  isTerminal: boolean;
+  config: ScreenConfig | DecisionConfig;
+}
+
+interface Transition {
+  transitionId: string;
+  name: string;
+  fromNodeId: string;
+  toNodeId: string;
+  collectLocation: boolean;
+}
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| WorkflowBuilder | `/src/views/workflows/` | Main workflow editor |
+| NodeEditor | `/src/views/workflows/nodes/` | Screen/decision node config |
+| TransitionEditor | `/src/views/workflows/transitions/` | Transition configuration |
+| AppBuilder | `/src/views/appBuilder/` | Mobile screen designer |
+
+### Event Tracking
+
+```typescript
+// Workflow events
+WorkflowEvents.WORKFLOW_CREATED
+WorkflowEvents.WORKFLOW_UPDATED
+WorkflowEvents.WORKFLOW_PUBLISHED
+WorkflowEvents.WORKFLOW_DELETED
+
+// Task events
+TaskEvents.TASK_CREATED
+TaskEvents.TASK_ASSIGNED
+TaskEvents.TASK_COMPLETED
+TaskEvents.TASK_CANCELLED
+```

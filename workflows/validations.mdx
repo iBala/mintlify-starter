@@ -1,5 +1,335 @@
 ---
 title: "Validations"
-description: "Coming Soon"
+sidebarTitle: "Validations"
+description: "Control when automations execute by validating conditions before actions run."
 ---
 
+## Overview
+
+Validations determine whether an automation should execute. They act as gatekeepers - if a validation fails, the automation's actions are skipped entirely. This helps you create conditional logic without complex action blocks.
+
+<CardGroup cols={2}>
+  <Card title="Pre-Execution Check" icon="shield-check">
+    Validate before any actions run
+  </Card>
+  <Card title="Multiple Types" icon="layer-group">
+    Expression, REST API, or Location checks
+  </Card>
+  <Card title="Short-Circuit" icon="ban">
+    Skip all actions if validation fails
+  </Card>
+  <Card title="Custom Messages" icon="message">
+    Show user-friendly error messages
+  </Card>
+</CardGroup>
+
+---
+
+## How Validations Work
+
+```
+Automation Triggered
+        ↓
+  ┌───────────────┐
+  │  Validation   │
+  └───────┬───────┘
+          │
+    ┌─────┴─────┐
+    │  Passes?  │
+    └─────┬─────┘
+       /     \
+     Yes      No
+      ↓        ↓
+  Execute   Skip All
+  Actions   Actions
+             + Show
+             Error
+```
+
+Validations run **before** any action blocks. If the validation returns `false`, all action blocks are skipped and an optional error message is shown to the user.
+
+---
+
+## Validation Types
+
+### 1. Expression Validation
+
+Write JavaScript expressions that return `true` or `false`.
+
+**Use for:**
+- Checking data field values
+- Comparing dates or numbers
+- Complex conditional logic
+
+**Example: Require minimum order amount**
+```javascript
+// Validation passes if order is $50 or more
+task.data.order_amount >= 50
+```
+
+**Example: Validate date is in future**
+```javascript
+// Validation passes if delivery date is after today
+new Date(task.data.delivery_date) > new Date()
+```
+
+**Example: Check user role**
+```javascript
+// Only allow managers to proceed
+loggedInUser.role === "Manager"
+```
+
+---
+
+### 2. REST API Validation
+
+Call an external API to validate. The automation proceeds only if the API returns a successful response matching your criteria.
+
+**Use for:**
+- Verifying data with external systems
+- Credit checks or inventory availability
+- Third-party validation services
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **URL** | API endpoint to call |
+| **Method** | HTTP method (GET, POST, etc.) |
+| **Headers** | Request headers (auth, content-type) |
+| **Body** | Request payload with data field placeholders |
+| **Success Condition** | Expression to evaluate the response |
+
+**Example: Check inventory before order**
+```javascript
+// API Configuration
+{
+  "url": "https://api.inventory.com/check",
+  "method": "POST",
+  "headers": {
+    "Authorization": "Bearer {{secrets.INVENTORY_API_KEY}}",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "product_id": "{{task.data.product_id}}",
+    "quantity": "{{task.data.quantity}}"
+  }
+}
+
+// Success Condition
+response.data.available === true
+```
+
+**Example: Verify customer credit**
+```javascript
+// API Configuration
+{
+  "url": "https://api.credit.com/verify/{{task.data.customer_id}}",
+  "method": "GET"
+}
+
+// Success Condition
+response.data.credit_limit >= task.data.order_total
+```
+
+---
+
+### 3. Location Validation
+
+Verify the user is at or near a specific location before allowing the automation to proceed.
+
+**Use for:**
+- Ensuring field workers are on-site
+- Geo-fenced task completion
+- Delivery verification
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **Target Location** | Data field containing the expected location |
+| **User Location** | Current user's GPS coordinates |
+| **Radius** | Maximum allowed distance (meters) |
+
+**Example: Verify user is at delivery location**
+```
+Target: task.data.delivery_address
+User: loggedInUser.location
+Radius: 100 meters
+```
+
+---
+
+## Adding a Validation
+
+<Steps>
+  <Step title="Open Automation">
+    Navigate to the automation you want to add validation to
+  </Step>
+  <Step title="Click Add Validation">
+    In the automation editor, click **Add Validation**
+  </Step>
+  <Step title="Select Type">
+    Choose Expression, REST API, or Location
+  </Step>
+  <Step title="Configure">
+    Enter your validation logic based on the type
+  </Step>
+  <Step title="Set Error Message">
+    Enter the message to show users when validation fails
+  </Step>
+  <Step title="Save">
+    Save the automation
+  </Step>
+</Steps>
+
+---
+
+## Error Messages
+
+When validation fails, you can display a custom error message to the user:
+
+```javascript
+// Validation
+task.data.quantity <= task.data.stock_available
+
+// Error Message
+"Insufficient stock. Only {{task.data.stock_available}} items available."
+```
+
+Error messages support data field placeholders using `{{field}}` syntax.
+
+---
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Keep Validations Simple">
+    Complex logic is better handled in action block conditions. Validations should be clear pass/fail checks.
+  </Accordion>
+
+  <Accordion title="Use Descriptive Error Messages">
+    Help users understand why the validation failed and what they can do about it.
+  </Accordion>
+
+  <Accordion title="Consider Performance">
+    REST API validations add network latency. Use expression validations for local checks.
+  </Accordion>
+
+  <Accordion title="Handle API Failures">
+    Decide whether API errors should fail validation (safe default) or pass through.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Validation vs Conditions
+
+| Aspect | Validation | Condition |
+|--------|------------|-----------|
+| **Scope** | Entire automation | Single action block |
+| **On Failure** | Skip all actions | Skip that block only |
+| **Error Message** | Can show to user | Silent skip |
+| **Use Case** | Pre-flight checks | Branching logic |
+
+Use validations when you want to prevent the entire automation from running.
+Use conditions when you want to selectively run different action blocks.
+
+---
+
+## Common Validation Patterns
+
+<AccordionGroup>
+  <Accordion title="Required Fields">
+    ```javascript
+    // Ensure required data is present
+    task.data.customer_name && task.data.customer_phone
+    ```
+  </Accordion>
+
+  <Accordion title="Business Hours Only">
+    ```javascript
+    // Only allow during 9 AM - 6 PM
+    const hour = new Date().getHours();
+    hour >= 9 && hour < 18
+    ```
+  </Accordion>
+
+  <Accordion title="User Permission Check">
+    ```javascript
+    // Only supervisors or managers
+    ['Supervisor', 'Manager'].includes(loggedInUser.role)
+    ```
+  </Accordion>
+
+  <Accordion title="Data Format Validation">
+    ```javascript
+    // Validate email format
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(task.data.email)
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### Validation Structure
+
+```typescript
+interface AutomationValidation {
+  type: 'expression' | 'rest_api' | 'location';
+  config: ExpressionConfig | RestApiConfig | LocationConfig;
+  errorMessage?: string;
+}
+
+interface ExpressionConfig {
+  expression: string;  // JavaScript expression returning boolean
+}
+
+interface RestApiConfig {
+  url: string;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  headers?: Record<string, string>;
+  body?: any;
+  successCondition: string;  // JavaScript expression
+}
+
+interface LocationConfig {
+  targetLocation: string;  // Data field path
+  userLocation: string;    // Usually "loggedInUser.location"
+  radiusMeters: number;
+}
+```
+
+### Available Variables
+
+| Variable | Description |
+|----------|-------------|
+| `task` | Current task object with all data fields |
+| `task.data` | User-defined data field values |
+| `loggedInUser` | Current user information |
+| `loggedInUser.role` | User's role |
+| `loggedInUser.team` | User's team |
+| `loggedInUser.location` | User's current GPS location |
+| `response` | REST API response (for API validations) |
+| `secrets` | Stored secret values |
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| ValidationEditor | `/src/views/automations/ValidationEditor/` | Validation configuration |
+| ExpressionEditor | `/src/components/LowCode/` | JavaScript editor |
+| ApiConfigEditor | `/src/views/automations/ApiConfig/` | REST API setup |
+| LocationPicker | `/src/components/LocationPicker/` | Location selection |
+
+### Event Tracking
+
+```typescript
+// Validation events
+AutomationEvents.VALIDATION_STARTED
+AutomationEvents.VALIDATION_PASSED
+AutomationEvents.VALIDATION_FAILED
+AutomationEvents.VALIDATION_ERROR
+```

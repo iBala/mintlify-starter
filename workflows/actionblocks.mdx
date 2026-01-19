@@ -58,3 +58,116 @@ This can be useful for handling different scenarios or combinations of criteria 
 2. Dynamic notifications: In a sales app, you may want to send different types of notifications based on the customer's purchase history. You can create an automation with multiple Action Blocks: one for sending a promotional notification to customers who have made a purchase within the last month, another for sending a different notification to customers who have not made a purchase in over a month, and so on.
 
 3. Conditional data synchronization: In an inventory management app, you may want to update different databases or systems based on specific conditions. For example, you can create an automation with multiple Action Blocks: one for updating your internal ERP system if the item is in stock, another for updating a third-party system if the item is out of stock, and yet another for sending an alert to the warehouse manager if the stock level is below a certain threshold.
+
+---
+
+## For AI Agents
+
+### Action Block Structure
+
+```typescript
+interface ActionBlock {
+  blockId: string;
+  name?: string;
+  conditions: Condition[];
+  actions: Action[];
+  exitOnError: boolean;
+}
+
+interface Condition {
+  conditionId: string;
+  type: 'EXPRESSION' | 'REST_API' | 'LOCATION_CHECK';
+  config: ConditionConfig;
+}
+
+interface Action {
+  actionId: string;
+  type: ActionType;
+  config: ActionConfig;
+  exitOnError: boolean;
+}
+
+type ActionType =
+  | 'REST_API'
+  | 'PUSH_NOTIFICATION'
+  | 'UPDATE_DATA_FIELDS'
+  | 'CREATE_TASK'
+  | 'UPDATE_TASK'
+  | 'SEND_EMAIL'
+  | 'SEND_SMS';
+```
+
+### Condition Configuration
+
+```typescript
+interface ExpressionCondition {
+  type: 'EXPRESSION';
+  expression: string;  // JavaScript returning boolean
+}
+
+interface RestApiCondition {
+  type: 'REST_API';
+  url: string;
+  method: string;
+  headers?: Record<string, string>;
+  body?: any;
+  successCondition: string;
+}
+
+interface LocationCheckCondition {
+  type: 'LOCATION_CHECK';
+  location1: string;
+  location2: string;
+  maxDistanceMeters: number;
+}
+```
+
+### Action Configuration
+
+```typescript
+interface RestApiAction {
+  type: 'REST_API';
+  url: string;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  headers?: Record<string, string>;
+  body?: any;
+  responseMapping?: Record<string, string>;
+}
+
+interface PushNotificationAction {
+  type: 'PUSH_NOTIFICATION';
+  recipientType: 'USER' | 'TEAM' | 'ROLE';
+  recipient: string;
+  title: string;
+  message: string;
+  data?: Record<string, any>;
+}
+
+interface UpdateDataFieldsAction {
+  type: 'UPDATE_DATA_FIELDS';
+  updates: {
+    field: string;
+    value: string | number | boolean;
+  }[];
+}
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| ActionBlockEditor | `/src/views/automations/ActionBlock/` | Block configuration |
+| ConditionEditor | `/src/views/automations/ActionBlock/Condition/` | Condition setup |
+| ActionEditor | `/src/views/automations/ActionBlock/Action/` | Action configuration |
+| RestApiConfig | `/src/views/automations/RestApi/` | API call setup |
+
+### Execution Flow
+
+```
+Action Block Execution:
+1. Evaluate conditions sequentially
+2. If any condition returns false → skip entire block
+3. If all conditions pass → execute actions sequentially
+4. If action fails and exitOnError → stop remaining actions
+5. Move to next action block
+```

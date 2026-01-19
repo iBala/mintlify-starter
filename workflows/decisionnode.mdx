@@ -26,6 +26,105 @@ So now, How do we automatically show the right screen to the user, based on the 
     - Location Check - It identifies whether two specified geo locations are close to one another. The specific distance to check the proximity can be modified. There is no pre-specified distance. A good example where you can use this is when you want to make sure the user is at a given location ( at or near the customer’s location).
     - Expression Check - This is a simple logic based check. The User can enter the logic based code in the low-code environment. The code can be simple (for example - to check whether the two values are the same) or it can be a complex code (For example- To check whether the delivery boy has reached the location between 12pm to 1pm).
 
-6.  You can add multiple if-conditions if you wish to do so. For that you must click on the “Add Switch” Button under the if-description box and write your desired logic for the same.
+6.  You can add multiple if-conditions if you wish to do so. For that you must click on the "Add Switch" Button under the if-description box and write your desired logic for the same.
 
-7.  The logic is ready. You can check it by implementing it on your app. The link to an example video it linked at the bottom of the page.
+7.  The logic is ready. You can check it by implementing it on your app.
+
+---
+
+## Condition Types
+
+### Location Check
+
+Verifies if two locations are within a specified distance of each other.
+
+| Configuration | Description |
+|---------------|-------------|
+| **Location 1** | First location (e.g., user's current location) |
+| **Location 2** | Second location (e.g., customer address) |
+| **Distance** | Maximum allowed distance in meters |
+
+### Expression Check
+
+Uses JavaScript to evaluate conditions.
+
+```javascript
+// Simple comparison
+task.data.status === "Approved"
+
+// Multiple conditions
+task.data.amount > 100 && task.data.is_verified === true
+
+// Check user role
+loggedInUser.role === "Manager"
+```
+
+---
+
+## Multiple Conditions (Switches)
+
+You can add multiple conditions (switches) to handle different scenarios:
+
+```
+Decision Node
+├── If: task.data.priority === "High" → Urgent Screen
+├── If: task.data.priority === "Medium" → Normal Screen
+└── Default → Low Priority Screen
+```
+
+Conditions are evaluated in order. The first matching condition determines the path.
+
+---
+
+## For AI Agents
+
+### Decision Node Structure
+
+```typescript
+interface DecisionNode {
+  nodeId: string;
+  type: 'DECISION';
+  name: string;
+  switches: Switch[];
+  defaultTransition?: string;
+}
+
+interface Switch {
+  switchId: string;
+  condition: Condition;
+  targetNodeId: string;
+}
+
+interface Condition {
+  type: 'LOCATION_CHECK' | 'EXPRESSION';
+  config: LocationCheckConfig | ExpressionConfig;
+}
+
+interface LocationCheckConfig {
+  location1: string;  // Data field path
+  location2: string;  // Data field path
+  maxDistanceMeters: number;
+}
+
+interface ExpressionConfig {
+  expression: string;  // JavaScript expression
+}
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| DecisionNodeEditor | `/src/views/workflows/nodes/DecisionNode/` | Decision node configuration |
+| SwitchEditor | `/src/views/workflows/nodes/DecisionNode/Switch/` | Condition configuration |
+| ExpressionBuilder | `/src/components/LowCode/ExpressionBuilder/` | Expression editor |
+
+### Event Tracking
+
+```typescript
+// Decision node events
+WorkflowEvents.DECISION_NODE_CREATED
+WorkflowEvents.DECISION_NODE_UPDATED
+WorkflowEvents.DECISION_SWITCH_ADDED
+TaskEvents.DECISION_EVALUATED
+```

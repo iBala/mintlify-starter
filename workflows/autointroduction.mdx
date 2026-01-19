@@ -38,3 +38,83 @@ To create an automation in ERPLite, follow these steps:
 
 Once you have created and configured your automation, save your changes and test your app to ensure that the automation is functioning as expected. By using ERPLite Automations, you can create more dynamic and interactive app experiences that respond to user inputs and external data, improving the overall usability and functionality of your app.
 
+---
+
+## Automation Flow
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   TRIGGER   │ --> │ VALIDATION  │ --> │   ACTION    │
+│             │     │ (Optional)  │     │   BLOCKS    │
+│ • Screen    │     │             │     │             │
+│ • Transition│     │ • Expression│     │ • Conditions│
+│ • On-Load   │     │ • REST API  │     │ • Actions   │
+│ • Task Event│     │ • Location  │     │             │
+└─────────────┘     └─────────────┘     └─────────────┘
+```
+
+---
+
+## For AI Agents
+
+### Automation Structure
+
+```typescript
+interface Automation {
+  automationId: string;
+  name: string;
+  description?: string;
+  isActive: boolean;
+  trigger: AutomationTrigger;
+  validation?: AutomationValidation;
+  actionBlocks: ActionBlock[];
+}
+
+interface AutomationTrigger {
+  type: 'SCREEN_TRANSITION' | 'SCREEN_ON_LOAD' | 'IN_SCREEN' | 'TASK_EVENT';
+  config: TriggerConfig;
+}
+
+interface ActionBlock {
+  blockId: string;
+  conditions: Condition[];
+  actions: Action[];
+}
+```
+
+### Trigger Types
+
+| Type | API Key | When Fired |
+|------|---------|------------|
+| Screen Transition | `SCREEN_TRANSITION` | User navigates between screens |
+| Screen On-Load | `SCREEN_ON_LOAD` | Screen is loaded |
+| In-Screen | `IN_SCREEN` | Component event (onChange, etc.) |
+| Task Event | `TASK_EVENT` | Task lifecycle events |
+
+### API: List Automations
+
+```bash
+GET /api/v1/workflows/:workflowId/automations
+Authorization: Bearer {token}
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| AutomationBuilder | `/src/views/automations/` | Main automation editor |
+| TriggerConfig | `/src/views/automations/Trigger/` | Trigger configuration |
+| ValidationConfig | `/src/views/automations/Validation/` | Validation setup |
+| ActionBlockEditor | `/src/views/automations/ActionBlock/` | Action block configuration |
+
+### Event Tracking
+
+```typescript
+// Automation events
+AutomationEvents.AUTOMATION_CREATED
+AutomationEvents.AUTOMATION_UPDATED
+AutomationEvents.AUTOMATION_DELETED
+AutomationEvents.AUTOMATION_EXECUTED
+AutomationEvents.AUTOMATION_FAILED
+```
+

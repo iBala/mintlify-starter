@@ -1,58 +1,242 @@
 ---
 title: "Low Code Scripting"
-description: "Access Control for Tables, Columns & Records"
+sidebarTitle: "Scripting"
+description: "Write JavaScript to manipulate data and create dynamic logic in your workflows."
 ---
 
-Low Code Scripting
-Programming using Javascript
-​
-For advanced users, ERPLite provides an ability to write JavaScript scripts to manipulate your data fields.
-Apart from vanilla JS, we also support the following libraries.
-Lodash ()
-Luxon()
+## Overview
 
-Where to use JS Scripts
-JS Snippets can be used when you want to manipulate the data before displaying or storing it. A few examples are given below.
+ERPLite provides a low-code scripting environment for advanced users to write JavaScript for data manipulation, calculations, and dynamic logic.
 
-Your data has First name and Last name, you want to display them in a single field:
+<CardGroup cols={2}>
+  <Card title="JavaScript" icon="js">
+    Write standard JavaScript code
+  </Card>
+  <Card title="Libraries Included" icon="cube">
+    Lodash and Luxon pre-loaded
+  </Card>
+  <Card title="Test Environment" icon="flask">
+    Test scripts with mock data
+  </Card>
+  <Card title="Data Access" icon="database">
+    Access all task and user data
+  </Card>
+</CardGroup>
+
+---
+
+## Supported Libraries
+
+| Library | Purpose | Documentation |
+|---------|---------|---------------|
+| **Lodash** | Utility functions for arrays, objects, strings | [lodash.com](https://lodash.com) |
+| **Luxon** | Date/time manipulation and formatting | [moment.github.io/luxon](https://moment.github.io/luxon) |
+
+---
+
+## Where to Use Scripts
+
+Scripts can be used anywhere you see the **JS icon** in ERPLite:
+
+- Component value bindings
+- Automation conditions
+- Validation expressions
+- Computed values
+- Action configurations
+
+---
+
+## Writing Scripts
+
+### Basic Syntax
+
+Scripts must return a value using the `return` statement:
+
+```javascript
+// Combine first and last name
 return task.data.first_name + " " + task.data.last_name
-Displaying the month from a specific date
-
-How to use JS Scripts?​
-You can write the JS scripts anywhere you find the JS icon.
-
-​Script Entry Point​
-
-Testing the Script​
-
-In order to test the script you have written, click on the run button below. The output should be displayed in the output box.
-
-Please note that the type of output should match the type of data field expected by the underlying UI component field. For eg., when we write an expression for a number field, the output of the data field should be a number.
-
-All the data fields in ERPLite will have mock data generated that can be used while testing.
-Click on Update Mock Data to set different values for the mock data. Update Mock Data​
-Some more examples​
-
-Getting the first element of a list
-
-```bash
-let words = ['sky', 'wood', 'forest', 'falcon', 'pear', 'ocean', 'universe'];return \_.first(words);
 ```
 
-Get the current datetime
+### Accessing Data
 
-```bash
-return `DateTime.now().toISO()`;
+```javascript
+// User data fields
+task.data.field_name
+
+// System data
+task.taskId
+task.status
+loggedInUser.name
+loggedInUser.role
 ```
 
-Get the current time in New York
+---
 
-```bash
-return `localTime  ${DateTime.local({ zone: 'America/New_York' })}`;
+## Testing Scripts
+
+<Steps>
+  <Step title="Open Script Editor">
+    Click the JS icon to open the script editor
+  </Step>
+  <Step title="Write Your Code">
+    Enter your JavaScript code
+  </Step>
+  <Step title="Update Mock Data">
+    Click **Update Mock Data** to set test values
+  </Step>
+  <Step title="Run Test">
+    Click the **Run** button to execute
+  </Step>
+  <Step title="Check Output">
+    Verify the result in the output box
+  </Step>
+</Steps>
+
+<Note>
+The output type must match what the component expects. A number field requires a number output.
+</Note>
+
+---
+
+## Examples
+
+### String Manipulation
+
+```javascript
+// Combine names
+return task.data.first_name + " " + task.data.last_name
+
+// Uppercase text
+return task.data.customer_name.toUpperCase()
+
+// Extract initials
+return task.data.first_name[0] + task.data.last_name[0]
 ```
 
-Format a given time in local format
+### Working with Arrays (Lodash)
 
-```bash
-return ` formatted ${DateTime.fromISO('2018-05-01T13:44:48.708709Z').toLocaleString()}`;
+```javascript
+// Get first element
+let words = ['sky', 'wood', 'forest'];
+return _.first(words);  // 'sky'
+
+// Get last element
+return _.last(words);  // 'forest'
+
+// Sum numbers
+let prices = [10, 20, 30];
+return _.sum(prices);  // 60
 ```
+
+### Date/Time (Luxon)
+
+```javascript
+// Current date/time in ISO format
+return DateTime.now().toISO()
+
+// Current time in specific timezone
+return DateTime.local({ zone: 'America/New_York' }).toString()
+
+// Format a date
+return DateTime.fromISO('2024-01-15T10:30:00Z').toLocaleString()
+
+// Add days to a date
+return DateTime.fromISO(task.data.start_date).plus({ days: 7 }).toISO()
+```
+
+### Calculations
+
+```javascript
+// Calculate total with tax
+const subtotal = task.data.quantity * task.data.unit_price;
+const tax = subtotal * 0.1;
+return subtotal + tax;
+
+// Calculate percentage
+return (task.data.completed / task.data.total) * 100;
+```
+
+### Conditional Logic
+
+```javascript
+// Return different values based on condition
+if (task.data.order_amount > 1000) {
+  return "Premium Order";
+} else {
+  return "Standard Order";
+}
+
+// Ternary operator
+return task.data.is_urgent ? "URGENT" : "Normal";
+```
+
+---
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Keep Scripts Simple">
+    Complex logic is harder to debug. Break into smaller pieces if needed.
+  </Accordion>
+
+  <Accordion title="Handle Null Values">
+    Always check if data exists before using it:
+    ```javascript
+    return task.data.name || "Unknown"
+    ```
+  </Accordion>
+
+  <Accordion title="Use Meaningful Variables">
+    Name variables clearly for better readability.
+  </Accordion>
+
+  <Accordion title="Test Edge Cases">
+    Test with empty values, nulls, and boundary conditions.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### Script Context Variables
+
+| Variable | Description |
+|----------|-------------|
+| `task` | Current task object |
+| `task.data` | User-defined data fields |
+| `task.taskId` | Task identifier |
+| `task.status` | Current task status |
+| `loggedInUser` | Current user object |
+| `loggedInUser.name` | User's name |
+| `loggedInUser.role` | User's role |
+| `loggedInUser.team` | User's team |
+| `_` | Lodash library |
+| `DateTime` | Luxon DateTime class |
+
+### Script Execution
+
+```typescript
+interface ScriptConfig {
+  script: string;
+  expectedOutputType: 'string' | 'number' | 'boolean' | 'object' | 'array';
+}
+
+// Scripts are executed in a sandboxed environment
+// Return value must match expected type
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| ScriptEditor | `/src/components/LowCode/ScriptEditor/` | Code editing |
+| MockDataEditor | `/src/components/LowCode/MockData/` | Test data configuration |
+| ScriptRunner | `/src/components/LowCode/Runner/` | Script execution |
+
+### Error Handling
+
+Scripts that throw errors will:
+1. Log the error to automation logs
+2. Return `undefined` or fail the action
+3. Display error message in test mode

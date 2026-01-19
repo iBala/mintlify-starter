@@ -1,22 +1,186 @@
 ---
 title: "Transitions"
-description: "Access Control for Tables, Columns & Records"
+sidebarTitle: "Transitions"
+description: "Connect workflow nodes and define navigation paths between screens."
 ---
 
-Transitions
-A transition is a connector that connects two nodes. 
-Transition on a workflow
-​
-Transitions serves primarily two purposes:
+## Overview
 
-Navigation between two screen nodes
-Automations 
+Transitions are the connectors between workflow nodes. They define how users move from one screen to another and can trigger automations during navigation.
 
-Collect User Location during Transition 
-Transitions also also be used to control whether you want the user location to be collected during screen navigation.  By default, this option is switched off.
+<CardGroup cols={2}>
+  <Card title="Navigation" icon="arrow-right">
+    Define paths between screens
+  </Card>
+  <Card title="Button Labels" icon="rectangle-ad">
+    Transition names become button text
+  </Card>
+  <Card title="Location Capture" icon="location-dot">
+    Optionally collect GPS during navigation
+  </Card>
+  <Card title="Automations" icon="bolt">
+    Trigger actions on transition
+  </Card>
+</CardGroup>
 
-Transition Name
+---
 
-Transition Name can be configured on the details screen. This name will be used on the ERPLite app as the label for the transition button 
+## What is a Transition?
 
-Good to know: Splitting your product into fundamental concepts, objects, or areas can be a great way to let readers deep dive into the concepts that matter most to them.
+A transition connects two nodes in your workflow. When a user taps the transition button on a screen, they move to the connected screen.
+
+```
+┌────────────┐                    ┌────────────┐
+│  Screen A  │ ──── NEXT ────────>│  Screen B  │
+└────────────┘    (transition)    └────────────┘
+```
+
+---
+
+## Transition Properties
+
+| Property | Description |
+|----------|-------------|
+| **Name** | Button label shown to users (e.g., "NEXT", "Submit", "Complete") |
+| **From Node** | Source screen node |
+| **To Node** | Destination screen node |
+| **Collect Location** | Whether to capture GPS coordinates during transition |
+| **Automations** | Actions to execute during the transition |
+
+---
+
+## Creating a Transition
+
+<Steps>
+  <Step title="Select Source Node">
+    In the workflow builder, click on the screen node you want to connect from
+  </Step>
+  <Step title="Drag Connection">
+    Right-click and drag from the blue connection point to another node
+  </Step>
+  <Step title="Release on Target">
+    Drop the connection on the target node's blue connection point
+  </Step>
+  <Step title="Configure">
+    Click on the transition line to configure its properties
+  </Step>
+</Steps>
+
+---
+
+## Transition Names
+
+The transition name appears as the button label on the mobile app. Choose clear, action-oriented names:
+
+| Good Names | Avoid |
+|------------|-------|
+| Submit | Next |
+| Complete Inspection | Continue |
+| Mark as Delivered | OK |
+| Take Photo | Proceed |
+
+<Note>
+New transitions are named "NEXT" by default. Always rename them to be descriptive.
+</Note>
+
+---
+
+## Location Collection
+
+Enable location collection to capture the user's GPS coordinates when they tap the transition button.
+
+**Use cases:**
+- Verify delivery location
+- Track field worker movements
+- Geo-stamp form submissions
+
+<Steps>
+  <Step title="Select Transition">
+    Click on the transition in the workflow builder
+  </Step>
+  <Step title="Enable Location">
+    Toggle **Collect User Location** to ON
+  </Step>
+  <Step title="Save">
+    The location will be captured automatically during navigation
+  </Step>
+</Steps>
+
+---
+
+## Multiple Transitions
+
+A screen can have multiple outgoing transitions, giving users choices:
+
+```
+                    ┌─── Approve ───> Approved Screen
+                    │
+┌────────────┐     │
+│  Review    │ ────┼─── Reject ────> Rejected Screen
+└────────────┘     │
+                    │
+                    └─── Hold ──────> On Hold Screen
+```
+
+Each transition appears as a separate button on the mobile app.
+
+---
+
+## Transition Automations
+
+Transitions can trigger automations when users navigate. See [Automation Types](/workflows/autotypes) for details on:
+
+- **Screen Transition Automations**: Run validations, call APIs, update data
+- Automations execute after the user taps but before the next screen loads
+
+---
+
+## For AI Agents
+
+### Transition Structure
+
+```typescript
+interface Transition {
+  transitionId: string;
+  name: string;
+  displayName: string;
+  fromNodeId: string;
+  toNodeId: string;
+  collectLocation: boolean;
+  automations: TransitionAutomation[];
+}
+
+interface TransitionAutomation {
+  automationId: string;
+  validation?: Validation;
+  actionBlocks: ActionBlock[];
+}
+```
+
+### API: Get Workflow Transitions
+
+```bash
+GET /api/v1/workflows/:workflowId
+Authorization: Bearer {token}
+```
+
+Response includes `transitions` array with all transition configurations.
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| TransitionEditor | `/src/views/workflows/TransitionEditor/` | Transition configuration |
+| TransitionLine | `/src/views/workflows/canvas/` | Visual transition connector |
+| AutomationPanel | `/src/views/workflows/automations/` | Transition automation config |
+
+### Event Tracking
+
+```typescript
+// Transition events
+WorkflowEvents.TRANSITION_CREATED
+WorkflowEvents.TRANSITION_UPDATED
+WorkflowEvents.TRANSITION_DELETED
+TaskEvents.TRANSITION_EXECUTED
+TaskEvents.TRANSITION_LOCATION_CAPTURED
+```

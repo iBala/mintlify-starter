@@ -1,5 +1,287 @@
 ---
-title: "Test your Workflow"
-description: "Test your workflow by running it and checking the results."
+title: "Testing Workflows"
+sidebarTitle: "Testing"
+description: "Test your workflow before publishing to ensure it works correctly."
 ---
 
+## Overview
+
+Before publishing a workflow to production, you should test it thoroughly to ensure all screens, transitions, automations, and data fields work as expected. ERPLite provides a test mode that simulates real task execution.
+
+<CardGroup cols={2}>
+  <Card title="Safe Environment" icon="flask">
+    Test without affecting production data
+  </Card>
+  <Card title="Real Simulation" icon="mobile">
+    Experience the workflow as users will
+  </Card>
+  <Card title="Debug Mode" icon="bug">
+    See automation logs and error details
+  </Card>
+  <Card title="Quick Iteration" icon="rotate">
+    Make changes and re-test immediately
+  </Card>
+</CardGroup>
+
+---
+
+## Starting Test Mode
+
+<Steps>
+  <Step title="Open Your Workflow">
+    Navigate to the workflow you want to test in the workflow builder
+  </Step>
+  <Step title="Click Test">
+    Click the **Test** button in the top toolbar
+  </Step>
+  <Step title="Configure Test Data">
+    Fill in any create-time data fields if required
+  </Step>
+  <Step title="Start Test">
+    Click **Start Test** to begin the simulation
+  </Step>
+</Steps>
+
+---
+
+## Test Mode Features
+
+### Mobile Preview
+
+The test mode shows a mobile device preview where you can:
+
+- Navigate through screens
+- Fill in form fields
+- Tap transition buttons
+- See how the UI looks on mobile
+
+### Data Field Inspector
+
+View and modify data field values during testing:
+
+| Feature | Description |
+|---------|-------------|
+| **Current Values** | See all data field values at any point |
+| **Edit Values** | Manually change values to test edge cases |
+| **Reset** | Reset all values to start fresh |
+
+### Automation Logs
+
+See detailed logs of automation execution:
+
+- Which automations triggered
+- Condition evaluation results
+- API call requests and responses
+- Error messages and stack traces
+
+---
+
+## What to Test
+
+### Screen Navigation
+
+<Accordion title="Checklist">
+- [ ] All transitions navigate to the correct screens
+- [ ] Back navigation works as expected
+- [ ] Decision nodes route correctly based on conditions
+- [ ] Terminal steps properly complete the task
+</Accordion>
+
+### Data Collection
+
+<Accordion title="Checklist">
+- [ ] Required fields show validation errors when empty
+- [ ] Data types are enforced (numbers, dates, etc.)
+- [ ] Data persists when navigating between screens
+- [ ] Images and files upload correctly
+</Accordion>
+
+### Automations
+
+<Accordion title="Checklist">
+- [ ] Screen on-load automations execute
+- [ ] Transition automations trigger at the right time
+- [ ] API calls succeed with valid responses
+- [ ] Error handling works when APIs fail
+- [ ] Validations block transitions when conditions aren't met
+</Accordion>
+
+### UI Components
+
+<Accordion title="Checklist">
+- [ ] All components render correctly
+- [ ] Conditional visibility works (show/hide)
+- [ ] Dropdowns and lists have correct options
+- [ ] Read-only fields display data properly
+</Accordion>
+
+---
+
+## Testing Edge Cases
+
+### Test with Different Data
+
+Try your workflow with various data scenarios:
+
+| Scenario | Purpose |
+|----------|---------|
+| Empty values | Test required field validation |
+| Boundary values | Test min/max limits |
+| Special characters | Test text handling |
+| Large files | Test upload limits |
+
+### Test Decision Paths
+
+For workflows with decision nodes, test every possible path:
+
+1. Identify all decision nodes
+2. Determine all possible outcomes
+3. Create test cases for each outcome
+4. Verify correct routing in each case
+
+### Test Error Scenarios
+
+Intentionally trigger errors to verify handling:
+
+- Disconnect network to test offline behavior
+- Use invalid API endpoints
+- Enter invalid data formats
+- Test with expired tokens
+
+---
+
+## Common Issues and Solutions
+
+<AccordionGroup>
+  <Accordion title="Automation Not Triggering">
+    - Verify the trigger event is correct
+    - Check condition expressions for errors
+    - Look for JavaScript syntax errors in scripts
+    - Ensure data fields referenced exist
+  </Accordion>
+
+  <Accordion title="API Calls Failing">
+    - Verify the endpoint URL is correct
+    - Check authentication headers
+    - Validate request body format
+    - Look for CORS issues in browser console
+  </Accordion>
+
+  <Accordion title="Data Not Persisting">
+    - Ensure components are bound to data fields
+    - Check that data field types match component types
+    - Verify "Save Data to" field is configured
+  </Accordion>
+
+  <Accordion title="Decision Node Wrong Path">
+    - Review condition logic
+    - Check data field values before the decision
+    - Test condition expressions in isolation
+    - Verify fallback/default paths
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Test Reports
+
+After testing, you can view a summary:
+
+| Metric | Description |
+|--------|-------------|
+| **Screens Visited** | Number of screens navigated |
+| **Automations Run** | Count of automations executed |
+| **Errors** | Any errors encountered |
+| **Time Taken** | Duration of test session |
+
+---
+
+## From Test to Production
+
+Once testing is complete:
+
+<Steps>
+  <Step title="Review Results">
+    Ensure all test cases passed
+  </Step>
+  <Step title="Fix Issues">
+    Address any bugs or issues found
+  </Step>
+  <Step title="Re-test">
+    Test again after making changes
+  </Step>
+  <Step title="Publish">
+    When satisfied, publish the workflow (see [Publishing](/workflows/publishing))
+  </Step>
+</Steps>
+
+---
+
+## For AI Agents
+
+### Test Mode API
+
+```bash
+POST /api/v1/workflows/:workflowId/test
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "initialData": {
+    "customer_name": "Test Customer",
+    "order_amount": 100
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "testSessionId": "test_abc123",
+  "currentNode": "node_start",
+  "dataFields": {...},
+  "availableTransitions": ["NEXT"]
+}
+```
+
+### Execute Test Transition
+
+```bash
+POST /api/v1/workflows/test/:testSessionId/transition
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "transitionName": "NEXT",
+  "data": {
+    "field_1": "value_1"
+  }
+}
+```
+
+### Get Test Logs
+
+```bash
+GET /api/v1/workflows/test/:testSessionId/logs
+Authorization: Bearer {token}
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| TestMode | `/src/views/workflows/test/` | Test mode container |
+| MobilePreview | `/src/views/workflows/test/MobilePreview/` | Device simulator |
+| DataInspector | `/src/views/workflows/test/DataInspector/` | Data field viewer |
+| AutomationLogs | `/src/views/workflows/test/AutomationLogs/` | Execution logs |
+
+### Event Tracking
+
+```typescript
+// Test mode events
+WorkflowEvents.TEST_STARTED
+WorkflowEvents.TEST_TRANSITION_EXECUTED
+WorkflowEvents.TEST_AUTOMATION_EXECUTED
+WorkflowEvents.TEST_ERROR
+WorkflowEvents.TEST_COMPLETED
+```

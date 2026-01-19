@@ -14,3 +14,88 @@ These automations can be used to validate user inputs, fetch or update data from
 **Task Event Automation:** Task Event Automations are used to trigger actions or integrations with external systems when certain events occur at the task level. These events can include task assignment or unassignment, task creation or deletion, task updates, or changes to a task's scheduled slot. Task Event Automations can help streamline workflows and keep your internal systems updated with the latest task information.
 
 These different types of automations, when combined, provide a powerful toolkit for creating highly interactive and dynamic apps in ERPLite. By leveraging these automations, you can build sophisticated app experiences that integrate seamlessly with your existing systems and databases, providing an intuitive and efficient solution for your users.
+
+---
+
+## Automation Type Comparison
+
+| Type | Trigger | Use Cases |
+|------|---------|-----------|
+| **Screen Transition** | User taps transition button | Validation, API sync, notifications |
+| **Screen On-Load** | Screen becomes visible | Fetch data, set visibility, initialize |
+| **In-Screen** | Component event | Dynamic updates, cascading dropdowns |
+| **Task Event** | Task lifecycle | Notifications, external sync, cleanup |
+
+---
+
+## Accessing Automation Configuration
+
+<Steps>
+  <Step title="Screen Transition">
+    Click on the transition line in workflow builder → Automations tab
+  </Step>
+  <Step title="Screen On-Load">
+    Click on screen node → On-Load Automations in properties
+  </Step>
+  <Step title="In-Screen">
+    Click on component → Events tab → Add automation
+  </Step>
+  <Step title="Task Event">
+    Workflow settings → Task Event Automations
+  </Step>
+</Steps>
+
+---
+
+## For AI Agents
+
+### Automation Types
+
+```typescript
+type AutomationType =
+  | 'SCREEN_TRANSITION'
+  | 'SCREEN_ON_LOAD'
+  | 'IN_SCREEN'
+  | 'TASK_EVENT';
+
+interface ScreenTransitionTrigger {
+  type: 'SCREEN_TRANSITION';
+  transitionId: string;
+}
+
+interface ScreenOnLoadTrigger {
+  type: 'SCREEN_ON_LOAD';
+  screenNodeId: string;
+}
+
+interface InScreenTrigger {
+  type: 'IN_SCREEN';
+  componentId: string;
+  event: 'ON_CHANGE' | 'ON_IMAGE_ADD' | 'ON_IMAGE_DELETE' | 'ON_FOCUS' | 'ON_BLUR';
+}
+
+interface TaskEventTrigger {
+  type: 'TASK_EVENT';
+  event: 'CREATED' | 'ASSIGNED' | 'UNASSIGNED' | 'UPDATED' | 'DELETED' | 'SLOT_CHANGED';
+}
+```
+
+### Component Events
+
+| Component | Available Events |
+|-----------|-----------------|
+| Text Input | ON_CHANGE, ON_FOCUS, ON_BLUR |
+| Dropdown | ON_CHANGE |
+| Radio | ON_CHANGE |
+| Checkbox | ON_CHANGE |
+| Camera | ON_IMAGE_ADD, ON_IMAGE_DELETE |
+| File Upload | ON_FILE_ADD, ON_FILE_DELETE |
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| TransitionAutomation | `/src/views/workflows/transitions/Automation/` | Transition automation editor |
+| OnLoadAutomation | `/src/views/workflows/nodes/ScreenNode/OnLoad/` | On-load automation editor |
+| ComponentAutomation | `/src/views/appBuilder/ComponentConfig/Events/` | In-screen automation |
+| TaskEventAutomation | `/src/views/workflows/settings/TaskEvents/` | Task event automation |

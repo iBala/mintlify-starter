@@ -73,6 +73,100 @@ Example : Only go to Screen B from Screen A, if the user belongs to a particular
 In ERPLite we can define actions to be executed after a particular transition. We can configure three actions to perform after a transition.
 
 We can use the system data fields in any actions.
-Example : Send Push Notification Message to the user along with task ID.
+Example: Send Push Notification Message to the user along with task ID.
 
+---
 
+## For AI Agents
+
+### User Data Field Structure
+
+```typescript
+interface UserDataField {
+  fieldId: string;
+  name: string;
+  displayName: string;
+  type: DataFieldType;
+  defaultValue?: any;
+  isCreateTimeField: boolean;
+  isMandatory: boolean;
+  isHidden: boolean;
+}
+
+type DataFieldType =
+  | 'TEXT'
+  | 'NUMBER'
+  | 'BOOLEAN'
+  | 'DATE'
+  | 'LIST_OF_TEXT'
+  | 'IMAGE'
+  | 'SIGNATURE'
+  | 'FILE'
+  | 'LOCATION'
+  | 'LIST';
+```
+
+### API: Create Data Field
+
+```bash
+POST /api/v1/workflows/:workflowId/datafields
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "name": "customer_name",
+  "displayName": "Customer Name",
+  "type": "TEXT",
+  "isCreateTimeField": true,
+  "isMandatory": true
+}
+```
+
+### API: Update Task Data
+
+```bash
+PATCH /api/v1/tasks/:taskId
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "data": {
+    "customer_name": "John Doe",
+    "order_amount": 150,
+    "is_verified": true
+  }
+}
+```
+
+### Accessing User Data
+
+```javascript
+// In scripts and expressions
+task.data.customer_name
+task.data.order_amount
+task.data.delivery_location.address
+task.data.delivery_location.latitude
+
+// In templates
+"Hello {{task.data.customer_name}}"
+```
+
+### Data Type Constraints
+
+| Type | JS Type | Example |
+|------|---------|---------|
+| TEXT | string | "Hello World" |
+| NUMBER | number | 42.5 |
+| BOOLEAN | boolean | true |
+| DATE | string (ISO) | "2024-01-15T10:30:00Z" |
+| LIST_OF_TEXT | string[] | ["a", "b", "c"] |
+| IMAGE | string[] | ["/uploads/img1.jpg"] |
+| LOCATION | object | {address, lat, lng} |
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| DataFieldCreator | `/src/views/workflows/datafields/Create/` | New field dialog |
+| DataFieldList | `/src/views/workflows/datafields/List/` | Field listing |
+| DataFieldPicker | `/src/components/DataFieldPicker/` | Field selection |
