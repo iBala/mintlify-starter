@@ -1,23 +1,285 @@
 ---
 title: "Column Permissions"
-description: "Control who can view and edit a specific column of a Table."
+sidebarTitle: "Column Permissions"
+description: "Control who can view and edit specific columns within a table for granular data security."
 ---
 
-## What are Column Permissions?
+## Overview
 
-ERPLite allows you to set column permissions to control who can view and edit a specific column under a Table. This is useful when you want to restrict access to sensitive information or when you want to ensure that only certain people can edit a specific column.
+Column permissions allow you to restrict access to specific columns within a table. This is useful for hiding sensitive information (like salaries, personal data, or internal notes) from users who don't need to see it.
+
+<Note>
+Column permissions work in addition to table permissions. A user must have table access AND column permission to see/edit a column.
+</Note>
+
+---
+
+## How Column Permissions Work
+
+By default, all columns are visible to anyone with table access. When you set column permissions:
+
+- Only specified users/teams/roles can **view** the column
+- Only specified users/teams/roles can **edit** the column
+- Others see the column header but cannot see or modify values
+
+---
 
 ## Setting Column Permissions
 
-![Permissions Entry](/images/columnpermissions.png)
+<Steps>
+  <Step title="Open Column Menu">
+    Click the dropdown arrow on the column header
+  </Step>
+  <Step title="Select Column Permissions">
+    Click **Column Permissions** from the menu
+  </Step>
+  <Step title="Configure View Access">
+    Under **Who can view**, add:
+    - Specific users
+    - Teams
+    - Roles
+  </Step>
+  <Step title="Configure Edit Access">
+    Under **Who can edit**, add:
+    - Specific users
+    - Teams
+    - Roles
+  </Step>
+  <Step title="Save">
+    Click **Save** to apply the permissions
+  </Step>
+</Steps>
 
-Follow these steps to fix who can view and edit a specific column under a Table -
+---
 
-1. Go to `Column actions`
-2. Select `Column Permissions` from the menu
-3. Specify who can `view` and `edit` based on roles, teams or user names
-4. Hit `Save`
+## Permission Levels
 
-![Permissions Entry](/images/columnmodal.png)
+### View Permission
+Controls who can see the column values.
 
-PS - If you haven’t configured column permissions, by default everyone on your team has access to view and edit.
+- Users **with** view permission: See full column data
+- Users **without** view permission: Column is hidden or shows placeholder
+
+### Edit Permission
+Controls who can modify the column values.
+
+- Users **with** edit permission: Can modify values in edit/create forms
+- Users **without** edit permission: Field is read-only or hidden
+
+<Note>
+Edit permission requires view permission. You cannot edit what you cannot see.
+</Note>
+
+---
+
+## Default Behavior
+
+| Scenario | Behavior |
+|----------|----------|
+| No permissions set | Everyone with table access can view and edit |
+| Only view permissions set | Specified users can view; editing follows table permissions |
+| Only edit permissions set | Everyone can view; only specified users can edit |
+| Both permissions set | Full control over both viewing and editing |
+
+---
+
+## Use Cases
+
+<AccordionGroup>
+  <Accordion title="Salary/Compensation Data">
+    Restrict salary columns to HR and management:
+    - **View**: HR Team, Manager Role
+    - **Edit**: HR Team only
+  </Accordion>
+
+  <Accordion title="Personal Contact Information">
+    Limit access to personal data:
+    - **View**: Direct managers, HR
+    - **Edit**: HR only
+  </Accordion>
+
+  <Accordion title="Internal Notes">
+    Hide internal comments from external viewers:
+    - **View**: Internal team only
+    - **Edit**: Internal team only
+  </Accordion>
+
+  <Accordion title="Pricing Information">
+    Control who sees pricing:
+    - **View**: Sales team, Finance team
+    - **Edit**: Finance team only
+  </Accordion>
+
+  <Accordion title="Approval Fields">
+    Restrict approval status changes:
+    - **View**: Everyone
+    - **Edit**: Approvers role only
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Use Roles Over Users" icon="user-shield">
+    Set permissions by role for easier management when team members change
+  </Card>
+  <Card title="Document Restrictions" icon="file-lines">
+    Add column descriptions explaining why access is restricted
+  </Card>
+  <Card title="Test Thoroughly" icon="vial">
+    Verify permissions by logging in as different user types
+  </Card>
+  <Card title="Review Regularly" icon="calendar-check">
+    Audit column permissions periodically to ensure they're still appropriate
+  </Card>
+</CardGroup>
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="User can't see a column they should see">
+    1. Verify the user has table-level view permission
+    2. Check if column permissions are set
+    3. Confirm the user is in the correct team/role
+    4. Check if the column is hidden in the current view
+  </Accordion>
+
+  <Accordion title="User can see but not edit a column">
+    1. Check column edit permissions
+    2. Verify user has table-level edit permission
+    3. Confirm the user is in the authorized team/role
+  </Accordion>
+
+  <Accordion title="Permissions not applying">
+    1. Clear browser cache
+    2. Refresh the page
+    3. Log out and log back in
+    4. Verify permissions were saved successfully
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### UI Navigation
+
+Column permissions are accessed via:
+1. Column header dropdown menu
+2. Select "Column Permissions"
+3. Modal opens with view/edit permission configuration
+
+### Component Reference
+
+```typescript
+// Column permissions modal component
+Component: ColumnPermissions.tsx
+Location: /src/views/entities/permissions/ColumnPermissions.tsx
+
+// Modal sections:
+// - "Who can view" - User/Team/Role selector
+// - "Who can edit" - User/Team/Role selector
+```
+
+### Permission Structure in Column Definition
+
+```typescript
+interface ColumnDefinition {
+  name: string;
+  displayName: string;
+  type: string;
+  permissions?: {
+    view: {
+      userIds: string[];
+      teamIds: string[];
+      roleIds: string[];
+    };
+    edit: {
+      userIds: string[];
+      teamIds: string[];
+      roleIds: string[];
+    };
+  };
+}
+```
+
+### Setting Permissions via API
+
+Column permissions are updated through the table metadata API:
+
+```bash
+POST /zorp-tables-service/table/update
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "columns": [
+    {
+      "name": "salary",
+      "displayName": "Salary",
+      "type": "NUMBER",
+      "permissions": {
+        "view": {
+          "userIds": [],
+          "teamIds": ["hr_team"],
+          "roleIds": ["manager"]
+        },
+        "edit": {
+          "userIds": [],
+          "teamIds": ["hr_team"],
+          "roleIds": []
+        }
+      }
+    }
+  ]
+}
+```
+
+### Checking Column Access
+
+When rendering table data, check column permissions:
+
+```javascript
+// Check if user can view column
+function canViewColumn(column, currentUser) {
+  if (!column.permissions?.view) return true; // No restrictions
+
+  const { userIds, teamIds, roleIds } = column.permissions.view;
+
+  return (
+    userIds.includes(currentUser.id) ||
+    teamIds.some(t => currentUser.teamIds.includes(t)) ||
+    roleIds.some(r => currentUser.roleIds.includes(r))
+  );
+}
+
+// Check if user can edit column
+function canEditColumn(column, currentUser) {
+  if (!column.permissions?.edit) return true; // No restrictions
+
+  const { userIds, teamIds, roleIds } = column.permissions.edit;
+
+  return (
+    userIds.includes(currentUser.id) ||
+    teamIds.some(t => currentUser.teamIds.includes(t)) ||
+    roleIds.some(r => currentUser.roleIds.includes(r))
+  );
+}
+```
+
+### UI Elements
+
+| Element | Selector | Purpose |
+|---------|----------|---------|
+| Column Header Menu | Column header dropdown | Access column options |
+| Column Permissions | Menu item | Opens permissions modal |
+| View Permissions | Modal section | Configure view access |
+| Edit Permissions | Modal section | Configure edit access |
+| User Selector | Search input | Add specific users |
+| Team Selector | Dropdown | Select teams |
+| Role Selector | Dropdown | Select roles |

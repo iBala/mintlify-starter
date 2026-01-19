@@ -1,0 +1,419 @@
+---
+title: "Column Types"
+sidebarTitle: "Columns"
+description: "Learn about all available column types in ERPLite Tables and how to configure them."
+---
+
+## Overview
+
+Columns define the structure of your table data. ERPLite supports 15+ column types to handle various data needs - from simple text to complex relations between tables.
+
+## Creating a Column
+
+<Steps>
+  <Step title="Open Column Creator">
+    Click the **+ Add Column** button in the table toolbar, or click **+** in the column header area
+  </Step>
+  <Step title="Enter Column Name">
+    Provide a display name for your column
+  </Step>
+  <Step title="Select Column Type">
+    Choose from the available column types below
+  </Step>
+  <Step title="Configure Properties">
+    Set type-specific properties (required, default value, etc.)
+  </Step>
+  <Step title="Save">
+    Click **Create** to add the column to your table
+  </Step>
+</Steps>
+
+## Column Types Reference
+
+### Text
+Single or multi-line text input for names, descriptions, notes, etc.
+
+| Property | Description |
+|----------|-------------|
+| **Default Value** | Pre-filled text for new records |
+| **Required** | Whether the field must have a value |
+| **Unique** | Enforce unique values across records |
+
+**Use Cases:** Names, descriptions, addresses, notes
+
+---
+
+### Number
+Numeric values - integers or decimals.
+
+| Property | Description |
+|----------|-------------|
+| **Default Value** | Pre-filled number for new records |
+| **Required** | Whether the field must have a value |
+| **Decimal Places** | Number of decimal places to display |
+
+**Use Cases:** Quantities, prices, measurements, scores
+
+---
+
+### Boolean
+True/false toggle values.
+
+| Property | Description |
+|----------|-------------|
+| **Default Value** | Default state (true/false) |
+
+**Use Cases:** Status flags, yes/no questions, feature toggles
+
+---
+
+### Date
+Date-only values (no time component).
+
+| Property | Description |
+|----------|-------------|
+| **Default Value** | Default date for new records |
+| **Required** | Whether the field must have a value |
+
+**Use Cases:** Due dates, birthdays, scheduled dates
+
+---
+
+### Date & Time
+Full timestamp with date and time.
+
+| Property | Description |
+|----------|-------------|
+| **Default Value** | Default timestamp |
+| **Required** | Whether the field must have a value |
+
+**Use Cases:** Appointment times, event timestamps, deadlines with time
+
+---
+
+### Time
+Time-only values (no date component).
+
+| Property | Description |
+|----------|-------------|
+| **Default Value** | Default time |
+
+**Use Cases:** Shift start times, daily schedules
+
+---
+
+### Location
+GPS coordinates with address support.
+
+| Property | Description |
+|----------|-------------|
+| **Address** | Enable address input |
+| **Latitude/Longitude** | Enable coordinate input |
+| **Required** | Whether the field must have a value |
+
+**Use Cases:** Delivery addresses, site locations, geofencing
+
+**Data Structure:**
+```json
+{
+  "address": "123 Main St, City, Country",
+  "latitude": 37.7749,
+  "longitude": -122.4194
+}
+```
+
+---
+
+### Choice (Single Select)
+Dropdown with predefined options - user selects one.
+
+| Property | Description |
+|----------|-------------|
+| **Options** | List of available choices |
+| **Default Value** | Pre-selected option |
+| **Required** | Whether a selection is required |
+
+**Use Cases:** Status, category, priority, type
+
+---
+
+### Multi-Select
+Multiple choice selection from predefined options.
+
+| Property | Description |
+|----------|-------------|
+| **Options** | List of available choices |
+| **Default Values** | Pre-selected options |
+
+**Use Cases:** Tags, labels, features, skills
+
+---
+
+### File
+File attachment upload.
+
+| Property | Description |
+|----------|-------------|
+| **Allowed Types** | Restrict file extensions |
+| **Max Size** | Maximum file size |
+| **Multiple** | Allow multiple files |
+
+**Use Cases:** Documents, PDFs, spreadsheets
+
+---
+
+### Image
+Image file upload with preview.
+
+| Property | Description |
+|----------|-------------|
+| **Max Size** | Maximum image size |
+| **Multiple** | Allow multiple images |
+
+**Use Cases:** Photos, product images, profile pictures
+
+---
+
+### Signature
+Digital signature capture.
+
+| Property | Description |
+|----------|-------------|
+| **Required** | Whether signature is required |
+
+**Use Cases:** Approvals, delivery confirmations, consent forms
+
+---
+
+### Relation
+Link to records in another table.
+
+| Property | Description |
+|----------|-------------|
+| **Target Table** | The table to link to |
+| **Cardinality** | ONE (single link) or MANY (multiple links) |
+| **Display Column** | Which column to show from linked records |
+| **Create Back-Reference** | Create reverse relation in target table |
+
+**Use Cases:** Customer orders, employee departments, task assignments
+
+**Cardinality Options:**
+- **ONE**: Each record links to at most one record in the target table
+- **MANY**: Each record can link to multiple records in the target table
+
+---
+
+### User
+Reference to a user in your organization.
+
+| Property | Description |
+|----------|-------------|
+| **Required** | Whether assignment is required |
+| **Multiple** | Allow multiple users |
+
+**Use Cases:** Assignee, owner, reviewer, approver
+
+---
+
+### Team
+Reference to a team in your organization.
+
+| Property | Description |
+|----------|-------------|
+| **Required** | Whether assignment is required |
+| **Multiple** | Allow multiple teams |
+
+**Use Cases:** Department assignment, team ownership
+
+---
+
+### Computed
+Calculated field using JavaScript expressions.
+
+| Property | Description |
+|----------|-------------|
+| **Formula** | JavaScript expression for calculation |
+| **Dependencies** | Fields used in the calculation |
+
+**Use Cases:** Calculated totals, concatenated values, conditional text
+
+**Example Formula:**
+```javascript
+// Calculate total price
+data.quantity * data.unitPrice
+
+// Concatenate name
+data.firstName + ' ' + data.lastName
+
+// Conditional status
+data.amount > 1000 ? 'High Value' : 'Standard'
+```
+
+---
+
+### Button
+Action button that triggers automations.
+
+| Property | Description |
+|----------|-------------|
+| **Label** | Button text |
+| **Action Type** | RUN_AUTOMATION or OPEN_URL |
+| **Automation** | Automation to run (if applicable) |
+| **URL** | URL to open (if applicable) |
+
+**Use Cases:** Approve buttons, send notification, open external system
+
+---
+
+### List of Text
+Array of text values.
+
+| Property | Description |
+|----------|-------------|
+| **Required** | Whether at least one value is required |
+
+**Use Cases:** Multiple phone numbers, alternate emails, tags
+
+---
+
+### Comment
+Discussion thread on a record.
+
+| Property | Description |
+|----------|-------------|
+| **Enabled** | Show comments section |
+
+**Use Cases:** Record discussions, audit trail, collaboration
+
+---
+
+## Column Settings
+
+### Display Column
+Mark one column as the "display column" - this value represents the record in dropdowns and relation fields.
+
+### Required Field
+Marking a field as required ensures every record must have a value for this field.
+
+### Unique Constraint
+Enforce that all values in this column must be unique across the table.
+
+### Column Description
+Add a description to help users understand what data should be entered.
+
+---
+
+## For AI Agents
+
+### Column Type Constants
+```typescript
+enum DataFieldType {
+  TEXT = 'TEXT'
+  NUMBER = 'NUMBER'
+  BOOLEAN = 'BOOLEAN'
+  DATE = 'DATE'
+  DATE_TIME = 'DATE_TIME'
+  ONLY_DATE = 'ONLY_DATE'
+  TIME = 'TIME'
+  LOCATION = 'LOCATION'
+  IMAGE = 'IMAGE'
+  FILE = 'FILE'
+  SIGNATURE = 'SIGNATURE'
+  LIST = 'LIST'           // Choice/Select
+  LIST_OF_TEXT = 'LIST_OF_TEXT'
+  RELATION = 'RELATION'
+  COMPUTED = 'COMPUTED'
+  COMMENT = 'COMMENT'
+  URL = 'URL'
+  LINKS = 'LINKS'
+}
+
+enum EntityTypeField {
+  BUTTON = 'BUTTON'
+  USER = 'USER'
+  TEAM = 'TEAM'
+}
+```
+
+### API: Add Column to Table
+```bash
+POST /zorp-tables-service/table/update
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "columns": [
+    {
+      "name": "customer_name",
+      "displayName": "Customer Name",
+      "type": "TEXT",
+      "isRequired": true,
+      "otherDetails": {
+        "isDisplayColumn": true
+      }
+    },
+    {
+      "name": "order_amount",
+      "displayName": "Order Amount",
+      "type": "NUMBER",
+      "isRequired": false
+    },
+    {
+      "name": "status",
+      "displayName": "Status",
+      "type": "LIST",
+      "properties": {
+        "options": ["Pending", "Approved", "Rejected"]
+      }
+    }
+  ]
+}
+```
+
+### API: Get Column Definitions
+```bash
+GET /zorp-tables-service/table/:tableType/metadata
+```
+
+**Response includes column definitions:**
+```json
+{
+  "columns": [
+    {
+      "name": "customer_name",
+      "displayName": "Customer Name",
+      "type": "TEXT",
+      "isRequired": true,
+      "isDeleted": false,
+      "otherDetails": {
+        "isDisplayColumn": true
+      }
+    }
+  ]
+}
+```
+
+### Relation Column Configuration
+```json
+{
+  "name": "customer",
+  "displayName": "Customer",
+  "type": "RELATION",
+  "relationDetails": {
+    "cardinality": "ONE",
+    "referringEntity": "customers",
+    "referringEntityType": "CUSTOM",
+    "createReferenceColumnInTarget": true
+  }
+}
+```
+
+### UI Elements
+
+| Element | Component | Purpose |
+|---------|-----------|---------|
+| Add Column Button | `CustomToolbar` | Opens column creation modal |
+| Column Type Selector | `ColumnCreation.tsx` | Grid of type icons |
+| Column Properties | `ColumnProps.tsx` | Type-specific configuration |
+| Column Header Menu | `renderColumnActionsMenuItems` | Column actions dropdown |

@@ -1,0 +1,285 @@
+---
+title: "Import & Export"
+sidebarTitle: "Import & Export"
+description: "Import data from CSV files and export your table data for reporting or backup."
+---
+
+## Overview
+
+ERPLite supports bulk data operations through CSV import and export, making it easy to migrate data, perform bulk updates, or create backups.
+
+---
+
+## Importing Data
+
+Import records from a CSV file into your table.
+
+### Getting the Template
+
+Before importing, download the CSV template to ensure your data matches the table structure.
+
+<Steps>
+  <Step title="Open Import Menu">
+    Click the **More Options** menu (three dots) in the table toolbar
+  </Step>
+  <Step title="Download Template">
+    Click **Download Template** to get a CSV file with column headers matching your table
+  </Step>
+  <Step title="Fill in Data">
+    Open the template in Excel/Google Sheets and add your data
+  </Step>
+</Steps>
+
+### Template Structure
+
+The template includes headers for each column in your table:
+
+```csv
+name,email,phone,status,created_date
+John Doe,john@example.com,555-0100,Active,2024-01-15
+Jane Smith,jane@example.com,555-0101,Pending,2024-01-16
+```
+
+<Note>
+Column headers must match exactly. Use the downloaded template to ensure compatibility.
+</Note>
+
+### Importing the File
+
+<Steps>
+  <Step title="Open Import">
+    Click the **More Options** menu and select **Import**
+  </Step>
+  <Step title="Select File">
+    Click **Select File** and choose your CSV file
+  </Step>
+  <Step title="Select Header Row">
+    Specify which row contains your column headers (usually row 1)
+  </Step>
+  <Step title="Map Columns">
+    Map CSV columns to table columns. The system auto-maps matching names.
+  </Step>
+  <Step title="Validate Data">
+    Review any validation errors:
+    - **Red rows**: Data doesn't match column type
+    - Fix errors or click **Discard Selected Rows** to skip them
+  </Step>
+  <Step title="Complete Import">
+    Click **Confirm** to import the validated records
+  </Step>
+</Steps>
+
+### Data Type Handling
+
+The import process automatically converts data types:
+
+| Column Type | Expected Format | Example |
+|-------------|-----------------|---------|
+| Text | Plain text | `John Doe` |
+| Number | Numeric value | `123.45` |
+| Boolean | true/false, yes/no, 1/0 | `true` |
+| Date | YYYY-MM-DD | `2024-01-15` |
+| DateTime | ISO 8601 | `2024-01-15T10:30:00` |
+| Location | `address, lat, long` | `123 Main St, 37.77, -122.41` |
+| Choice | Exact option text | `Pending` |
+| Multi-Select | Comma-separated | `Tag1, Tag2, Tag3` |
+| List of Text | Comma-separated | `item1, item2, item3` |
+
+### Import Tips
+
+<AccordionGroup>
+  <Accordion title="Handling Date Formats">
+    Dates should be in `YYYY-MM-DD` format. Other formats may cause validation errors.
+  </Accordion>
+
+  <Accordion title="Location Fields">
+    For location fields, provide address, latitude, and longitude separated by commas:
+    `123 Main St, 37.7749, -122.4194`
+  </Accordion>
+
+  <Accordion title="Choice Fields">
+    Values must exactly match one of the defined options (case-sensitive).
+  </Accordion>
+
+  <Accordion title="Relation Fields">
+    For relation fields, use the record ID or display column value of the target record.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Exporting Data
+
+Export your table data to CSV for reporting, backup, or analysis.
+
+<Steps>
+  <Step title="Apply Filters (Optional)">
+    Use filters to export only specific records
+  </Step>
+  <Step title="Open Export">
+    Click the **More Options** menu and select **Export**
+  </Step>
+  <Step title="Download File">
+    The CSV file downloads automatically
+  </Step>
+</Steps>
+
+### Export Limits
+
+<Warning>
+Exports are limited to **1,000 records** at a time. For larger datasets:
+1. Apply filters to narrow down the data
+2. Export in batches
+3. Or use the API for programmatic export without limits
+</Warning>
+
+### Exporting with Filters
+
+To export a subset of your data:
+
+1. Apply filters to show only the records you want
+2. The export will only include visible (filtered) records
+3. This also helps when you have more than 1,000 records
+
+### Export Format
+
+Exported CSV files include:
+- All visible columns (hidden columns are excluded)
+- Current filter state applied
+- All data types converted to text representation
+
+---
+
+## For AI Agents
+
+### API: Bulk Import Records
+
+```bash
+POST /zorp-tables-service/table/records
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "records": [
+    {
+      "data": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "status": "Active"
+      }
+    },
+    {
+      "data": {
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "status": "Pending"
+      }
+    }
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "code": "200",
+  "message": "2 records created successfully",
+  "data": {
+    "created": 2,
+    "failed": 0,
+    "recordIds": ["rec_123", "rec_124"]
+  }
+}
+```
+
+### API: Export Records (Paginated)
+
+```bash
+POST /zorp-tables-service/table/search
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableTypes": ["my_table"],
+  "page": 0,
+  "size": 100,
+  "filters": [],
+  "sorting": []
+}
+```
+
+**Response:**
+```json
+{
+  "code": "200",
+  "data": {
+    "records": [...],
+    "total": 1500,
+    "page": 0,
+    "size": 100
+  }
+}
+```
+
+### Batch Export Pattern
+
+For exporting more than 1,000 records programmatically:
+
+```javascript
+async function exportAllRecords(tableType, secretKey) {
+  const allRecords = [];
+  let page = 0;
+  const pageSize = 100;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await fetch('/zorp-tables-service/table/search', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${secretKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        tableTypes: [tableType],
+        page: page,
+        size: pageSize
+      })
+    });
+
+    const data = await response.json();
+    allRecords.push(...data.data.records);
+
+    hasMore = allRecords.length < data.data.total;
+    page++;
+  }
+
+  return allRecords;
+}
+```
+
+### Import Validation
+
+The import process validates:
+- **Type matching**: Values match column data types
+- **Required fields**: All required columns have values
+- **Choice validation**: Values match defined options
+- **Relation validation**: Referenced records exist
+
+### UI Elements
+
+| Action | Location | Icon |
+|--------|----------|------|
+| Import | More Options menu | Upload icon |
+| Export | More Options menu | Download icon |
+| Download Template | Import modal | Download icon |
+
+### Event Tracking
+
+```typescript
+TableRSEvents.BULK_IMPORT_BUTTON_CLICKED
+TableRSEvents.BULK_IMPORT_RECORDS_SUCCESS
+TableRSEvents.BULK_IMPORT_RECORDS_FAILURE
+TableRSEvents.DOWNLOAD_TEMPLATE_CSV_BUTTON_CLICKED
+TableRSEvents.EXPORT_CSV_BUTTON_CLICKED
+```

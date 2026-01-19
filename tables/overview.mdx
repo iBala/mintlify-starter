@@ -1,0 +1,133 @@
+---
+title: "Tables Overview"
+sidebarTitle: "Overview"
+description: "Tables are the foundation of data management in ERPLite. Create custom tables to store and organize your operational data."
+---
+
+## What are Tables?
+
+Tables in ERPLite are customizable data stores that allow you to structure, manage, and access your operational data. Think of them as spreadsheets with superpowers - they support multiple column types, access controls, views, automations, and API access.
+
+<CardGroup cols={2}>
+  <Card title="Flexible Schema" icon="table-columns">
+    Define custom columns with 15+ field types
+  </Card>
+  <Card title="Access Control" icon="lock">
+    Control who can view, edit, and manage data
+  </Card>
+  <Card title="Multiple Views" icon="eye">
+    Create filtered views for different teams
+  </Card>
+  <Card title="API Access" icon="code">
+    Full REST API for programmatic access
+  </Card>
+</CardGroup>
+
+## Creating a Table
+
+<Steps>
+  <Step title="Navigate to Tables">
+    Click on **Tables** in the sidebar navigation
+  </Step>
+  <Step title="Create New Table">
+    Click the **+ Create Table** button in the top right
+  </Step>
+  <Step title="Configure Table">
+    Enter a **Table Name** and optional description
+  </Step>
+  <Step title="Add Columns">
+    Add columns to define your data structure (see [Column Types](/tables/columns))
+  </Step>
+</Steps>
+
+## Table Structure
+
+Each table consists of:
+
+| Component | Description |
+|-----------|-------------|
+| **Columns** | Define the fields and data types for your records |
+| **Records** | Individual data entries (rows) in your table |
+| **Views** | Filtered/sorted perspectives on your data |
+| **Permissions** | Access control rules for the table |
+
+## Key Concepts
+
+### Records
+Records are individual entries in your table. Each record contains values for the columns you've defined. Records can be created manually, imported via CSV, or created programmatically via API.
+
+### Views
+Views are saved configurations of filters, sorting, and column visibility. You can create multiple views to show different subsets of data to different teams. See [Views](/tables/views) for details.
+
+### Access Control
+Tables support granular access control at multiple levels:
+- **Table level**: Who can see and manage the table
+- **Column level**: Who can view/edit specific columns
+- **Record level**: Row-based access restrictions
+
+See [Sharing & Permissions](/tables/sharing) for details.
+
+---
+
+## For AI Agents
+
+### Navigation
+- **Route**: `/table` (table list), `/table/:tableType` (specific table)
+- **Sidebar**: Tables dropdown menu lists all available tables
+
+### API Endpoints
+
+#### List All Tables
+```bash
+GET /zorp-tables-service/table/names
+Authorization: Bearer {secretKey}
+```
+
+#### Create Table
+```bash
+POST /zorp-tables-service/table/create
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_custom_table",
+  "displayName": "My Custom Table",
+  "description": "Optional description"
+}
+```
+
+#### Get Table Metadata
+```bash
+GET /zorp-tables-service/table/:tableType/metadata
+Authorization: Bearer {secretKey}
+```
+
+**Response Structure:**
+```json
+{
+  "code": "200",
+  "message": "Success",
+  "data": {
+    "tableType": "my_custom_table",
+    "displayName": "My Custom Table",
+    "columns": [...],
+    "views": [...],
+    "permissions": [...]
+  }
+}
+```
+
+### UI Elements
+
+| Element | Selector/Identifier | Purpose |
+|---------|---------------------|---------|
+| Create Table Button | `[data-testid="create-table-btn"]` | Opens table creation modal |
+| Table List | `.sidebar-tables-list` | Lists all tables |
+| Table Header | `TableHeader` component | Shows table name and actions |
+
+### Automation Patterns
+
+**Creating a table programmatically:**
+1. Call `POST /table/create` with table configuration
+2. Add columns via `POST /table/update` with column definitions
+3. Set permissions via `PUT /table/table-acl`

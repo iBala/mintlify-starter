@@ -1,0 +1,314 @@
+---
+title: "Table Operations"
+sidebarTitle: "Table Operations"
+description: "Learn how to rename, duplicate, delete tables, view API documentation, and configure mobile app settings."
+---
+
+## Overview
+
+Beyond creating and managing records, ERPLite provides several table-level operations to help you manage your data structure.
+
+## Renaming a Table
+
+Change the display name of a table without affecting its internal identifier or existing integrations.
+
+<Steps>
+  <Step title="Open Table Settings">
+    Click on the table name in the header, or access via the **More Options** menu (three dots)
+  </Step>
+  <Step title="Edit Name">
+    Click on the table name to make it editable
+  </Step>
+  <Step title="Save Changes">
+    Press Enter or click outside to save the new name
+  </Step>
+</Steps>
+
+<Note>
+Renaming only changes the display name. The internal `tableType` identifier remains unchanged, so existing API integrations and automations continue to work.
+</Note>
+
+---
+
+## Duplicating a Table
+
+Create a copy of an existing table, including its column structure.
+
+<Steps>
+  <Step title="Open More Options">
+    Click the **More Options** menu (three dots) in the table toolbar
+  </Step>
+  <Step title="Select Duplicate">
+    Click **Duplicate Table**
+  </Step>
+  <Step title="Configure Copy">
+    - Enter a name for the new table
+    - Choose whether to copy records (data) or just the structure
+  </Step>
+  <Step title="Confirm">
+    Click **Duplicate** to create the copy
+  </Step>
+</Steps>
+
+<Warning>
+Duplicating a table copies the structure and optionally the data. It does **not** copy:
+- Views (you'll need to recreate them)
+- Sharing permissions
+- Automations linked to the original table
+</Warning>
+
+---
+
+## Deleting a Table
+
+Permanently remove a table and all its data.
+
+<Steps>
+  <Step title="Open More Options">
+    Click the **More Options** menu (three dots) in the table toolbar
+  </Step>
+  <Step title="Select Delete">
+    Click **Delete Table**
+  </Step>
+  <Step title="Confirm Deletion">
+    Type the table name to confirm, then click **Delete**
+  </Step>
+</Steps>
+
+<Warning>
+Deleting a table is **permanent** and cannot be undone. All records, views, and configurations will be lost. Make sure to export your data first if needed.
+</Warning>
+
+---
+
+## Viewing Table API Documentation
+
+Each table automatically generates API documentation based on its schema.
+
+<Steps>
+  <Step title="Open More Options">
+    Click the **More Options** menu (three dots) in the table toolbar
+  </Step>
+  <Step title="Select API Docs">
+    Click **View API Documentation**
+  </Step>
+  <Step title="Browse Documentation">
+    The API documentation opens showing:
+    - Available endpoints (Create, Read, Update, Delete)
+    - Request/response schemas based on your columns
+    - Code samples in multiple languages (cURL, Python, Node.js)
+  </Step>
+</Steps>
+
+The auto-generated API documentation includes:
+- **Create Record** - POST endpoint with your column schema
+- **Get Record** - GET endpoint with response structure
+- **Update Record** - PATCH endpoint with updateable fields
+- **Delete Record** - DELETE endpoint
+- **List Records** - GET endpoint with pagination
+
+---
+
+## Mobile App Settings
+
+Configure how your table appears in the ERPLite mobile app.
+
+<Steps>
+  <Step title="Open More Options">
+    Click the **More Options** menu (three dots) in the table toolbar
+  </Step>
+  <Step title="Select Mobile Settings">
+    Click **Mobile App Settings** or **Configure Card**
+  </Step>
+  <Step title="Configure Display Fields">
+    Select which columns should appear on the mobile listing screen:
+    - **Primary Field**: Main identifier shown prominently
+    - **Secondary Fields**: Additional context fields
+    - **Card Layout**: How records appear in the list
+  </Step>
+  <Step title="Save Configuration">
+    Click **Save** to apply changes
+  </Step>
+</Steps>
+
+### Mobile Card Configuration
+
+| Setting | Description |
+|---------|-------------|
+| **Title Field** | Column shown as the main title on cards |
+| **Subtitle Field** | Column shown as secondary text |
+| **Image Field** | Image column to show as thumbnail |
+| **Badge Field** | Status or category column for badges |
+
+---
+
+## Column Management
+
+### Rearranging Columns
+
+Change the order columns appear in your table.
+
+<Steps>
+  <Step title="Open Column Visibility">
+    Click the **Columns** button (or eye icon) in the toolbar
+  </Step>
+  <Step title="Drag to Reorder">
+    Drag columns using the handle to change their order
+  </Step>
+  <Step title="Close Panel">
+    Changes are applied immediately
+  </Step>
+</Steps>
+
+### Hiding Columns
+
+Temporarily hide columns from view without deleting them.
+
+<Steps>
+  <Step title="Open Column Visibility">
+    Click the **Columns** button (or eye icon) in the toolbar
+  </Step>
+  <Step title="Toggle Visibility">
+    Use the toggle switch next to each column to show/hide it
+  </Step>
+  <Step title="Save as View">
+    To persist hidden columns, save the current state as a View
+  </Step>
+</Steps>
+
+<Tip>
+Hidden columns are still available in filters and can be exported. They're just not displayed in the table view.
+</Tip>
+
+### Deleting Columns
+
+Permanently remove a column from your table.
+
+<Steps>
+  <Step title="Open Column Menu">
+    Click the column header dropdown menu
+  </Step>
+  <Step title="Select Delete">
+    Click **Delete Column**
+  </Step>
+  <Step title="Confirm">
+    Confirm the deletion (this removes data in that column from all records)
+  </Step>
+</Steps>
+
+<Warning>
+Deleting a column removes all data stored in that column across all records. This action cannot be undone.
+</Warning>
+
+---
+
+## For AI Agents
+
+### API Endpoints
+
+#### Rename Table
+```bash
+POST /zorp-tables-service/table/rename
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "displayName": "New Table Name"
+}
+```
+
+#### Duplicate Table
+```bash
+POST /zorp-tables-service/table/:tableType/copy
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "newTableType": "my_table_copy",
+  "displayName": "My Table Copy",
+  "includeRecords": false
+}
+```
+
+#### Delete Table
+```bash
+DELETE /zorp-tables-service/tables/:tableType
+Authorization: Bearer {secretKey}
+```
+
+#### Get Auto-Generated API Docs
+```bash
+GET /zorp-tables-service/table/:tableType/apidocs
+Authorization: Bearer {secretKey}
+```
+
+**Response:** OpenAPI 3.0 specification JSON with endpoints for the specific table.
+
+#### Get Mobile Render Config
+```bash
+GET /zorp-tables-service/table/app/renderConfig/tableType/:tableType
+Authorization: Bearer {secretKey}
+```
+
+#### Update Mobile Card Config
+```bash
+POST /zorp-tables-service/table/:tableType/card
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "titleField": "name",
+  "subtitleField": "status",
+  "imageField": "photo",
+  "badgeField": "priority"
+}
+```
+
+### UI Elements
+
+| Action | Menu Location | Icon |
+|--------|--------------|------|
+| Rename | More Options menu | Edit icon |
+| Duplicate | More Options menu | Copy icon |
+| Delete | More Options menu | Trash icon |
+| API Docs | More Options menu | Code icon |
+| Mobile Settings | More Options menu | Phone icon |
+| Column Visibility | Toolbar | Eye icon |
+
+### Event Tracking
+
+Table operations emit the following events:
+```typescript
+TableRSEvents.DELETE_TABLE
+TableRSEvents.DUPLICATE_TABLE
+TableRSEvents.RENAME_TABLE
+TableRSEvents.COLUMN_REORDER
+TableRSEvents.COLUMN_VISIBILITY_CHANGE
+```
+
+### Automation Patterns
+
+**Programmatic table duplication:**
+```javascript
+// 1. Copy table structure
+const copyResponse = await fetch('/zorp-tables-service/table/original_table/copy', {
+  method: 'POST',
+  headers: { 'Authorization': `Bearer ${secretKey}` },
+  body: JSON.stringify({
+    newTableType: 'copied_table',
+    displayName: 'Copied Table',
+    includeRecords: true
+  })
+});
+
+// 2. Update permissions on new table
+await fetch('/zorp-tables-service/table/table-acl', {
+  method: 'PUT',
+  headers: { 'Authorization': `Bearer ${secretKey}` },
+  body: JSON.stringify({
+    tableType: 'copied_table',
+    permissions: [...]
+  })
+});
+```

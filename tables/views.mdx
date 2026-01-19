@@ -1,54 +1,404 @@
 ---
-title: "One Table Multiple Views"
-sidebarTitle: "Multiple Views"
-description: "Filter your Table and save it as a View to reveal only relevant data to each team or role. Control who has access to that Table View and work securely."
+title: "Views"
+sidebarTitle: "Views"
+description: "Create multiple views of your table data with saved filters, sorting, and column configurations. Control access to each view."
 ---
 
-## Setting up a View?
+## Overview
 
-Follow these steps to add a new view to your Table.
+Views allow you to save different configurations of your table - filters, sorting, column visibility, and column order. Create multiple views to show different perspectives on your data to different teams.
 
-1. Go the respective `Table`.
-2. Click on `Add View` button.
-3. `Name` your view.
-4. `Describe` your view.
-5. Grant `view access` based on Team, Role, or User name.
-6. Click on `Create` View.
+<CardGroup cols={2}>
+  <Card title="Save Configurations" icon="floppy-disk">
+    Save filters, sorts, and column settings
+  </Card>
+  <Card title="Access Control" icon="users">
+    Control who can see each view
+  </Card>
+  <Card title="Multiple Perspectives" icon="clone">
+    Create views for different use cases
+  </Card>
+  <Card title="Team Collaboration" icon="people-group">
+    Share views with specific teams or roles
+  </Card>
+</CardGroup>
 
-## Adding Filters to your View
+---
 
-Follow these steps to add filter to your new Table View.
+## Creating a View
 
-1. Go to your newly created View.
-2. Click on the `Filter` icon.
-3. Add your filtering `condition`.
-4. Click on `Save for Everyone` button.
+<Steps>
+  <Step title="Configure Table State">
+    Set up your desired filters, sorting, and column visibility
+  </Step>
+  <Step title="Click Add View">
+    Click the **+ Add View** button in the view tab bar
+  </Step>
+  <Step title="Name Your View">
+    Enter a descriptive name for the view
+  </Step>
+  <Step title="Add Description (Optional)">
+    Add a description to help users understand the view's purpose
+  </Step>
+  <Step title="Set View Access">
+    Choose who can see this view:
+    - **Specific Users**: Individual user access
+    - **Teams**: All members of selected teams
+    - **Roles**: All users with selected roles
+  </Step>
+  <Step title="Create View">
+    Click **Create** to save the view
+  </Step>
+</Steps>
 
-## Duplicating a View
+### What Gets Saved in a View
 
-Follow these steps to duplicate your Table View.
+| Setting | Saved | Description |
+|---------|-------|-------------|
+| Column Filters | Yes | All active filter conditions |
+| Sorting | Yes | Column sort order and direction |
+| Column Visibility | Yes | Which columns are shown/hidden |
+| Column Order | Yes | The arrangement of columns |
+| Column Pinning | Yes | Pinned columns (left/right) |
+| Pagination | Yes | Page size preference |
+| Global Filter | Yes | Search text (optional) |
 
-1. Go to your newly created View.
-2. Click on the `settings` icon on your active View Tab.
-3. Click on `Duplicate View` .
-4. Edit the `Name`, `Description` & `Who can View` field.
-5. Hit the `Confirm` button.
+---
+
+## Managing Views
+
+### Switching Between Views
+
+Click on view tabs at the top of the table to switch between saved views. The active view is highlighted.
+
+### Editing a View
+
+<Steps>
+  <Step title="Select View">
+    Click on the view you want to edit
+  </Step>
+  <Step title="Open Settings">
+    Click the **settings icon** (gear) on the view tab
+  </Step>
+  <Step title="Select Edit">
+    Click **Edit View**
+  </Step>
+  <Step title="Modify Settings">
+    Update name, description, or access permissions
+  </Step>
+  <Step title="Save Changes">
+    Click **Save** to apply changes
+  </Step>
+</Steps>
+
+### Saving Changes to a View
+
+When you modify filters, sorting, or column settings while in a view:
+
+1. A **"Save Changes"** indicator appears
+2. Click **Save for Everyone** to update the view for all users
+3. Or discard changes by switching to another view
+
+<Note>
+Only users with edit permission on the view can save changes.
+</Note>
+
+### Duplicating a View
+
+Create a copy of an existing view to start from a similar configuration.
+
+<Steps>
+  <Step title="Open View Settings">
+    Click the settings icon on the view tab
+  </Step>
+  <Step title="Select Duplicate">
+    Click **Duplicate View**
+  </Step>
+  <Step title="Configure Copy">
+    - Update the name
+    - Modify description
+    - Adjust access permissions
+  </Step>
+  <Step title="Confirm">
+    Click **Confirm** to create the duplicate
+  </Step>
+</Steps>
+
+### Renaming a View
+
+<Steps>
+  <Step title="Open View Settings">
+    Click the settings icon on the view tab
+  </Step>
+  <Step title="Select Rename">
+    Click **Rename View**
+  </Step>
+  <Step title="Enter New Name">
+    Type the new view name
+  </Step>
+  <Step title="Save">
+    Click **Save** or press Enter
+  </Step>
+</Steps>
+
+### Deleting a View
+
+<Steps>
+  <Step title="Open View Settings">
+    Click the settings icon on the view tab
+  </Step>
+  <Step title="Select Delete">
+    Click **Delete View**
+  </Step>
+  <Step title="Confirm">
+    Confirm the deletion
+  </Step>
+</Steps>
+
+<Warning>
+Deleting a view is permanent. Users who had access to only this view will need access granted to another view.
+</Warning>
+
+---
+
+## View Permissions
+
+Control who can access each view separately from table permissions.
+
+### Setting View Access
+
+When creating or editing a view, specify access by:
+
+| Access Type | Description |
+|-------------|-------------|
+| **Users** | Specific individual users |
+| **Teams** | All members of selected teams |
+| **Roles** | All users with selected roles |
+
+### Permission Levels
+
+| Permission | Description |
+|------------|-------------|
+| **View** | Can see and use the view |
+| **Edit** | Can modify view settings and save changes |
+| **Delete** | Can delete the view |
+
+### Default View
+
+The first view (or "All Records" view) is typically accessible to all users with table access. Custom views can restrict access further.
+
+---
+
+## Use Cases
+
+<AccordionGroup>
+  <Accordion title="Team-Specific Views">
+    Create views filtered to show only records relevant to each team:
+    - **Sales Team View**: Filter by `assigned_team = Sales`
+    - **Support Team View**: Filter by `assigned_team = Support`
+  </Accordion>
+
+  <Accordion title="Status-Based Views">
+    Create views for different workflow stages:
+    - **Pending Review**: Filter by `status = Pending`
+    - **Approved**: Filter by `status = Approved`
+    - **Needs Attention**: Filter by `priority = High` AND `status != Complete`
+  </Accordion>
+
+  <Accordion title="Time-Based Views">
+    Create views for time-sensitive data:
+    - **This Week**: Filter by `due_date` within current week
+    - **Overdue**: Filter by `due_date < today` AND `status != Complete`
+  </Accordion>
+
+  <Accordion title="Role-Based Access">
+    Create views with different column visibility:
+    - **Manager View**: All columns visible
+    - **Staff View**: Sensitive columns (salary, cost) hidden
+  </Accordion>
+</AccordionGroup>
+
+---
 
 ## FAQs
-    <AccordionGroup>
-    <Accordion title="Who can add a View?">
-    Only users with Creator permissions can add a new view.
-    </Accordion>
 
-    <Accordion title="Who can delete a View?">
-    Only users with Creator permissions can delete a view.
-    </Accordion>
+<AccordionGroup>
+  <Accordion title="Who can create a View?">
+    Users with **Creator** or **Editor** permissions on the table can create views.
+  </Accordion>
 
-    <Accordion title="Who can modify a View”>
-    Only users with Creator permissions can edit a view.
-    </Accordion>
+  <Accordion title="Who can delete a View?">
+    Users with **Creator** permissions or explicit delete permission on the view can delete it.
+  </Accordion>
 
-    <Accordion title="How many Views can one create?”>
-    You can create as many views as you want, theres no limit.
-    </Accordion>
-    </AccordionGroup>
+  <Accordion title="Who can modify a View?">
+    Users with **Edit** permission on the view can modify settings and save changes.
+  </Accordion>
+
+  <Accordion title="How many Views can I create?">
+    There's no limit to the number of views you can create per table.
+  </Accordion>
+
+  <Accordion title="Can I reset a view to default?">
+    Click the settings icon and select **Reset View** to clear all filters and sorting while keeping the view configuration.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### API: Create View
+
+```bash
+POST /zorp-tables-service/table/:tableType/views
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "name": "High Priority Items",
+  "description": "Shows only high priority records",
+  "state": {
+    "columnFilters": [
+      {
+        "id": "priority",
+        "value": "High"
+      }
+    ],
+    "sorting": [
+      {
+        "id": "due_date",
+        "desc": false
+      }
+    ],
+    "columnVisibility": {
+      "internal_notes": false
+    },
+    "columnOrdering": ["name", "priority", "status", "due_date"]
+  },
+  "access": {
+    "users": ["user_123"],
+    "teams": ["team_456"],
+    "roles": ["role_789"]
+  }
+}
+```
+
+### API: Get All Views
+
+```bash
+GET /zorp-tables-service/table/:tableType/views/
+Authorization: Bearer {secretKey}
+```
+
+**Response:**
+```json
+{
+  "code": "200",
+  "data": {
+    "views": [
+      {
+        "_id": "view_123",
+        "name": "High Priority Items",
+        "description": "Shows only high priority records",
+        "isActive": true,
+        "body": {
+          "colDef": {...},
+          "rowDef": [...]
+        }
+      }
+    ]
+  }
+}
+```
+
+### API: Get Specific View
+
+```bash
+GET /zorp-tables-service/table/:tableType/views/:viewId
+Authorization: Bearer {secretKey}
+```
+
+### API: Update View
+
+```bash
+PATCH /zorp-tables-service/table/:tableType/views/:viewId
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "name": "Updated View Name",
+  "state": {
+    "columnFilters": [...]
+  }
+}
+```
+
+### API: Save View State
+
+```bash
+PUT /zorp-tables-service/table/:tableType/views/:viewId
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "state": {
+    "columnFilters": [...],
+    "sorting": [...],
+    "columnVisibility": {...},
+    "columnOrdering": [...]
+  }
+}
+```
+
+### View State Structure
+
+```typescript
+interface ViewState {
+  columnFilters?: { id: string; value: unknown }[];
+  sorting?: { id: string; desc: boolean }[];
+  columnFilterFns?: { [id: string]: string };
+  pagination?: { pageIndex: number; pageSize: number };
+  columnPinning: { left: string[]; right: string[] };
+  columnVisibility?: { [id: string]: boolean };
+  columnOrdering?: string[];
+  globalFilter?: string;
+  showGlobalFilter?: boolean;
+  showColumnFilters?: boolean;
+}
+```
+
+### UI Elements
+
+| Element | Location | Purpose |
+|---------|----------|---------|
+| View Tabs | Below toolbar | Switch between views |
+| Add View Button | View tab bar | Create new view |
+| View Settings | View tab | Edit/Delete/Duplicate |
+| Save Changes | Toolbar | Save view modifications |
+
+### Event Tracking
+
+```typescript
+ViewsRSEvents.ADD_NEW_VIEW_BUTTON_CLICKED
+ViewsRSEvents.CREATE_NEW_VIEW_BUTTON_CLICKED
+ViewsRSEvents.CREATE_VIEW_SUCCESS
+ViewsRSEvents.CREATE_VIEW_FAILURE
+ViewsRSEvents.DELETE_VIEW_BUTTON_CLICKED
+ViewsRSEvents.DELETE_VIEW_SUCCESS
+ViewsRSEvents.UPDATE_VIEW_SUCCESS
+ViewsRSEvents.DUPLICATE_VIEW_BUTTON_CLICKED
+ViewsRSEvents.DUPLICATE_VIEW_SUCCESS
+ViewsRSEvents.SWITCHED_TO_DIFFERENT_VIEW
+ViewsRSEvents.SAVE_THIS_VIEW_BUTTON_CLICKED
+ViewsRSEvents.SAVE_THIS_VIEW_SUCCESS
+```
+
+### State Persistence
+
+View states are cached in localStorage:
+```
+Key: tableState_${tableType}_${viewId}
+```
+
+This allows quick restoration when switching between views.

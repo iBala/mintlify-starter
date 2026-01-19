@@ -1,34 +1,253 @@
 ---
 title: "Table Permissions"
-description: "Control who can perform what actions in a Table."
+sidebarTitle: "Table Permissions"
+description: "Control what actions users can perform on tables and records."
 ---
 
-## How to manage Table Permissions?
+## Overview
 
-Follow these steps to manage Table permissions:
+Table permissions define what actions users can perform on a table and its records. ERPLite provides four default permission sets and allows you to create custom ones.
 
-1. Go to the respective `Table`
-2. Click on the `Share` button at the top right corner of your screen
-3. Click on `Manage Access` and go to `Permissions`
+---
 
-![Permissions Entry](/images/permissionsentry.png)
+## Default Permission Sets
 
-We have created 4 default permissions for you - Creator, Editor, Commenter and Viewer. 
+### Creator
+Full administrative access - cannot be modified.
 
-![Permissions Entry](/images/permissions-table.png)
+| Action | Allowed |
+|--------|---------|
+| View table | Yes |
+| View records | Yes |
+| Create records | Yes |
+| Edit records | Yes |
+| Delete records | Yes |
+| Delete table | Yes |
+| Duplicate table | Yes |
+| Rename table | Yes |
+| Manage columns | Yes |
+| Manage views | Yes |
+| Manage automations | Yes |
+| Design layout | Yes |
+| Share table | Yes |
+| Add comments | Yes |
 
-* you cannot change the actions under Creator Permission.
+### Editor
+Can create and modify data, but cannot manage table structure.
 
-You can change the actions that can be performed by an Editor, Commenter and Viewer only. You also have the option to create a custom permission. 
+| Action | Allowed |
+|--------|---------|
+| View table | Yes |
+| View records | Yes |
+| Create records | Yes |
+| Edit records | Yes |
+| Delete records | Yes |
+| Manage views | Limited |
+| Add comments | Yes |
+| Other management | No |
+
+### Commenter
+View-only with commenting ability.
+
+| Action | Allowed |
+|--------|---------|
+| View table | Yes |
+| View records | Yes |
+| Add comments | Yes |
+| Create/Edit/Delete | No |
+
+### Viewer
+Pure read-only access.
+
+| Action | Allowed |
+|--------|---------|
+| View table | Yes |
+| View records | Yes |
+| All other actions | No |
+
+---
+
+## Managing Permissions
+
+<Steps>
+  <Step title="Open Share">
+    Click the **Share** button on your table
+  </Step>
+  <Step title="Go to Manage Access">
+    Click **Manage Access** tab
+  </Step>
+  <Step title="Select Permissions Tab">
+    Click **Permissions** to view and manage permission sets
+  </Step>
+</Steps>
+
+---
 
 ## Creating Custom Permissions
-Follow these steps to create a custom permission for your Table and Record
 
-1. Click on `Add new`
-2. Assign a `unique name` to the permission. 
-3. `Checkmark` the actions you want to allow.  
-4. Hit `Save`.
+<Steps>
+  <Step title="Open Permissions Tab">
+    Navigate to Share > Manage Access > Permissions
+  </Step>
+  <Step title="Click Add New">
+    Click the **Add New** button
+  </Step>
+  <Step title="Name Your Permission">
+    Enter a unique, descriptive name (e.g., "Data Entry", "Auditor")
+  </Step>
+  <Step title="Select Actions">
+    Check the boxes for each action you want to allow
+  </Step>
+  <Step title="Save">
+    Click **Save** to create the permission set
+  </Step>
+</Steps>
 
-![Permissions Entry](/images/custompermissions.png)
+---
 
-PS - There are a few dependent actions. For example, if the permission allows for Delete table records, it automatically allows for View table records. You cannot remove “View table records.”
+## Available Permissions
+
+| Permission | Key | Description |
+|------------|-----|-------------|
+| View table | `view_table` | See table in table list |
+| View records | `view_record` | Open and read record details |
+| Create records | `create_record` | Add new records |
+| Edit records | `edit_record` | Modify existing records |
+| Delete records | `delete_record` | Remove records |
+| Delete table | `delete_table` | Permanently delete table |
+| Duplicate table | `duplicate_table` | Create a copy |
+| Rename table | `rename_table` | Change display name |
+| Manage columns | `manage_table_column` | Add/edit/delete columns |
+| Manage views | `manage_table_view` | Create/edit views |
+| Manage automations | `manage_table_automation` | Configure automations |
+| Design layout | `manage_section` | Edit record layout |
+| Share table | `update_table_acl` | Manage sharing settings |
+| Add comments | `add_comment` | Comment on records |
+
+---
+
+## Permission Dependencies
+
+Some permissions require other permissions to work:
+
+| Permission | Requires |
+|------------|----------|
+| Delete records | View records |
+| Edit records | View records |
+| Create records | View records |
+| Manage columns | View table |
+| Manage views | View table |
+| Share table | View table |
+| Add comments | View records |
+
+<Note>
+When you select a permission, its dependencies are automatically enabled and cannot be unchecked.
+</Note>
+
+---
+
+## Common Permission Patterns
+
+<AccordionGroup>
+  <Accordion title="Data Entry Clerk">
+    For users who only input data:
+    - View table: Yes
+    - View records: Yes
+    - Create records: Yes
+    - Edit records: Yes (own records only via row-level)
+    - Delete records: No
+    - All management: No
+  </Accordion>
+
+  <Accordion title="Supervisor">
+    For team leads who need to review and approve:
+    - View table: Yes
+    - View records: Yes
+    - Create records: Yes
+    - Edit records: Yes
+    - Delete records: Yes
+    - Manage views: Yes
+    - Add comments: Yes
+    - Table management: No
+  </Accordion>
+
+  <Accordion title="Auditor">
+    For compliance review:
+    - View table: Yes
+    - View records: Yes
+    - Add comments: Yes
+    - All other: No
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### Permission Constants
+
+```typescript
+const TablePermissionsList = [
+  'view_table',
+  'view_record',
+  'create_record',
+  'edit_record',
+  'delete_record',
+  'delete_table',
+  'duplicate_table',
+  'rename_table',
+  'manage_table_column',
+  'manage_table_view',
+  'manage_table_automation',
+  'manage_section',
+  'update_table_acl',
+  'add_comment'
+];
+```
+
+### Check User Permissions
+
+Use the access control API to verify permissions before operations:
+
+```bash
+GET /zorp-tables-service/table/:tableType/table-acl
+Authorization: Bearer {secretKey}
+```
+
+### Create Permission Set via API
+
+```bash
+PUT /zorp-tables-service/table/table-acl
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "permissions": [
+    {
+      "permissionSetName": "Custom Set",
+      "permissions": {
+        "view_table": true,
+        "view_record": true,
+        "create_record": true,
+        "edit_record": false,
+        "delete_record": false,
+        "delete_table": false,
+        "duplicate_table": false,
+        "rename_table": false,
+        "manage_table_column": false,
+        "manage_table_view": false,
+        "manage_table_automation": false,
+        "manage_section": false,
+        "update_table_acl": false,
+        "add_comment": true
+      },
+      "or": {
+        "userIds": [],
+        "teamIds": ["team_id"],
+        "roleIds": []
+      }
+    }
+  ]
+}
+```

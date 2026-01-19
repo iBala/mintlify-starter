@@ -1,35 +1,448 @@
 ---
 title: "Sharing Tables"
-description: "You can invite collaborators to your ERPLite Tables and assign specific permissions to them."
+sidebarTitle: "Sharing"
+description: "Share tables with users, teams, and roles. Assign permissions to control what collaborators can do."
 ---
 
-## What is Table Sharing?
+## Overview
 
-Table Sharing is a feature in ERPLite Tables that allows you to share your tables with other users, roles, and teams. You can assign the permissions you want them to have. This feature is useful when you want to collaborate with your team members or share data with other users.
+Table sharing in ERPLite allows you to collaborate securely by controlling who can access your tables and what actions they can perform. Share with specific users, entire teams, or roles.
 
-## How to Share Tables?
+<CardGroup cols={3}>
+  <Card title="Share by User" icon="user">
+    Grant access to specific individuals
+  </Card>
+  <Card title="Share by Team" icon="users">
+    Grant access to all team members
+  </Card>
+  <Card title="Share by Role" icon="user-shield">
+    Grant access based on user roles
+  </Card>
+</CardGroup>
 
-To share your Table follow these steps:
+---
 
+## Sharing a Table
 
-![How to share a table](/images/sharetable.png)
+<Steps>
+  <Step title="Open Share Modal">
+    Click the **Share** button in the top right corner of your table
+  </Step>
+  <Step title="Add Collaborators">
+    Search and select:
+    - **Users**: Type user names or emails
+    - **Teams**: Select from available teams
+    - **Roles**: Select from defined roles
+  </Step>
+  <Step title="Assign Permissions">
+    Choose a permission set for each collaborator:
+    - **Creator**: Full access including delete
+    - **Editor**: Create, edit, and view records
+    - **Commenter**: View and comment only
+    - **Viewer**: Read-only access
+    - **Custom**: Create custom permission sets
+  </Step>
+  <Step title="Save">
+    Click **Save** to apply the sharing settings
+  </Step>
+</Steps>
 
-1. Go to the respective `Table`
-2. Click on the `Share button` at the top right corner of your screen
-3. Add `users`, `roles` and `teams` to share the table with.
-4. Assign the `permissions` you want them to have.
-5. Hit `Save`.
+---
 
+## Default Permission Sets
 
-![How to share a table](/images/sharemodal.png)
+ERPLite provides four built-in permission sets:
 
-## Manage Access
+### Creator
+Full administrative access to the table.
 
-Follow these steps to manage access & permissions for a specific Table:
+| Permission | Allowed |
+|------------|---------|
+| View table | Yes |
+| View records | Yes |
+| Create records | Yes |
+| Edit records | Yes |
+| Delete records | Yes |
+| Delete table | Yes |
+| Duplicate table | Yes |
+| Rename table | Yes |
+| Manage columns | Yes |
+| Manage views | Yes |
+| Manage automations | Yes |
+| Manage sections | Yes |
+| Share table (update ACL) | Yes |
+| Add comments | Yes |
 
-1. Click on `Share`
-2. Head over to `Manage Access`
-3. `View` and `Edit` the existing access & permissions granted.
-4. `Add Collaborators` with whom you want to share the Table with.
+<Note>
+Creator permissions cannot be modified. This is the only permission set with full table management rights.
+</Note>
 
-![Manage Access](/images/manageaccess.png)
+### Editor
+Can work with data but cannot modify table structure.
+
+| Permission | Allowed |
+|------------|---------|
+| View table | Yes |
+| View records | Yes |
+| Create records | Yes |
+| Edit records | Yes |
+| Delete records | Yes |
+| Delete table | No |
+| Duplicate table | No |
+| Manage columns | No |
+| Manage views | Limited |
+| Add comments | Yes |
+
+### Commenter
+Can view data and add comments.
+
+| Permission | Allowed |
+|------------|---------|
+| View table | Yes |
+| View records | Yes |
+| Create records | No |
+| Edit records | No |
+| Delete records | No |
+| Add comments | Yes |
+
+### Viewer
+Read-only access.
+
+| Permission | Allowed |
+|------------|---------|
+| View table | Yes |
+| View records | Yes |
+| Create records | No |
+| Edit records | No |
+| Delete records | No |
+| Add comments | No |
+
+---
+
+## Custom Permission Sets
+
+Create custom permission sets tailored to your needs.
+
+<Steps>
+  <Step title="Open Share Modal">
+    Click **Share** on your table
+  </Step>
+  <Step title="Go to Permissions">
+    Click **Manage Access** then select **Permissions** tab
+  </Step>
+  <Step title="Add New Permission Set">
+    Click **Add New**
+  </Step>
+  <Step title="Name the Permission Set">
+    Enter a unique, descriptive name
+  </Step>
+  <Step title="Select Permissions">
+    Check the permissions you want to include
+  </Step>
+  <Step title="Save">
+    Click **Save** to create the custom permission set
+  </Step>
+</Steps>
+
+### Available Permissions
+
+| Permission | Description |
+|------------|-------------|
+| `view_table` | See the table in table list |
+| `view_record` | View record details |
+| `create_record` | Create new records |
+| `edit_record` | Modify existing records |
+| `delete_record` | Delete records |
+| `delete_table` | Permanently delete table |
+| `duplicate_table` | Create a copy of the table |
+| `rename_table` | Change table display name |
+| `manage_table_column` | Add, edit, delete columns |
+| `manage_table_view` | Create and manage views |
+| `manage_table_automation` | Configure automations |
+| `manage_section` | Edit record layout sections |
+| `update_table_acl` | Modify sharing settings |
+| `add_comment` | Add comments to records |
+
+### Permission Dependencies
+
+Some permissions automatically grant related permissions:
+
+- `delete_record` requires `view_record`
+- `edit_record` requires `view_record`
+- `manage_table_column` requires `view_table`
+- `update_table_acl` requires `view_table`
+
+When you select a permission, its dependencies are automatically included.
+
+---
+
+## Managing Access
+
+### Viewing Current Access
+
+<Steps>
+  <Step title="Open Share Modal">
+    Click **Share** on your table
+  </Step>
+  <Step title="View Collaborators">
+    The modal shows all current collaborators with their permission levels
+  </Step>
+</Steps>
+
+### Modifying Access
+
+<Steps>
+  <Step title="Open Manage Access">
+    Click **Share** then **Manage Access**
+  </Step>
+  <Step title="Find Collaborator">
+    Locate the user, team, or role you want to modify
+  </Step>
+  <Step title="Change Permission">
+    Select a different permission set from the dropdown
+  </Step>
+  <Step title="Save">
+    Click **Save** to apply changes
+  </Step>
+</Steps>
+
+### Removing Access
+
+<Steps>
+  <Step title="Open Manage Access">
+    Click **Share** then **Manage Access**
+  </Step>
+  <Step title="Find Collaborator">
+    Locate the user, team, or role to remove
+  </Step>
+  <Step title="Remove">
+    Click the **X** or **Remove** button next to their name
+  </Step>
+  <Step title="Save">
+    Click **Save** to confirm removal
+  </Step>
+</Steps>
+
+---
+
+## Sharing Strategies
+
+<AccordionGroup>
+  <Accordion title="Department-Based Access">
+    Share with teams representing departments:
+    - **Sales Team**: Editor access to customer tables
+    - **Finance Team**: Viewer access to financial tables
+    - **Operations Team**: Creator access to operational tables
+  </Accordion>
+
+  <Accordion title="Role-Based Access">
+    Share based on organizational roles:
+    - **Manager Role**: Full access to team tables
+    - **Staff Role**: Editor access for daily operations
+    - **Intern Role**: Viewer access for learning
+  </Accordion>
+
+  <Accordion title="Project-Based Access">
+    For project-specific tables:
+    - Project leads: Creator permissions
+    - Team members: Editor permissions
+    - Stakeholders: Viewer permissions
+  </Accordion>
+
+  <Accordion title="External Collaboration">
+    For tables shared with external parties:
+    - Create a custom "External Viewer" permission
+    - Grant only `view_table` and `view_record`
+    - Optionally enable `add_comment` for feedback
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### API: Get Table ACL
+
+```bash
+GET /zorp-tables-service/table/:tableType/table-acl
+Authorization: Bearer {secretKey}
+```
+
+**Response:**
+```json
+{
+  "code": "200",
+  "data": {
+    "permissions": [
+      {
+        "permissionId": "perm_creator",
+        "permissionSetName": "Creator",
+        "isEditable": false,
+        "permissions": {
+          "view_table": true,
+          "view_record": true,
+          "create_record": true,
+          "edit_record": true,
+          "delete_record": true,
+          "delete_table": true,
+          "duplicate_table": true,
+          "rename_table": true,
+          "manage_table_column": true,
+          "manage_table_view": true,
+          "manage_table_automation": true,
+          "manage_section": true,
+          "update_table_acl": true,
+          "add_comment": true
+        },
+        "or": {
+          "roleIds": [],
+          "teamIds": [],
+          "userIds": ["user_123"]
+        }
+      }
+    ]
+  }
+}
+```
+
+### API: Update Table ACL
+
+```bash
+PUT /zorp-tables-service/table/table-acl
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "permissions": [
+    {
+      "permissionSetName": "Creator",
+      "or": {
+        "userIds": ["user_123"],
+        "teamIds": [],
+        "roleIds": []
+      }
+    },
+    {
+      "permissionSetName": "Editor",
+      "or": {
+        "userIds": [],
+        "teamIds": ["team_456"],
+        "roleIds": []
+      }
+    },
+    {
+      "permissionSetName": "Viewer",
+      "or": {
+        "userIds": [],
+        "teamIds": [],
+        "roleIds": ["role_789"]
+      }
+    }
+  ]
+}
+```
+
+### Permission Structure
+
+```typescript
+interface Permission {
+  permissionId: string;
+  permissionSetName: string;
+  isEditable: boolean;
+  permissions: {
+    view_table: boolean;
+    view_record: boolean;
+    create_record: boolean;
+    edit_record: boolean;
+    delete_record: boolean;
+    delete_table: boolean;
+    duplicate_table: boolean;
+    rename_table: boolean;
+    manage_table_column: boolean;
+    manage_table_view: boolean;
+    manage_table_automation: boolean;
+    manage_section: boolean;
+    update_table_acl: boolean;
+    add_comment: boolean;
+  };
+  or: {
+    roleIds: string[];
+    teamIds: string[];
+    userIds: string[];
+  };
+  and: {
+    roleIds: string[];
+    teamIds: string[];
+    userIds: string[];
+  };
+}
+```
+
+### Access Logic
+
+- **OR condition**: User matches ANY of the specified users, teams, or roles
+- **AND condition**: User must match ALL specified criteria (advanced use)
+
+### Creating Custom Permission Set
+
+```bash
+PUT /zorp-tables-service/table/table-acl
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "permissions": [
+    {
+      "permissionSetName": "Data Entry",
+      "permissions": {
+        "view_table": true,
+        "view_record": true,
+        "create_record": true,
+        "edit_record": true,
+        "delete_record": false,
+        "delete_table": false,
+        "duplicate_table": false,
+        "rename_table": false,
+        "manage_table_column": false,
+        "manage_table_view": false,
+        "manage_table_automation": false,
+        "manage_section": false,
+        "update_table_acl": false,
+        "add_comment": true
+      },
+      "or": {
+        "userIds": [],
+        "teamIds": ["data_entry_team"],
+        "roleIds": []
+      }
+    }
+  ]
+}
+```
+
+### UI Elements
+
+| Element | Location | Purpose |
+|---------|----------|---------|
+| Share Button | Table header | Opens share modal |
+| Share Modal | Modal | Add collaborators |
+| Manage Access | Share modal tab | View/modify access |
+| Permissions Tab | Manage Access | Manage permission sets |
+| Add New Button | Permissions tab | Create custom set |
+
+### Event Tracking
+
+```typescript
+TablePermissionRsEvents.SHARE_RESOURCE_BUTTON_CLICKED
+TablePermissionRsEvents.SHARE_RESOURCE_MODAL_OPEN
+TablePermissionRsEvents.SHARE_RESOURCE_MODAL_CLOSE
+TablePermissionRsEvents.SHARE_RESOURCE_ADD_USER
+TablePermissionRsEvents.SHARE_RESOURCE_ADD_TEAM
+TablePermissionRsEvents.SHARE_RESOURCE_ADD_ROLE
+TablePermissionRsEvents.SHARE_RESOURCE_UPDATE_SUCCESS
+TablePermissionRsEvents.SHARE_RESOURCE_UPDATE_FAILURE
+TablePermissionRsEvents.MANAGE_PERMISSIONS_ADD_NEW
+TablePermissionRsEvents.MANAGE_PERMISSIONS_UPDATE_SUCCESS
+```

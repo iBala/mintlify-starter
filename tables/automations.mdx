@@ -1,0 +1,644 @@
+---
+title: "Record Automations"
+sidebarTitle: "Automations"
+description: "Automate actions when records are created, updated, or deleted. Set up triggers, validations, conditions, and actions."
+---
+
+## Overview
+
+Record automations allow you to automatically execute actions when changes happen to your table data. Build powerful workflows that validate data, call external APIs, send notifications, and more.
+
+<CardGroup cols={2}>
+  <Card title="Event-Driven" icon="bolt">
+    Trigger automations on create, update, or delete
+  </Card>
+  <Card title="Validation" icon="shield-check">
+    Validate data before changes are committed
+  </Card>
+  <Card title="Conditional Logic" icon="code-branch">
+    Execute actions based on custom conditions
+  </Card>
+  <Card title="Multiple Actions" icon="layer-group">
+    Chain multiple actions in a single automation
+  </Card>
+</CardGroup>
+
+---
+
+## Automation Structure
+
+Every automation consists of four parts, executed in order:
+
+```
+┌─────────────┐     ┌──────────────┐     ┌─────────────────────────────┐
+│   TRIGGER   │ --> │  VALIDATION  │ --> │       ACTION BLOCKS         │
+│             │     │  (Optional)  │     │  ┌─────────┐  ┌─────────┐  │
+│ • Created   │     │              │     │  │Condition│->│ Actions │  │
+│ • Updated   │     │ • Script     │     │  └─────────┘  └─────────┘  │
+│ • Deleted   │     │ • REST API   │     │  (Repeatable)              │
+└─────────────┘     └──────────────┘     └─────────────────────────────┘
+```
+
+1. **Trigger**: What event starts the automation
+2. **Validation**: Checks that must pass before the event is committed
+3. **Action Blocks**: Conditions and actions to execute (can repeat multiple blocks)
+
+---
+
+## Triggers
+
+Triggers define when an automation runs. You can set up automations for three types of record events.
+
+### Trigger Types
+
+| Trigger | Fires When | Use Cases |
+|---------|------------|-----------|
+| **Record Created** | A new record is added to the table | Welcome emails, initial status setup, create related records |
+| **Record Updated** | An existing record is modified | Status change notifications, sync to external systems |
+| **Record Deleted** | A record is removed from the table | Cleanup related data, archive notifications |
+
+### Combining Triggers
+
+You can combine multiple triggers in a single automation when the validation and actions are the same:
+
+<Steps>
+  <Step title="Create Automation">
+    Open the automation builder for your table
+  </Step>
+  <Step title="Select Multiple Triggers">
+    Check multiple trigger types (e.g., both "Created" and "Updated")
+  </Step>
+  <Step title="Configure Once">
+    The validation and actions apply to all selected triggers
+  </Step>
+</Steps>
+
+<Note>
+Combining triggers is useful when you want the same behavior regardless of whether a record is new or modified (e.g., always validate email format).
+</Note>
+
+---
+
+## Validation
+
+Validations run **before** the trigger event is committed. If validation fails, the entire operation is rolled back.
+
+### How Validation Works
+
+```
+User Action (Create/Update/Delete)
+        ↓
+   Validation Runs
+        ↓
+   ┌─────────────┐
+   │ Passes?     │
+   └─────────────┘
+     │         │
+    Yes        No
+     ↓          ↓
+  Commit     Rollback
+  Changes    + Error
+```
+
+### Validation Types
+
+#### 1. Script Validation
+
+Use JavaScript to validate data programmatically. Best for:
+- Checking static conditions
+- Validating data within ERPLite
+- Complex business rules
+
+**Example: Validate email format**
+```javascript
+// Access record data via 'data' object
+const email = data.email;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(email)) {
+  return {
+    valid: false,
+    message: "Please enter a valid email address"
+  };
+}
+
+return { valid: true };
+```
+
+**Example: Validate date range**
+```javascript
+const startDate = new Date(data.start_date);
+const endDate = new Date(data.end_date);
+
+if (endDate <= startDate) {
+  return {
+    valid: false,
+    message: "End date must be after start date"
+  };
+}
+
+return { valid: true };
+```
+
+**Example: Validate based on other fields**
+```javascript
+// If status is "Approved", require approver field
+if (data.status === "Approved" && !data.approver) {
+  return {
+    valid: false,
+    message: "Approver is required when status is Approved"
+  };
+}
+
+return { valid: true };
+```
+
+#### 2. REST API Validation
+
+Call an external API to validate data. Best for:
+- Information not available in ERPLite
+- External system verification
+- Third-party validation services
+
+**Configuration:**
+
+| Field | Description |
+|-------|-------------|
+| **URL** | The API endpoint to call |
+| **Method** | HTTP method (GET, POST, etc.) |
+| **Headers** | Request headers (auth tokens, content-type) |
+| **Body** | Request payload (can include record data) |
+| **Success Condition** | JavaScript expression to evaluate response |
+
+**Example: Validate address with external service**
+```javascript
+// API Configuration
+{
+  "url": "https://api.addressvalidator.com/validate",
+  "method": "POST",
+  "headers": {
+    "Authorization": "Bearer {{secrets.ADDRESS_API_KEY}}",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "address": "{{data.address}}",
+    "city": "{{data.city}}",
+    "country": "{{data.country}}"
+  }
+}
+
+// Success Condition
+response.data.isValid === true
+```
+
+**Example: Check inventory availability**
+```javascript
+// API Configuration
+{
+  "url": "https://inventory.company.com/api/check",
+  "method": "POST",
+  "body": {
+    "sku": "{{data.product_sku}}",
+    "quantity": "{{data.quantity}}"
+  }
+}
+
+// Success Condition
+response.data.available >= data.quantity
+```
+
+### Validation Conditions
+
+You can add conditions to determine whether a validation should run:
+
+```javascript
+// Only validate if status changed to "Approved"
+if (trigger === 'update' && data.status === 'Approved' && oldData.status !== 'Approved') {
+  // Run validation
+}
+```
+
+This allows you to:
+- Skip validation for certain scenarios
+- Apply different validations based on data
+- Optimize performance by avoiding unnecessary checks
+
+---
+
+## Action Blocks
+
+Action blocks contain conditions and actions. You can have multiple action blocks in a single automation, each with its own condition.
+
+### Structure
+
+```
+Action Block 1:
+├── Condition: [JavaScript expression]
+└── Actions:
+    ├── Action 1
+    ├── Action 2
+    └── Action 3
+
+Action Block 2:
+├── Condition: [JavaScript expression]
+└── Actions:
+    ├── Action 1
+    └── Action 2
+```
+
+### Conditions
+
+Conditions determine whether an action block executes. Write JavaScript expressions that return `true` or `false`.
+
+**Example conditions:**
+```javascript
+// Execute only when status is "Approved"
+data.status === "Approved"
+
+// Execute only for high-value orders
+data.total_amount > 10000
+
+// Execute when priority changed to "Urgent"
+data.priority === "Urgent" && oldData.priority !== "Urgent"
+
+// Execute based on user role
+user.role === "Manager"
+
+// Combine conditions
+data.status === "Completed" && data.requires_notification === true
+```
+
+### Action Types
+
+#### 1. Create Record
+
+Create a new record in any table.
+
+| Configuration | Description |
+|--------------|-------------|
+| **Table** | Target table to create record in |
+| **Field Mapping** | Map values to the new record's fields |
+
+**Example: Create audit log entry**
+```javascript
+{
+  "tableType": "audit_logs",
+  "data": {
+    "action": "Record Updated",
+    "table": "{{tableType}}",
+    "record_id": "{{recordId}}",
+    "user": "{{user.name}}",
+    "timestamp": "{{now}}"
+  }
+}
+```
+
+#### 2. Update Record
+
+Update an existing record in any table.
+
+| Configuration | Description |
+|--------------|-------------|
+| **Table** | Target table |
+| **Record ID** | ID of record to update (can be dynamic) |
+| **Field Updates** | Fields and values to update |
+
+**Example: Update parent record status**
+```javascript
+{
+  "tableType": "orders",
+  "recordId": "{{data.order_id}}",
+  "data": {
+    "status": "Has Items",
+    "last_updated": "{{now}}"
+  }
+}
+```
+
+#### 3. Delete Record
+
+Remove a record from a table.
+
+| Configuration | Description |
+|--------------|-------------|
+| **Table** | Target table |
+| **Record ID** | ID of record to delete |
+
+#### 4. Create Task
+
+Create a new task in a workflow.
+
+| Configuration | Description |
+|--------------|-------------|
+| **Workflow** | Target workflow |
+| **Initial Data** | Data fields for the task |
+| **Assignment** | User or team to assign |
+
+#### 5. Update Task
+
+Modify an existing workflow task.
+
+| Configuration | Description |
+|--------------|-------------|
+| **Task ID** | ID of task to update |
+| **Field Updates** | Fields and values to update |
+
+#### 6. Delete Task
+
+Remove a workflow task.
+
+#### 7. Task Status Change
+
+Transition a task to a different state.
+
+| Configuration | Description |
+|--------------|-------------|
+| **Task ID** | ID of task |
+| **Transition** | Target state/transition to execute |
+
+#### 8. Execute Script
+
+Run custom JavaScript code.
+
+**Example: Complex calculations**
+```javascript
+// Calculate discount based on quantity
+const quantity = data.quantity;
+let discount = 0;
+
+if (quantity >= 100) discount = 0.2;
+else if (quantity >= 50) discount = 0.1;
+else if (quantity >= 20) discount = 0.05;
+
+// Return values to use in subsequent actions
+return {
+  discount_rate: discount,
+  final_price: data.unit_price * quantity * (1 - discount)
+};
+```
+
+#### 9. Call External API
+
+Make HTTP requests to external services.
+
+| Configuration | Description |
+|--------------|-------------|
+| **URL** | API endpoint |
+| **Method** | GET, POST, PUT, PATCH, DELETE |
+| **Headers** | Request headers |
+| **Body** | Request payload |
+| **Response Handling** | How to process the response |
+
+**Example: Sync to external CRM**
+```javascript
+{
+  "url": "https://api.crm.com/contacts",
+  "method": "POST",
+  "headers": {
+    "Authorization": "Bearer {{secrets.CRM_API_KEY}}",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "name": "{{data.customer_name}}",
+    "email": "{{data.email}}",
+    "phone": "{{data.phone}}",
+    "source": "ERPLite"
+  }
+}
+```
+
+#### 10. Send Email
+
+Send email notifications.
+
+| Configuration | Description |
+|--------------|-------------|
+| **To** | Recipient email(s) |
+| **Subject** | Email subject line |
+| **Body** | Email content (supports templates) |
+| **CC/BCC** | Additional recipients |
+
+**Example: Send notification email**
+```javascript
+{
+  "to": "{{data.assigned_user.email}}",
+  "subject": "New Task Assigned: {{data.title}}",
+  "body": `
+    Hello {{data.assigned_user.name}},
+
+    A new task has been assigned to you:
+
+    Title: {{data.title}}
+    Priority: {{data.priority}}
+    Due Date: {{data.due_date}}
+
+    Please log in to ERPLite to view details.
+  `
+}
+```
+
+---
+
+## Creating an Automation
+
+<Steps>
+  <Step title="Open Automation Builder">
+    Go to your table settings and click **Automations** or **Configure Automations**
+  </Step>
+  <Step title="Create New Automation">
+    Click **+ Add Automation**
+  </Step>
+  <Step title="Name Your Automation">
+    Give it a descriptive name (e.g., "Send welcome email on customer creation")
+  </Step>
+  <Step title="Select Trigger(s)">
+    Choose one or more trigger events
+  </Step>
+  <Step title="Add Validation (Optional)">
+    Configure script or API validation if needed
+  </Step>
+  <Step title="Add Action Blocks">
+    Create action blocks with conditions and actions
+  </Step>
+  <Step title="Test">
+    Test the automation with sample data
+  </Step>
+  <Step title="Save & Activate">
+    Save and enable the automation
+  </Step>
+</Steps>
+
+---
+
+## Common Automation Patterns
+
+<AccordionGroup>
+  <Accordion title="Sync to External System">
+    **Trigger**: Record Created or Updated
+    **Actions**: Call External API to sync data
+
+    Use case: Keep CRM, ERP, or other systems in sync
+  </Accordion>
+
+  <Accordion title="Status Change Notifications">
+    **Trigger**: Record Updated
+    **Condition**: `data.status !== oldData.status`
+    **Actions**: Send Email to stakeholders
+
+    Use case: Notify team when order status changes
+  </Accordion>
+
+  <Accordion title="Cascading Updates">
+    **Trigger**: Record Updated
+    **Condition**: `data.parent_status === "Closed"`
+    **Actions**: Update related child records
+
+    Use case: Close all sub-tasks when parent is closed
+  </Accordion>
+
+  <Accordion title="Data Validation with External Check">
+    **Trigger**: Record Created
+    **Validation**: REST API to verify customer credit
+    **Actions**: Create record if valid, reject if not
+
+    Use case: Verify credit limit before creating order
+  </Accordion>
+
+  <Accordion title="Audit Trail">
+    **Trigger**: Record Created, Updated, Deleted
+    **Actions**: Create Record in audit_logs table
+
+    Use case: Maintain compliance audit trail
+  </Accordion>
+
+  <Accordion title="Auto-Assignment">
+    **Trigger**: Record Created
+    **Condition**: `!data.assigned_to`
+    **Actions**: Execute Script to determine assignee, Update Record
+
+    Use case: Auto-assign based on region or workload
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## For AI Agents
+
+### Automation Configuration Structure
+
+```typescript
+interface TableAutomation {
+  id: string;
+  name: string;
+  description?: string;
+  isActive: boolean;
+  triggers: ('created' | 'updated' | 'deleted')[];
+  validation?: {
+    type: 'script' | 'rest_api';
+    condition?: string;  // When to apply validation
+    config: ScriptValidation | RestApiValidation;
+  };
+  actionBlocks: ActionBlock[];
+}
+
+interface ScriptValidation {
+  script: string;  // JavaScript code
+  errorMessage?: string;
+}
+
+interface RestApiValidation {
+  url: string;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH';
+  headers?: Record<string, string>;
+  body?: any;
+  successCondition: string;  // JavaScript expression
+  errorMessage?: string;
+}
+
+interface ActionBlock {
+  id: string;
+  condition: string;  // JavaScript expression
+  actions: Action[];
+}
+
+interface Action {
+  type: 'create_record' | 'update_record' | 'delete_record' |
+        'create_task' | 'update_task' | 'delete_task' | 'task_status_change' |
+        'execute_script' | 'call_api' | 'send_email';
+  config: any;  // Type-specific configuration
+}
+```
+
+### API: Get Table Automations
+
+```bash
+GET /zorp-tables-service/table/:tableType/metadata
+Authorization: Bearer {secretKey}
+```
+
+Response includes `automations` array in metadata.
+
+### API: Create/Update Automation
+
+```bash
+POST /zorp-tables-service/table/automation
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "automation": {
+    "name": "Notify on status change",
+    "triggers": ["updated"],
+    "validation": null,
+    "actionBlocks": [
+      {
+        "condition": "data.status !== oldData.status",
+        "actions": [
+          {
+            "type": "send_email",
+            "config": {
+              "to": "{{data.owner.email}}",
+              "subject": "Status Changed",
+              "body": "Record {{recordId}} status changed to {{data.status}}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Available Variables in Automations
+
+| Variable | Description |
+|----------|-------------|
+| `data` | Current record data |
+| `oldData` | Previous record data (for updates) |
+| `recordId` | Current record ID |
+| `tableType` | Current table type |
+| `trigger` | Trigger type ('created', 'updated', 'deleted') |
+| `user` | Current user object |
+| `now` | Current timestamp |
+| `secrets` | Access to stored secrets |
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| AutomationBuilder | `/src/views/automationBuilder/` | Main automation editor |
+| TriggerBlocks | Automation builder | Configure triggers |
+| ActionBlocks | Automation builder | Configure action blocks |
+| ExpressionEditor | Low-code scripting | JavaScript editor |
+
+### Event Tracking
+
+```typescript
+// Automation events
+TableRSEvents.TABLE_AUTOMATION_CREATED
+TableRSEvents.TABLE_AUTOMATION_UPDATED
+TableRSEvents.TABLE_AUTOMATION_DELETED
+TableRSEvents.TABLE_AUTOMATION_EXECUTED
+TableRSEvents.TABLE_AUTOMATION_FAILED
+```

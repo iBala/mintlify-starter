@@ -1,0 +1,358 @@
+---
+title: "Filtering & Search"
+sidebarTitle: "Filtering & Search"
+description: "Find the data you need using column filters and global search across your tables."
+---
+
+## Overview
+
+ERPLite provides powerful filtering and search capabilities to help you find and focus on specific records within your tables.
+
+---
+
+## Global Search
+
+Search across all text-based columns in your table.
+
+<Steps>
+  <Step title="Open Search">
+    Click the **Search** icon in the toolbar, or press `Ctrl/Cmd + F`
+  </Step>
+  <Step title="Enter Search Term">
+    Type your search query in the search box
+  </Step>
+  <Step title="View Results">
+    Results update automatically as you type (with a brief delay for performance)
+  </Step>
+</Steps>
+
+### Search Behavior
+
+- Searches across all **text-based columns** (Text, Choice, List of Text)
+- **Case-insensitive** matching
+- **Partial matches** supported (searching "john" finds "Johnson")
+- Results update with a **1-second debounce** for performance
+
+<Tip>
+Global search is best for quick lookups. For more precise filtering, use Column Filters.
+</Tip>
+
+---
+
+## Column Filters
+
+Filter records based on specific column values with various operators.
+
+<Steps>
+  <Step title="Enable Filters">
+    Click the **Filter** button in the toolbar to show filter row
+  </Step>
+  <Step title="Select Column">
+    Click the filter icon on the column you want to filter
+  </Step>
+  <Step title="Choose Operator">
+    Select a filter operator (equals, contains, greater than, etc.)
+  </Step>
+  <Step title="Enter Value">
+    Enter the value to filter by
+  </Step>
+  <Step title="Apply">
+    Press Enter or click away to apply the filter
+  </Step>
+</Steps>
+
+### Filter Operators by Column Type
+
+<AccordionGroup>
+  <Accordion title="Text Columns">
+    | Operator | Description |
+    |----------|-------------|
+    | equals | Exact match |
+    | contains | Partial match anywhere in text |
+    | starts with | Matches beginning of text |
+    | ends with | Matches end of text |
+    | is empty | No value |
+    | is not empty | Has any value |
+  </Accordion>
+
+  <Accordion title="Number Columns">
+    | Operator | Description |
+    |----------|-------------|
+    | equals | Exact numeric match |
+    | not equals | Not this value |
+    | greater than | Value > filter |
+    | less than | Value < filter |
+    | greater or equal | Value >= filter |
+    | less or equal | Value <= filter |
+    | between | Value in range |
+    | is empty | No value |
+  </Accordion>
+
+  <Accordion title="Date Columns">
+    | Operator | Description |
+    |----------|-------------|
+    | equals | Exact date match |
+    | before | Date before filter |
+    | after | Date after filter |
+    | between | Date in range |
+    | is empty | No value |
+    | today | Today's date |
+    | this week | Current week |
+    | this month | Current month |
+  </Accordion>
+
+  <Accordion title="Choice/Select Columns">
+    | Operator | Description |
+    |----------|-------------|
+    | equals | Matches selected option |
+    | is any of | Matches any of selected options |
+    | is none of | Doesn't match any selected |
+    | is empty | No selection |
+  </Accordion>
+
+  <Accordion title="Boolean Columns">
+    | Operator | Description |
+    |----------|-------------|
+    | is true | Value is true |
+    | is false | Value is false |
+  </Accordion>
+
+  <Accordion title="List of Text Columns">
+    | Operator | Description |
+    |----------|-------------|
+    | contains | Any item contains text |
+    | is empty | No items |
+    | is not empty | Has items |
+  </Accordion>
+</AccordionGroup>
+
+### Multiple Filters
+
+You can apply multiple filters simultaneously:
+- Filters are combined with **AND** logic
+- All conditions must be met for a record to appear
+- Each column can have one active filter
+
+### Clearing Filters
+
+- **Single filter**: Click the X next to the filter
+- **All filters**: Click **Clear Filters** in the toolbar
+- Filters show a badge count when active
+
+---
+
+## Sorting
+
+Sort your table by one or more columns.
+
+<Steps>
+  <Step title="Click Column Header">
+    Click on any column header to sort by that column
+  </Step>
+  <Step title="Toggle Direction">
+    Click again to toggle between ascending and descending
+  </Step>
+  <Step title="Clear Sort">
+    Click a third time or use the column menu to clear sorting
+  </Step>
+</Steps>
+
+### Multi-Column Sort
+
+Hold **Shift** while clicking column headers to sort by multiple columns. The sort priority follows the order you clicked.
+
+---
+
+## Saving Filter States
+
+To preserve your filters and sorting:
+
+1. Apply your desired filters and sorting
+2. Click **Save as View** (see [Views](/tables/views))
+3. The view saves all current filter, sort, and column visibility settings
+
+---
+
+## For AI Agents
+
+### API: Search Records
+
+```bash
+POST /zorp-tables-service/table/search
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableTypes": ["my_table"],
+  "page": 0,
+  "size": 50,
+  "searchText": "john",
+  "filters": [
+    {
+      "id": "status",
+      "type": "equals",
+      "value": "Active"
+    },
+    {
+      "id": "created_date",
+      "type": "after",
+      "value": "2024-01-01"
+    }
+  ],
+  "sorting": [
+    {
+      "id": "name",
+      "desc": false
+    }
+  ]
+}
+```
+
+### Filter Structure
+
+```typescript
+interface ColumnFilter {
+  id: string;          // Column name
+  type: string;        // Operator (equals, contains, etc.)
+  value: string | number | boolean | string[];
+}
+```
+
+### Sorting Structure
+
+```typescript
+interface SortingState {
+  id: string;          // Column name
+  desc: boolean;       // true for descending, false for ascending
+  keyword?: boolean;   // For text fields, sort as keyword
+}
+```
+
+### Search Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `tableTypes` | string[] | Tables to search in |
+| `page` | number | Page number (0-indexed) |
+| `size` | number | Records per page |
+| `searchText` | string | Global search text |
+| `filters` | ColumnFilter[] | Column-specific filters |
+| `sorting` | SortingState[] | Sort configuration |
+| `recordIds` | string[] | Filter to specific record IDs |
+
+### Response Structure
+
+```json
+{
+  "code": "200",
+  "data": {
+    "records": [
+      {
+        "recordId": "rec_123",
+        "data": {
+          "name": "John Doe",
+          "status": "Active"
+        },
+        "createdOn": "2024-01-15T10:30:00Z",
+        "updatedOn": "2024-01-16T14:20:00Z"
+      }
+    ],
+    "total": 150,
+    "page": 0,
+    "size": 50
+  }
+}
+```
+
+### Common Filter Patterns
+
+**Filter by date range:**
+```json
+{
+  "filters": [
+    {
+      "id": "created_date",
+      "type": "between",
+      "value": ["2024-01-01", "2024-01-31"]
+    }
+  ]
+}
+```
+
+**Filter by multiple choice values:**
+```json
+{
+  "filters": [
+    {
+      "id": "status",
+      "type": "is_any_of",
+      "value": ["Active", "Pending"]
+    }
+  ]
+}
+```
+
+**Combined filters:**
+```json
+{
+  "searchText": "urgent",
+  "filters": [
+    {
+      "id": "priority",
+      "type": "equals",
+      "value": "High"
+    },
+    {
+      "id": "assigned_to",
+      "type": "is_not_empty",
+      "value": true
+    }
+  ],
+  "sorting": [
+    {
+      "id": "due_date",
+      "desc": false
+    }
+  ]
+}
+```
+
+### UI Elements
+
+| Element | Location | Purpose |
+|---------|----------|---------|
+| Search Input | Toolbar | Global text search |
+| Filter Button | Toolbar | Toggle filter row |
+| Filter Badge | Filter button | Shows active filter count |
+| Column Filter | Column header | Per-column filter input |
+| Sort Indicator | Column header | Shows sort direction |
+| Clear Filters | Toolbar | Remove all active filters |
+
+### State Persistence
+
+Filter and sort states are stored in localStorage:
+```
+Key: tableState_${tableType}_${viewId}
+Value: {
+  columnFilters: [...],
+  sorting: [...],
+  globalFilter: "search text",
+  showColumnFilters: true
+}
+```
+
+### Event Tracking
+
+```typescript
+// Filter events
+TableRSEvents.FILTER_APPLIED
+TableRSEvents.FILTER_REMOVED
+TableRSEvents.FILTERS_CLEARED
+
+// Sort events
+TableRSEvents.SORT_APPLIED
+TableRSEvents.SORT_REMOVED
+
+// Search events
+TableRSEvents.GLOBAL_SEARCH_APPLIED
+```

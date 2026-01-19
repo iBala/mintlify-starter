@@ -82,16 +82,23 @@
     },
     {
       "group": "Getting Started",
-      "pages": ["tables/table101", "tables/import", "tables/views"]
+      "pages": ["tables/overview", "tables/columns", "tables/operations"]
+    },
+    {
+      "group": "Working with Data",
+      "pages": ["tables/records", "tables/import-export", "tables/filtering-search", "tables/views"]
     },
     {
       "group": "Access Control",
       "pages": [
-        "tables/acl",
         "tables/sharing",
         "tables/permissions",
         "tables/colpermissions"
       ]
+    },
+    {
+      "group": "Automations",
+      "pages": ["tables/automations"]
     },
     {
       "group": "Workflows",

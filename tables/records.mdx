@@ -1,0 +1,471 @@
+---
+title: "Records"
+sidebarTitle: "Records"
+description: "Create, view, and edit records in your tables. Customize layouts with sections and tabs."
+---
+
+## Overview
+
+Records are individual data entries in your tables. ERPLite provides intuitive interfaces for creating and viewing records, with the ability to customize layouts using sections and tabs.
+
+<CardGroup cols={2}>
+  <Card title="Auto-Generated Forms" icon="wand-magic-sparkles">
+    Forms are automatically created based on your column definitions
+  </Card>
+  <Card title="Custom Layouts" icon="table-layout">
+    Arrange fields in sections and tabs for better organization
+  </Card>
+  <Card title="Comments & Collaboration" icon="comments">
+    Add comments, tag users, and create discussion threads
+  </Card>
+  <Card title="Change History" icon="clock-rotate-left">
+    Track all changes with a complete audit log
+  </Card>
+</CardGroup>
+
+---
+
+## Record Create View
+
+When you click **Add Record** or **+**, the record creation form opens. This form is automatically generated based on your table's column definitions.
+
+### How It Works
+
+1. **Auto-Generated Fields**: Each column in your table becomes a form field
+2. **Type-Specific Inputs**: Fields render based on their column type (text input, date picker, dropdown, etc.)
+3. **Validation**: Required fields and type validation are enforced automatically
+4. **Default Values**: Fields with default values are pre-populated
+
+### Creating a Single Record
+
+<Steps>
+  <Step title="Open Create Form">
+    Click the **+ Add Record** button in the table toolbar
+  </Step>
+  <Step title="Fill in Fields">
+    Enter values for each field. Required fields are marked with an asterisk (*)
+  </Step>
+  <Step title="Save">
+    Click **Create** or **Save** to create the record
+  </Step>
+</Steps>
+
+### Customizing the Create Form Layout
+
+You can organize fields into sections and tabs for better usability.
+
+#### Adding Sections
+
+Sections group related fields together with a header.
+
+<Steps>
+  <Step title="Open Layout Editor">
+    Go to table settings or click **Manage Layout** (requires permission)
+  </Step>
+  <Step title="Add Section">
+    Click **+ Add Section** and provide a section name
+  </Step>
+  <Step title="Drag Fields">
+    Drag fields into the section to group them
+  </Step>
+  <Step title="Save Layout">
+    Click **Save** to apply the layout
+  </Step>
+</Steps>
+
+#### Adding Tabs
+
+Tabs allow you to organize fields across multiple pages within the form.
+
+<Steps>
+  <Step title="Open Layout Editor">
+    Access the layout editor from table settings
+  </Step>
+  <Step title="Add Tab">
+    Click **+ Add Tab** and provide a tab name
+  </Step>
+  <Step title="Organize Fields">
+    Drag fields and sections into tabs
+  </Step>
+  <Step title="Save Layout">
+    Click **Save** to apply the layout
+  </Step>
+</Steps>
+
+### Hiding Fields from Create View
+
+You can hide certain fields from the creation form while keeping them in the table.
+
+<Steps>
+  <Step title="Open Column Settings">
+    Click on the column header menu and select **Edit Column**
+  </Step>
+  <Step title="Toggle Create Visibility">
+    Uncheck **Show on create form** or similar option
+  </Step>
+  <Step title="Save">
+    Save the column settings
+  </Step>
+</Steps>
+
+<Note>
+Hidden fields can still have values set via API or automations. This is useful for system-managed fields like status or timestamps.
+</Note>
+
+### Bulk Record Creation
+
+For creating multiple records at once:
+
+1. **Import Feature**: Use CSV import for bulk creation (see [Import & Export](/tables/import-export))
+2. **API**: Use the bulk create API endpoint
+
+```bash
+POST /zorp-tables-service/table/records
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "records": [
+    { "data": { "name": "Record 1", "status": "Active" } },
+    { "data": { "name": "Record 2", "status": "Pending" } }
+  ]
+}
+```
+
+---
+
+## Record Details View
+
+When you click on a record in the table, the record details view opens. This provides a comprehensive view of all record data with editing capabilities.
+
+### Features
+
+| Feature | Description |
+|---------|-------------|
+| **View Data** | See all field values in a structured layout |
+| **Edit Inline** | Modify values directly in the details view |
+| **Sections & Tabs** | Fields organized based on your layout configuration |
+| **Comments** | Add and view comments on the record |
+| **History/Logs** | View complete audit trail of changes |
+| **Related Records** | See linked records from relation fields |
+
+### Viewing Record Details
+
+<Steps>
+  <Step title="Open Record">
+    Click on any row in the table to open its details
+  </Step>
+  <Step title="Navigate Sections">
+    Use tabs (if configured) to navigate between different sections
+  </Step>
+  <Step title="View Related Data">
+    Scroll down to see related records, comments, and history
+  </Step>
+</Steps>
+
+### Editing a Record
+
+<Steps>
+  <Step title="Open Record">
+    Click on the record to open details view
+  </Step>
+  <Step title="Edit Fields">
+    Click on any field to edit its value, or click the **Edit** button
+  </Step>
+  <Step title="Save Changes">
+    Click **Save** to commit your changes
+  </Step>
+</Steps>
+
+<Note>
+Editing requires appropriate permissions. Users with view-only access cannot modify records.
+</Note>
+
+### Customizing the Details Layout
+
+Just like the create view, you can customize the details view layout:
+
+#### Arranging Fields in Sections
+
+<Steps>
+  <Step title="Enter Layout Mode">
+    Click **Manage Layout** or the layout icon (requires manage_section permission)
+  </Step>
+  <Step title="Create Sections">
+    Add sections to group related fields
+  </Step>
+  <Step title="Drag and Drop">
+    Drag fields into sections, arrange them in columns (1, 2, or 3 column layouts)
+  </Step>
+  <Step title="Save">
+    Click **Save Layout**
+  </Step>
+</Steps>
+
+#### Arranging Buttons
+
+Button fields (automations) can also be arranged in the layout:
+
+- Place buttons in specific sections
+- Group related action buttons together
+- Position buttons at the top for easy access
+
+---
+
+## Comments
+
+Add comments to records for collaboration and communication.
+
+### Adding a Comment
+
+<Steps>
+  <Step title="Open Record">
+    Navigate to the record details view
+  </Step>
+  <Step title="Find Comments Section">
+    Scroll to the **Comments** section (usually at the bottom)
+  </Step>
+  <Step title="Write Comment">
+    Type your comment in the text box
+  </Step>
+  <Step title="Tag Users (Optional)">
+    Type **@** followed by the user's name to tag them
+  </Step>
+  <Step title="Submit">
+    Click **Send** or press Enter to post the comment
+  </Step>
+</Steps>
+
+### Comment Features
+
+| Feature | Description |
+|---------|-------------|
+| **@Mentions** | Tag users with @ to notify them |
+| **Threads** | Reply to comments to create threads (one level deep) |
+| **Timestamps** | See when each comment was posted |
+| **Author Info** | See who posted each comment |
+
+### Comment Permissions
+
+- **Add comments**: Requires `add_comment` permission
+- **View comments**: Anyone with record view access can see comments
+- **Delete comments**: Users can delete their own comments
+
+---
+
+## History & Logs
+
+Track all changes made to a record with the audit log.
+
+### Viewing History
+
+<Steps>
+  <Step title="Open Record">
+    Navigate to the record details view
+  </Step>
+  <Step title="Find History/Logs Tab">
+    Click on the **History** or **Logs** tab
+  </Step>
+  <Step title="Review Changes">
+    See a chronological list of all changes
+  </Step>
+</Steps>
+
+### What's Tracked
+
+| Change Type | Information Logged |
+|-------------|-------------------|
+| **Create** | Who created the record, when, initial values |
+| **Update** | Who changed what, previous and new values, timestamp |
+| **Delete** | Who deleted, when (if soft delete enabled) |
+| **Status Changes** | Status transitions with timestamps |
+| **Comments** | Comment additions (linked to comments section) |
+
+### Log Entry Format
+
+Each log entry includes:
+- **Timestamp**: When the change occurred
+- **User**: Who made the change
+- **Action**: What type of change (create, update, delete)
+- **Field Changes**: Which fields changed and their before/after values
+
+---
+
+## For AI Agents
+
+### API: Create Single Record
+
+```bash
+POST /zorp-tables-service/table/record
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "tableType": "my_table",
+  "data": {
+    "name": "New Record",
+    "status": "Active",
+    "priority": "High",
+    "due_date": "2024-03-15"
+  },
+  "teamIds": ["team_123"]
+}
+```
+
+**Response:**
+```json
+{
+  "code": "200",
+  "message": "Record created successfully",
+  "data": {
+    "recordId": "rec_abc123",
+    "tableType": "my_table",
+    "data": {...},
+    "createdOn": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+### API: Get Record Details
+
+```bash
+GET /zorp-tables-service/table/:tableType/record/:recordId
+Authorization: Bearer {secretKey}
+```
+
+**Response:**
+```json
+{
+  "code": "200",
+  "data": {
+    "recordId": "rec_abc123",
+    "tableType": "my_table",
+    "data": {
+      "name": "Record Name",
+      "status": "Active"
+    },
+    "createdOn": "2024-01-15T10:30:00Z",
+    "updatedOn": "2024-01-16T14:20:00Z",
+    "version": 3
+  }
+}
+```
+
+### API: Update Record
+
+```bash
+PATCH /zorp-tables-service/table/:tableType/record/:recordId
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "data": {
+    "status": "Completed",
+    "completed_date": "2024-01-20"
+  }
+}
+```
+
+### API: Delete Record
+
+```bash
+DELETE /zorp-tables-service/table/:tableType/record/:recordId
+Authorization: Bearer {secretKey}
+```
+
+### API: Get Record History
+
+```bash
+POST /zorp-tables-service/table/record/:recordId/logs
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 50
+}
+```
+
+### API: Add Comment
+
+```bash
+PATCH /zorp-tables-service/table/:tableType/record/:recordId/comment
+Authorization: Bearer {secretKey}
+Content-Type: application/json
+
+{
+  "comment": "This is a comment with @user_123 mention",
+  "mentions": ["user_123"]
+}
+```
+
+### Render Configuration APIs
+
+Get the auto-generated form configuration:
+
+```bash
+# Create form configuration
+GET /zorp-tables-service/table/web/create/renderConfig/tableType/:tableType
+
+# Details view configuration
+GET /zorp-tables-service/table/:tableType/web/renderConfig/:recordId
+
+# Mobile app configuration
+GET /zorp-tables-service/table/app/renderConfig/tableType/:tableType
+```
+
+### UI Components
+
+| Component | Location | Purpose |
+|-----------|----------|---------|
+| CreateTask | `/src/render-engine/CreateTask.tsx` | Record creation form |
+| ShowTask | `/src/render-engine/ShowTask.tsx` | Record details view |
+| ShowPageTabs | `/src/render-engine/ShowPageTabs.tsx` | Tab navigation |
+| Comments | `/src/components/Comments/` | Comments section |
+
+### Event Tracking
+
+```typescript
+// Record creation
+TableRSEvents.ADD_NEW_RECORD_BUTTON_CLICKED
+TableRSEvents.ADD_NEW_RECORD_MODAL_SUBMIT
+TableRSEvents.CREATE_NEW_RECORD_SUCCESS
+TableRSEvents.CREATE_NEW_RECORD_FAILURE
+
+// Record editing
+TableRSEvents.EDIT_SINGLE_RECORD_BUTTON_CLICKED
+TableRSEvents.EDIT_SINGLE_RECORD_SUCCESS
+TableRSEvents.EDIT_SINGLE_RECORD_FAILURE
+
+// Record deletion
+TableRSEvents.DELETE_SINGLE_RECORD_BUTTON_CLICKED
+TableRSEvents.DELETE_SINGLE_RECORD_SUCCESS
+TableRSEvents.DELETE_SINGLE_RECORD_FAILURE
+
+// Comments
+TableRSEvents.ADD_COMMENT_SUBMITTED
+TableRSEvents.ADD_COMMENT_SUCCESS
+```
+
+### Layout Structure
+
+```typescript
+interface RecordLayout {
+  tabs: {
+    id: string;
+    name: string;
+    sections: Section[];
+  }[];
+}
+
+interface Section {
+  id: string;
+  name: string;
+  columns: 1 | 2 | 3;
+  fields: {
+    fieldName: string;
+    width: 'full' | 'half' | 'third';
+  }[];
+}
+```
