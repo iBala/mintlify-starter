@@ -1,19 +1,22 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Home",
+  "name": "ERPLite Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#3C69E7",
-    "light": "#3C69E7",
-    "dark": "#1C76FD",
+    "primary": "#D54402",
+    "light": "#E85A1C",
+    "dark": "#B53A02",
     "anchors": {
-      "from": "#3C69E7",
-      "to": "#06AED4"
+      "from": "#D54402",
+      "to": "#E85A1C"
     }
+  },
+  "background": {
+    "style": "grid"
   },
   "topbarLinks": [
     {
@@ -50,13 +53,18 @@
   "anchors": [
     {
       "name": "Book a Demo",
-      "icon": "book-open-cover",
+      "icon": "calendar",
       "url": "https://www.erplite.app/book-a-free-demo"
     },
     {
       "name": "Community",
       "icon": "slack",
       "url": "https://join.slack.com/t/erplitecommunity/shared_invite/zt-17xeqomuc-HczMdCTUtOi1hlK1iiDVGA"
+    },
+    {
+      "name": "Website",
+      "icon": "globe",
+      "url": "https://www.erplite.app"
     }
   ],
   "navigation": [

@@ -1,13 +1,10 @@
-<svg width="180" height="50" viewBox="0 0 180 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#D4AF37"/>
-      <stop offset="50%" style="stop-color:#C5A028"/>
-      <stop offset="100%" style="stop-color:#B8960F"/>
-    </linearGradient>
-  </defs>
-  <!-- ERP in dark gray for light background -->
-  <text x="0" y="38" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="400" fill="#4A4A4A">ERP</text>
-  <!-- Lite in gold gradient -->
-  <text x="80" y="38" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="300" fill="url(#goldGradient)">Lite</text>
+<svg width="120" height="28" viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon - geometric blocks representing data/tables -->
+  <g>
+    <rect x="0" y="2" width="24" height="6" rx="1" fill="#D54402"/>
+    <rect x="0" y="11" width="16" height="15" rx="1" fill="#D54402"/>
+    <rect x="19" y="11" width="5" height="15" rx="1" fill="#D54402" opacity="0.7"/>
+  </g>
+  <!-- Text "erplite" -->
+  <text x="32" y="21" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#1a1a1a" letter-spacing="-0.02em">erplite</text>
 </svg>
